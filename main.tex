@@ -1,0 +1,429 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                           %
+%          LaTeX File for Doctor (Master) Thesis of ECNU                    %
+%            华东师范大学博士（硕士）论文模板 ____lizb                      %
+%                                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%NOTE: build options in latex : Options -> build -> XeLatex
+
+\documentclass[12pt,openany,a4paper,fancyhdr,twoside]{ctexbook}
+
+%draft 选项可以使插入的图形只显示外框，以加快预览速度。
+%s\documentclass[12pt,openany,a4paper,fancyhdr,oneside,draft]{ctexbook}
+
+\usepackage[CJKbookmarks,breaklinks]{hyperref}
+\usepackage{shortvrb,indentfirst,makeidx}
+\usepackage[normalem]{ulem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{indentfirst,latexsym,amsthm,colortbl,subfigure,clrscode}
+%\usepackage{algorithm}
+%\usepackage[noend]{algorithmic}
+\usepackage[ruled, vlined, linesnumbered]{algorithm2e}
+\usepackage{bm}                     % 处理数学公式中的黑斜体的宏包
+\usepackage{amsmath}                % AMSLaTeX宏包 用来排出更加漂亮的公式
+\usepackage{amssymb}                % AMSLaTeX宏包 用来排出更加漂亮的公式
+\usepackage{mathrsfs}
+\usepackage[subnum]{cases}
+\usepackage[numbers,sort&compress]{natbib} 
+\usepackage{hypernat}
+\usepackage{geometry}
+\usepackage{multirow}
+\usepackage{times}
+\usepackage{fontspec}
+\usepackage{libertine}
+\usepackage{url}
+%break line for long urls
+\def\UrlBreaks{\do\/\do-}
+\usepackage{caption}
+\usepackage{titletoc}
+\usepackage{slashbox}
+\usepackage{array}
+\usepackage{indentfirst} 
+\usepackage{color}
+\usepackage{epstopdf}
+\usepackage{rotating}
+\usepackage{supertabular} %supertabular表格宏包
+\usepackage{colortbl} %彩色表格宏包
+\usepackage{booktabs} %表格线宏包
+\usepackage{longtable} 
+\usepackage{bigstrut,multirow,rotating}
+\usepackage{enumerate}
+\usepackage{xspace}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{makecell}
+\usepackage{pifont}
+\usepackage{listings}
+\usepackage{clrscode}
+\usepackage{xcolor}
+
+\usepackage{pdfpages}
+
+\renewcommand\thefootnote{\ding{\numexpr171+\value{footnote}}}
+
+%设置bib的行间距
+\usepackage{setspace}
+%设置章节第一页的顶边距
+%\usepackage{titlesec}
+%\usepackage{etoolbox}
+\makeindex
+\pagestyle{fancy}
+\newcommand{\comment}[1]{}
+\renewcommand{\headrulewidth}{0.5pt}
+
+
+
+\newcommand{\loflabel}{图}%在图目录编号前添加Tab.
+\newcommand{\lotlabel}{表}
+
+\newcommand{\ie}{\textit{i.e., }}
+\newcommand{\aka}{\textit{i.e., }}
+\newcommand{\eg}{\textit{e.g., }}
+\newcommand{\etal}{\textit{et al. }}
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+
+\lstset{
+	numbers=left, 
+	language=[ANSI]{C++},
+	numberstyle= \small, 
+	keywordstyle= \color{ blue!100},
+	commentstyle= \color{gray}, 
+	flexiblecolumns, 
+	frame=single, 
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	%escapeinside=``,
+	xleftmargin=2em,xrightmargin=0em, aboveskip=2em,
+	framexleftmargin=2em,
+	basicstyle = \ttfamily\fontsize{10}{11}\selectfont,
+	otherkeywords = {},
+	emph={parallel_for,Partition,Build,Probe},
+	emphstyle=\color{red},
+	captionpos=b
+}
+
+
+%                    根据自己正文需要做的一些定义                 %
+%==================================================================
+\def\diag{{\rm diag}}
+\def\rank{{\rm rank}}
+\def\RR{{\cal R}}
+\def\NN{{\cal N}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\let\dis=\displaystyle
+
+\def\p{\partial}
+\def\f{\frac}
+\def\mr{\mathrm}
+\def\mb{\mathbf}
+\def\mc{\mathcal}
+\def\b{\begin}
+\def\e{\end}
+
+\renewcommand{\algorithmcfname}{算法}
+\renewcommand{\lstlistingname}{清单}
+%\renewcommand{\algorithmautorefname}{算法}
+\SetKwRepeat{Do}{do}{while}
+\newtheorem{thm1}{Theorem}[part]
+\newtheorem{thm2}{Theorem}[section]
+\newtheorem{thm3}{Theorem}[subsection]
+\newtheorem{them}[thm2]{定理}
+\newtheorem{theorem}[thm2]{定理}
+\newtheorem{defn}[thm2]{定义}
+\newtheorem{define}[thm2]{定义}
+\newtheorem{ex}[thm2]{例}
+\newtheorem{exs}[thm2]{例}
+\newtheorem{example}[thm2]{例}
+\newtheorem{prop}[thm2]{命题}
+\newtheorem{lemma}[thm2]{引理}
+\newtheorem{cor}[thm2]{推论}
+\newtheorem{remark}[thm2]{注释}
+\newtheorem{notation}[thm2]{记号}
+\newtheorem{despription}[thm2]{描述}
+\newtheorem{abbre}[thm2]{缩写}
+\newtheorem{problem}[thm2]{问题}
+%重新设置证明的其实标题
+
+%\floatname{algorithm}{算法}
+%\renewcommand{\proofname}{\textit{证明}}
+%\usepackage{etoolbox}  % patch def of algorithmic environment
+%\makeatletter
+%\patchcmd{\algorithmic}{\addtolength{\ALC@tlm}{\leftmargin} }{\addtolength{\ALC@tlm}{\leftmargin}}{}{}
+%\makeatother
+%\renewcommand\algorithmiccomment[1]{%
+%	\hfill\#\ #1%
+%}
+
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}           % 一号, 1.4 倍行距
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}          % 二号, 1.25倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}          % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}        % 三号, 1.5倍行距
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}        % 小三, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}            % 四号, 1.5 倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{19.5pt}\selectfont}    % 半小四, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}            % 小四, 1.5倍行距
+%\newcommand{\xiaosi}{\fontsize{12pt}{12pt}\selectfont}            % 小四, 1倍行距
+\newcommand{\dawuhao}{\fontsize{11pt}{11pt}\selectfont}       % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{15.75pt}\selectfont}    % 五号, 单倍行距
+
+
+%============================ 可以自定义文字块 ================================%
+
+\newcommand{\aaa}{Example}
+\newcommand{\bbb}{\aaa \aaa \aaa}
+\newcommand{\ccc}{\bbb \bbb \bbb \bbb \bbb
+	
+	\bbb \bbb \bbb \bbb \bbb }
+\newcommand{\abc}{abcdefg1234567890}
+\newcommand{\upabc}{ABCDEFGHIJK}
+
+\newcommand{\reminder}[1]{ {\mbox{$<==$}} [[[ { \bf #1 } ]]] {\mbox{$==>$}}}
+
+%%% ----------------------------------------------------------------------
+%学科代码：0835Z1
+%设置每章标题前后的间距
+\CTEXsetup[beforeskip = 0pt]{chapter}
+\CTEXsetup[afterskip = 20pt]{chapter}
+\setlength{\baselineskip}{25pt}  %%正文设为25磅行间距
+
+%============================= 版芯控制 ================================%
+\setlength{\oddsidemargin}{0.57cm} 
+\setlength{\evensidemargin}{\oddsidemargin}
+\voffset-6mm \textwidth=150mm \textheight=230mm \headwidth=150mm
+%\rightmargin=35mm
+%                                                                       %
+
+%============================= 页面设置 ================================%
+%-------------------- 定义页眉和页脚 使用fancyhdr 宏包 -----------------%
+% 定义页眉与正文间双隔线
+%\newcommand{\makeheadrule}{%
+%	\makebox[0pt][l]{\rule[.7\baselineskip]{\headwidth}{0.4pt}}%
+%	\rule[0.85\baselineskip]{\headwidth}{0.4pt} \vskip-.8\baselineskip}
+\renewcommand{\headrulewidth}{0.5pt}
+\fancyhf{}
+\fancyhead[CO,CE]{华东师范大学硕士专业学位研究生学位论文}
+% % 设置奇数页的页脚
+% \fancyfoot[RO]{\thepage}
+% % 设置偶数页的页脚
+% \fancyfoot[LE]{\thepage}
+% 设置页脚中的页码居中
+\fancyfoot[C]{\small\thepage}
+\makeatletter
+
+%新加的，为每章首页添加页眉
+\makeatletter
+\let\ps@plain\ps@fancy
+\makeatother
+
+%\renewcommand{\headrule}{%
+%	{\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi
+%		\makeheadrule}} \makeatother
+
+\newcommand{\adots}{\mathinner{\mkern 2mu%
+		\raisebox{0.1em}{.}\mkern 2mu\raisebox{0.4em}{.}%
+		\mkern2mu\raisebox{0.7em}{.}\mkern 1mu}}
+
+\setmainfont{Times New Roman}
+\dottedcontents{chapter}[1.5cm]{\xiaosi\heiti}{3.8em}{9.5pt}
+\dottedcontents{section}[1.5cm]{\xiaosi\heiti}{2.8em}{9.5pt}
+
+\newcommand{\thesisTitleZh}{论文标题具体内容}
+\newcommand{\thesisTitleEn}{thesisTitleEn}
+\newcommand{\authorname}{***}
+\newcommand{\director}{***}
+\newcommand{\school}{数据科学与工程学院}
+\newcommand{\authornameEn}{***}
+\newcommand{\directorEn}{*****}
+\newcommand{\schoolEn}{School of Data Science and Engineering}
+\newcommand{\stuid}{******}
+\newcommand{\TODO}[1]{\textit{\textcolor{red}{[TODO: #1]}}}
+%\newcommand{\TODO}[1]{}
+\newcommand{\keyidea}[1]{\textbf{\textcolor{blue}{[#1]}}}
+%\newcommand{\keyidea}[1]{}
+\newcommand{\blankSmall}{\vspace{-0.2cm}}
+\newcommand{\blankLarge}{\vspace{-0.30cm}}
+\newcommand{\lst}[1]{清单~{#1}}
+\newcommand{\pstart}[1]{\textbf{#1：}}
+\SetKwComment{Comment}{ $\triangleright$\ }{}
+\newcommand\mycommfont[1]{\small\itshape{#1}}
+\setlength{\textfloatsep}{10pt} 
+\newcommand{\hide}[1]{#1}
+\newcommand{\eat}[1]{}
+%\newcommand{\PrintVersion}[1]{#1}
+\newcommand{\PrintVersion}[1]{}
+%=============================== 正文部分 ================================%
+\lstdefinestyle{myCustomMatlabStyle}{
+	language={[ISO]C++},
+	numbers=left,
+	%	float=tp!,
+	stepnumber=1,
+	numberstyle=\ttfamily\small,
+	tabsize=4,
+	keepspaces=true, %
+	%breakindent=22pt, %
+	showspaces=false,
+	showstringspaces=false,
+	%stringstyle=\ttfamily,
+	keepspaces=true,
+	%escapebegin=\begin{CJK*}{GBK}{hei},escapeend=\end{CJK*},
+	basicstyle=\small,
+	breaklines=true,
+	flexiblecolumns=true, %% font
+	breakatwhitespace=false,
+	fontadjust,
+	captionpos=b,
+	framextopmargin=1pt,framexbottommargin=1pt,
+	abovecaptionskip=3pt,belowcaptionskip=3pt,
+	texcl=true,	
+	xleftmargin=2em,xrightmargin=0em,
+	frame=single,
+	extendedchars=false,columns=flexible,mathescape=true,
+	escapechar=@,
+	morecomment=[l]{//},
+	aboveskip=0em, 
+	breakindent=0pt
+}
+
+\renewcommand{\contentsname}{\textbf{\zihao{-3}\heiti 目\ 录}}
+\renewcommand{\listfigurename}{\textbf{\zihao{-3}\heiti 插\ 图\ 目\ 录}}
+\renewcommand{\listtablename}{\textbf{\zihao{-3}\heiti 表\ 格\ 目\ 录}}
+
+\begin{document}
+\input {src/A1-COVER-1.tex}
+\PrintVersion{
+	\clearpage
+	\phantom{s}
+	\clearpage
+}
+\input {src/A2-COVER-E.tex}
+\PrintVersion{
+	\clearpage
+	\phantom{s}
+	\clearpage
+}
+\input {src/A3-COPYRIGHT.tex}
+\PrintVersion{
+	\clearpage
+	\phantom{s}
+	\clearpage
+}
+\input {src/A3-2-Supervisors.tex}
+\PrintVersion{
+	\clearpage
+	\phantom{s}
+	\clearpage
+}
+
+\input {src/A6-MEMBERLIST.tex}
+\PrintVersion{
+	\clearpage
+	\phantom{s}
+	\clearpage
+}
+
+%摘要
+\newpage
+\pagenumbering{Roman}
+\pagestyle{plain}
+\input{src/abstract.tex}
+\input{src/abstract-eng.tex}
+\clearpage
+\phantom{s}
+\clearpage
+
+
+
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+
+\clearpage
+\phantom{s}
+\clearpage
+
+% 插图目录
+\renewcommand{\numberline}[1]
+{\loflabel~#1\hspace*{1em}}%设置图目录编号样式，主要是间距
+\listoffigures%自动生成图目录
+
+% 表格目录
+\renewcommand{\numberline}[1]{\lotlabel~#1\hspace*{1em}}
+\listoftables
+\clearpage
+\phantom{s}
+\clearpage
+
+
+
+\newpage
+\pagenumbering{arabic}
+\pagestyle{plain}
+
+\CTEXsetup[format+={\zihao{3}\heiti}]{chapter}
+\CTEXsetup[format+={\raggedright\zihao{4}\heiti}]{section}
+\CTEXsetup[format+={\zihao{-4}\heiti}]{subsection}
+%\CTEXsetup[format+={\fontsize{10.5pt}{15.75pt}\heiti}]{subsection}
+
+\setlength{\baselineskip}{25pt}  %%正文设为25磅行间距
+%\setlength{\baselineskip}{20pt}  %%正文设为25磅行间距
+
+
+\input{src/introduction.tex}
+% 论文主体部分，其他章节
+\input{chapter-background/background.tex}
+% \input{chapter-ChunkCaching/S4}
+%额外空白页
+\clearpage
+\phantom{s}
+\clearpage
+
+
+
+
+\addcontentsline{toc}{chapter}{参考文献}
+
+\begin{spacing}{1.2}
+\bibliographystyle{gbt7714-unsrt}
+\bibliography{reference}
+\end{spacing}
+%\clearpage
+%\phantom{s}
+%\clearpage
+
+\pagestyle{plain}\clearpage
+\pagestyle{plain}
+\clearpage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{附录}
+%\input {src/D1-APPENDIX.tex}
+\pagestyle{plain}
+\clearpage
+%\phantomsection
+\clearpage
+\phantom{s}
+\clearpage
+
+\addcontentsline{toc}{chapter}{致谢}
+\input {src/D2-ACHNOWLEDGEMENT.tex}
+
+%\clearpage
+%\phantom{s}
+%\clearpage
+
+\pagestyle{plain}
+\clearpage 
+\phantomsection
+\addcontentsline{toc}{chapter}{发表论文和科研情况}
+\input {src/D3-MYACHIEVEMENTS.tex}
+
+\printindex
+\end{document}
