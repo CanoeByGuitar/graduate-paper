@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  23 FEB 2025 19:32
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  24 FEB 2025 04:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1349,19 +1349,26 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count364
+\float@exts=\toks40
+\float@box=\box84
+\@float@everytoks=\toks41
+\@floatcapt=\box85
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/pdfpages/pdfpages.sty
 Package: pdfpages 2024/01/21 v0.5y Insert pages of external PDF documents (AM)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count364
-\calc@Bcount=\count365
+\calc@Acount=\count365
+\calc@Bcount=\count366
 \calc@Adimen=\dimen313
 \calc@Bdimen=\dimen314
 \calc@Askip=\skip121
 \calc@Bskip=\skip122
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count366
+\calc@Ccount=\count367
 \calc@Cskip=\skip123
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/eso-pic/eso-pic.sty
 Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
@@ -1374,14 +1381,14 @@ Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/pdfpages/ppxetex.def
 File: ppxetex.def 2024/01/21 v0.5y Pdfpages driver for XeTeX (AM)
 )
-\pdfpages@includegraphics@status=\count367
-\AM@pagebox=\box84
-\AM@global@opts=\toks40
-\AM@pagecnt=\count368
-\AM@toc@title=\toks41
-\AM@lof@heading=\toks42
-\c@AM@survey=\count369
-\AM@templatesizebox=\box85
+\pdfpages@includegraphics@status=\count368
+\AM@pagebox=\box86
+\AM@global@opts=\toks42
+\AM@pagecnt=\count369
+\AM@toc@title=\toks43
+\AM@lof@heading=\toks44
+\c@AM@survey=\count370
+\AM@templatesizebox=\box87
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )
@@ -1399,9 +1406,9 @@ File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2024/02/21 1.10 (Carsten Heinz)
 )
-\c@thm1=\count370
-\c@thm2=\count371
-\c@thm3=\count372
+\c@thm1=\count371
+\c@thm2=\count372
+\c@thm3=\count373
 
 
 Class ctexbook Warning: Command `\CTEXsetup' is deprecated.
@@ -1551,6 +1558,7 @@ Package hyperref Info: Link coloring OFF on input line 298.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/ltcaption.sty
@@ -1559,7 +1567,7 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 Package caption Info: rotating package is loaded.
 Package caption Info: supertabular package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count373
+\c@lstlisting=\count374
  (/usr/local/texlive/2024/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
  (/usr/local/texlive/2024/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
@@ -1751,7 +1759,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[5
+[5]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[6
 
 ] (./main.lof)
 \tf@lof=\write6
@@ -1765,7 +1781,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[6
+[7
 
 
 ] (./main.lot)
@@ -1780,7 +1796,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[7
+[8
 
 ]
 
@@ -1790,7 +1806,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[8
+[9
 
 ]
 
@@ -1892,10 +1908,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [8]
 第二章
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1905,9 +1917,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [9
 
 ]
-Underfull \vbox (badness 2932) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1916,6 +1925,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [10]
+File: figures/asflip.png Graphic file (type bmp)
+<figures/asflip.png>
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1927,74 +1939,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [11]
-
-LaTeX Warning: Reference `fig:asflip' on page 12 undefined on input line 97.
-
-) (./chapter-DCAPIC/dcapic.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[12]
-第三章
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 3.
-
-File: figures/phase-field-gradient.png Graphic file (type bmp)
-<figures/phase-field-gradient.png>
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[13
-
-]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[14]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[15]
-File: figures/p2g.png Graphic file (type bmp)
-<figures/p2g.png>
-File: figures/bunny3d.png Graphic file (type bmp)
-<figures/bunny3d.png>
-
-Overfull \hbox (283.10202pt too wide) detected at line 54
-[][][][][]
- []
-
-
-LaTeX Warning: Reference `sec:results' on page 16 undefined on input line 54.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[16]
-File: figures/pipeline.png Graphic file (type bmp)
-<figures/pipeline.png>
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2005,9 +1949,65 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
+[12]
+File: figures/p2g.png Graphic file (type bmp)
+<figures/p2g.png>
+) (./chapter-DCAPIC/dcapic.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[13]
+第三章
+File: figures/phase-field-gradient.png Graphic file (type bmp)
+<figures/phase-field-gradient.png>
+
+Overfull \hbox (2.37883pt too wide) in paragraph at lines 16--17
+[]\TU/SongtiSCLight(0)/m/n/12 根 据 粒 子 位 置，|  使 用 各 向 异 性 核 \TU/TimesNewRoman(0)/m/n/12 [[]] \TU/SongtiSCLight(0)/m/n/12 可 以 平 滑 地 重 建 出 符 号 距 离 函 数 场  |（\TU/TimesNewRoman(0)/m/n/12 Signed
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[14
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[16]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
 [17]
-File: figures/sdf_phase_compare.png Graphic file (type bmp)
-<figures/sdf_phase_compare.png>
+File: figures/pipeline.png Graphic file (type bmp)
+<figures/pipeline.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2025,9 +2025,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [19]
-File: figures/duck.png Graphic file (type bmp)
-<figures/duck.png>
-)
+File: figures/sdf_phase_compare.png Graphic file (type bmp)
+<figures/sdf_phase_compare.png>
+File: figures/bunny3d.png Graphic file (type bmp)
+<figures/bunny3d.png>
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2036,6 +2038,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [20]
+File: figures/duck.png Graphic file (type bmp)
+<figures/duck.png>
+File: figures/jelly_6.png Graphic file (type bmp)
+<figures/jelly_6.png>
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2043,9 +2050,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[21
+[21]
+File: figures/bunny_bath.png Graphic file (type bmp)
+<figures/bunny_bath.png>
 
-] (./main.bbl
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2053,10 +2061,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[22
+[22]
+File: figures/echarts.png Graphic file (type bmp)
+<figures/echarts.png>
+File: figures/energy.png Graphic file (type bmp)
+<figures/energy.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2082,6 +2095,43 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [25
 
+] (./main.bbl
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[26
+
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[27])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[28]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[29
+
 
 
 
@@ -2093,7 +2143,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[26
+[30
 
 
 ] (./src/D3-MYACHIEVEMENTS.tex
@@ -2136,7 +2186,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[27
+[31
 
 
 ] (./main.aux)
@@ -2152,19 +2202,16 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FFCEE7999C844DE5F845E1FEF76E025E;2377.
+(rerunfilecheck)             Checksum: BFE0CCEE4D1C16A9D34097A603568A52;3090.
  ) 
 Here is how much of TeX's memory you used:
- 34698 strings out of 474773
- 738380 string characters out of 5757724
- 1943839 words of memory out of 5000000
- 56180 multiletter control sequences out of 15000+600000
+ 34787 strings out of 474773
+ 738983 string characters out of 5757724
+ 1947839 words of memory out of 5000000
+ 56260 multiletter control sequences out of 15000+600000
  601326 words of font info for 324 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,12n,122p,1222b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,13n,122p,1169b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (41 pages).
+Output written on main.pdf (46 pages).

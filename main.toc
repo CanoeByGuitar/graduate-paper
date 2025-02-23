@@ -13,15 +13,17 @@
 \contentsline {section}{\numberline {2.2}物质点法}{10}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}求解步骤}{10}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}粒子网格传输算法}{10}{subsection.2.2.2}%
-\contentsline {chapter}{\numberline {第三章\hspace {.3em}}分解兼容仿射粒子网格（DC-APIC）积分器}{13}{chapter.3}%
-\contentsline {subsection}{\numberline {3.0.1}粒子与网格的兼容性}{13}{subsection.3.0.1}%
-\contentsline {subsection}{\numberline {3.0.2}粒子-网格传输}{15}{subsection.3.0.2}%
-\contentsline {subsubsection}{\numberline {3.0.2.1}DC-APIC粒子到网格传输}{15}{subsubsection.3.0.2.1}%
-\contentsline {subsubsection}{\numberline {3.0.2.2}DC-APIC 网格到粒子传输}{16}{subsubsection.3.0.2.2}%
-\contentsline {subsection}{\numberline {3.0.3}带有 DC-APIC 方案的 MPM 工作流程}{18}{subsection.3.0.3}%
-\contentsline {subsubsection}{\numberline {3.0.3.1}界面信息计算}{19}{subsubsection.3.0.3.1}%
-\contentsline {subsubsection}{\numberline {3.0.3.2}法向量估计}{19}{subsubsection.3.0.3.2}%
-\contentsline {chapter}{参考文献}{22}{figure.caption.13}%
-\contentsline {chapter}{致谢}{26}{chapter*.14}%
-\contentsline {chapter}{发表论文和科研情况}{27}{section*.16}%
+\contentsline {chapter}{\numberline {第三章\hspace {.3em}}分解兼容仿射粒子网格（DC-APIC）积分器}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}粒子与网格的兼容性}{14}{section.3.1}%
+\contentsline {section}{\numberline {3.2}粒子-网格传输算法}{16}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}DC-APIC粒子到网格传输算法}{16}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}DC-APIC网格到粒子传输算法}{17}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}基于DC-APIC传输算法的MPM工作流程}{18}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}界面信息计算}{19}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}法向量估计}{19}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}实验结果与分析}{20}{section.3.4}%
+\contentsline {section}{\numberline {3.5}本章小节}{24}{section.3.5}%
+\contentsline {chapter}{参考文献}{26}{section.3.5}%
+\contentsline {chapter}{致谢}{30}{chapter*.20}%
+\contentsline {chapter}{发表论文和科研情况}{31}{section*.22}%
 \contentsfinish 

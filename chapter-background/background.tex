@@ -1,21 +1,20 @@
 \chapter{相关概念及技术} \label{chap:background}
-
+本章将介绍物质点法模拟流固耦合的相关概念与技术，主要包括连续介质力学的弹-塑性本构模型、物质点法和自适应网格方法。本章首先介绍控制连续介质的物理方程和材料本构模型理论，然后重点介绍物质点法的数值求解流程以及不同粒子网格传输算法的优缺点，最后介绍自适应网格算法在物理模拟研究中的应用。
 
 \section{本构模型}\label{sect:background:constitutive_model}
-在MPM中，材料通过一组粒子表示，这些粒子携带材料的属性信息，如质量、速度和位置。与其他PIC/FLIP求解器类似，MPM在背景欧拉网格上求解控制方程。基于应力的力在网格上计算，并随后转移回粒子，粒子以拉格朗日方式进行运动。
-
-MPM的形变理论来源于连续介质力学。在未形变的空间中，材料粒子的位置为$\mathbf{X}$，被映射到形变后的空间中，位置为$\mathbf{x}$，即$\mathbf{x} = \phi(\mathbf{X})$，其中$\phi$是形变映射。形变梯度$\mathbf{F}$是$\phi$的雅可比矩阵，表示为$\mathbf{F}=\frac{\partial \phi}{\partial \mathbf{X}}(\mathbf{X},t)$。控制方程由质量守恒和动量守恒组成：
-\begin{equation}
-\frac{D\rho}{Dt}+\rho \nabla \cdot \mathbf{v} = 0, \;\;
-\rho \frac{D \mathbf{v}}{Dt} = \nabla \cdot\mathbf{\sigma} + \mathbf{\rho} \mathbf{f}_{ext},
-\end{equation}
-其中$\rho$是密度，$\mathbf{v}$是速度，$\mathbf{\sigma}$是Cauchy应力张量，$\mathbf{f}_{ext}$是外力，如重力。形变梯度可以分解为$\mathbf{F}=\mathbf{F^E}\mathbf{F^P}$，其中$\mathbf{F^E}$和$\mathbf{F^P}$分别表示弹性部分和塑性部分。应力和应变可以表示为：
+物质点法的物理理论来源于连续介质力学，在连续介质力学中，材料的物理特性由应力-应变关系决定，应力-应变关系就是本构关系。应变表示物体发生形变的程度，可以有被挤压和被拉伸两种状态，一般由形变梯度$\mathbf{F}$来表示。具体而言，在未形变的空间中，材料粒子的位置为$\mathbf{X}$，被映射到形变后的空间中，位置为$\mathbf{x}$，即$\mathbf{x} = \phi(\mathbf{X})$，其中$\phi$是形变映射。形变梯度$\mathbf{F}$是$\phi$的雅可比矩阵，表示为$\mathbf{F}=\frac{\partial \phi}{\partial \mathbf{X}}(\mathbf{X},t)$。应力-应变（本构关系）可以表示为：
 \begin{equation}
     \mathbf{\sigma}=\frac{1}{J}\frac{\partial \mathbf{\psi}}{\partial \mathbf{F}}, \; 
     J = det(F),
 \end{equation}
-其中$J$是$\mathbf{F}$的行列式，表示材料粒子的体积变化。
-MPM可以通过使用本构关系来模拟各种材料，本构关系描述了应力和应变之间的关系。本文中，我们使用Neo-Hookean模型~\cite{DBLP:journals/tog/TuLZLWWQ24}来推导塑性和流体材料。本构能量$\psi$被分解为体积部分$\psi_{vol}$和偏差部分$\psi_{dev}$：
+其中$J$是$\mathbf{F}$的行列式，表示材料粒子的体积变化，$\mathbf{\sigma}$是Cauchy应力张量,$\psi$是能量密度函数，表示在一定应变下单位材料持有的势能。通过选择不同的能量密度函数$\psi$就可以构建材料的本构模型，进而模拟出诸如水、雪、沙子、熔岩等自然环境中各不相同的物质。
+
+物质点法的控制方程由质量守恒和动量守恒组成：
+\begin{equation}
+\frac{D\rho}{Dt}+\rho \nabla \cdot \mathbf{v} = 0, \;\;
+\rho \frac{D \mathbf{v}}{Dt} = \nabla \cdot\mathbf{\sigma} + \mathbf{\rho} \mathbf{f}_{ext},
+\end{equation}
+其中$\rho$是密度，$\mathbf{v}$是速度，$\mathbf{f}_{ext}$是外力，如重力。形变梯度可以分解为$\mathbf{F}=\mathbf{F^E}\mathbf{F^P}$，其中$\mathbf{F^E}$和$\mathbf{F^P}$分别表示弹性部分和塑性部分。本文中，我们使用Neo-Hookean本构模型~\cite{DBLP:journals/tog/TuLZLWWQ24}，其中，能量密度$\psi$被分解为体积部分$\psi_{vol}$和偏差部分$\psi_{dev}$：
 \begin{equation}
     \begin{aligned}
         \psi_{dev} &= \frac{\mu}{2}(J^{-2/d} tr(\mathbf{F}\mathbf{F}^T) - d), \\
@@ -24,7 +23,7 @@ MPM可以通过使用本构关系来模拟各种材料，本构关系描述了�
         ),
     \end{aligned}
 \end{equation}
-其中$d$是维度，$\mu$是剪切模量，$\kappa$是体积模量。然后应力可以表示为：
+其中$d$是维度，$\mu$是剪切模量，$\kappa$是体积模量,然后应力可以表示为：
 \begin{equation}
 \begin{aligned}
     \mathbf{\tau} &= \frac{1}{J}\mathbf{\sigma},\\
@@ -34,16 +33,17 @@ MPM可以通过使用本构关系来模拟各种材料，本构关系描述了�
 \end{equation}
 其中$\tau$是Kirchhoff应力，$dev(\mathbf{A})=\mathbf{A}-\frac{1}{d}tr(\mathbf{A})\mathbf{I}$表示任意张量$\mathbf{A}$的偏差部分。
 
-大多数材料在剪切应力超过特定屈服条件时也表现出塑性变形，可以通过屈服函数$y$来描述。任何违反此条件的应力（即$y > 0$）应通过回归映射过程投影到屈服面上。本文中，我们采用了Drucker-Prager模型~\cite{klar2016drucker}来描述颗粒材料和流体。为避免体积增益伪影，我们通过追踪和恢复体积变化，使用改进的回归映射算法~\cite{10.1145/3072959.3073651}。
+大多数材料在剪切应力超过特定屈服条件时会表现出塑性变形，可以通过屈服函数$y$来描述。任何违反此条件的应力（即$y > 0$）应通过回归映射过程投影到屈服面上。本文中，我们采用了Drucker-Prager模型~\cite{klar2016drucker}来描述颗粒材料和流体。为避免体积异常增加，我们通过追踪和恢复体积变化，使用改进的回归映射算法~\cite{10.1145/3072959.3073651}。
 
 
 \section{物质点法}
 \subsection{求解步骤}
 TODO
-\subsection{粒子网格传输算法}
-在MPM中，传输方案是指在每个仿真步骤中，将物理量从材料点传递到欧拉网格的过程。由于MPM结合了拉格朗日和欧拉框架的优点，因此在这两个领域之间的传输对准确建模材料行为至关重要。
 
-在以下上下文中，上标$n$、$n+1$表示时间$t^n$和$t^{n+1}$下的物理量，为了简便，我们设定$\Delta t=t^{n+1}-t^n$，$\Delta \mathbf{x}_{ip}^{n}=\mathbf{x}_i-\mathbf{x}_p^n$，并且$w_{ip}=N_i(\mathbf{x}_p)$，其中$N_i(\mathbf{x}_p)$表示节点$i$和粒子$p$之间的二次B样条插值函数，主要用于传输步骤。
+\subsection{粒子网格传输算法}
+在MPM中，传输算法是指在每个仿真步骤中，将物理量在材料点和欧拉网格间相互传递的过程。由于MPM结合了拉格朗日和欧拉框架的优点，因此传输算法的设计对准确建模材料行为至关重要。
+
+本文用上标$n$、$n+1$表示时间$t^n$和$t^{n+1}$时的物理量，为了简便，本文设定$\Delta t=t^{n+1}-t^n$，$\Delta \mathbf{x}_{ip}^{n}=\mathbf{x}_i-\mathbf{x}_p^n$，并且$w_{ip}=N_i(\mathbf{x}_p)$，其中$N_i(\mathbf{x}_p)$表示节点$i$和粒子$p$之间的二次B样条插值函数，主要用于传输步骤。
 
 标准的PIC方案根据以下公式将质量$m_p$、位置$\mathbf{x}_p$和速度$\mathbf{v}_p$从粒子传输到欧拉网格：
 \begin{equation}
@@ -68,7 +68,14 @@ FLIP传输方案\cite{zhu2005animating}通过添加一个额外的粒子速度�
 \end{equation}
 其中$\alpha$是PIC-FLIP混合比率~\cite{bridson2015fluid}。当$\alpha=0$时，公式~\eqref{eq:flip}回归为PIC，当$\alpha=1$时，它是完全的FLIP。尽管FLIP传输方案通过额外的粒子速度保持项使仿真更加生动，但它仍然存在不稳定性。
 
-APIC \cite{jiang2015affine}方案通过保持角动量和防止不稳定性来减少一部分耗散。我们总结了APIC的P2G和G2P传输步骤如下：
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/asflip.png}
+    \caption{APIC、ASFLIP和DC-APIC二维流固分离测试}
+    \label{fig:asflip}
+\end{figure}
+
+APIC \cite{jiang2015affine}方案通过保持角动量和防止不稳定性来减少一部分耗散。APIC中的P2G和G2P传输步骤如下：
 \begin{equation}
     \begin{aligned}
     P2G: \;\;    
@@ -82,7 +89,7 @@ APIC \cite{jiang2015affine}方案通过保持角动量和防止不稳定性来�
 \begin{equation}
     \mathbf{D}_p^n=\sum_{i}w_{ip}\Delta\mathbf{x}_{ip}(\Delta\mathbf{x}_{ip})^T
 \end{equation}
-局部速度仿射项$\mathbf{B}_p\mathbf{D}_p^{-1}$有助于保持能量，否则这种能量会因PIC等传输方案而丧失，尤其是由于数值粘性。然而，APIC仍然基于材料连续性的假设，因此无法有效处理粒子分离。
+局部速度仿射项$\mathbf{B}_p\mathbf{D}_p^{-1}$有助于保持线性惯量和转动惯量，并且这一过程保证了动量守恒。然而，APIC仍然基于材料连续性的假设，因此无法有效处理粒子分离的情况。
 
 Affine-augmented Separable FLIP（ASFLIP）方案\cite{fei2021revisiting}旨在解决材料连续性假设可能不成立的情况，例如对于高度分散的沙子。它在FLIP中添加了粒子速度保持项，并在APIC中添加了一个额外的位置调整项，以便更容易地实现粒子分离：
 \begin{equation}
@@ -94,6 +101,13 @@ Affine-augmented Separable FLIP（ASFLIP）方案\cite{fei2021revisiting}旨在�
     &\mathbf{x}_p^{n+1}=\mathbf{x}_p^n+\Delta t(\sum_iw_{ip}\mathbf{v^*}+ \beta_p\alpha(\mathbf{v}_p^n-\sum_iw_{ip}\mathbf{v}_i^n)),
     \end{aligned}
 \end{equation}
-其中$\beta_p$是控制位置调整幅度的比例。然而，它仍然存在数值粘性问题。这个问题在流体-固体耦合问题中尤为突出，在这些问题中，固体和流体都被离散化为MPM粒子，使得两个相位之间难以平滑分离。此外，ASFLIP的效果受到参数的影响，这使得它更容易产生穿透伪影，如图~\ref{fig:asflip}所示。
+其中$\beta_p$是控制位置调整项的影响比例。然而，它仍然存在数值粘性问题，在流固耦合问题中尤为突出，当固体和流体都被离散化为MPM粒子，这两个相位交接处会难以平滑分离。此外，ASFLIP的效果受到参数的影响，这使得它更容易产生材料穿透现象，如图~\ref{fig:asflip}所示。
 
-对于混合粒子-网格方法，数值粘性来自粒子和网格之间的传输。通常，粒子的数量远大于网格节点的数量。因此，P2G步骤可能导致信息丢失。如图~\ref{fig:p2g}(a)所示，当两个质量相等且速度相反的粒子将动量传输到网格时，速度将被平均化。从另一个角度来看，MPM基于材料连续性的假设，这使得它难以在物理上描述材料分离，特别是在流体-固体耦合的情况下。两个相位之间的界面速度场很容易被P2G步骤平滑化。
+总结来说，对于混合粒子-网格方法，数值粘性来自粒子和网格之间的传输。通常，粒子的数量远大于网格节点的数量。因此，P2G步骤可能导致信息丢失。如图~\ref{fig:p2g}(a)所示，当两个质量相等且速度相反的粒子将动量传输到网格时，速度将被平均化。从另一个角度来看，MPM基于材料连续性的假设，这使得它难以在物理上描述材料分离，特别是在流固耦合的情况下。两个相位之间的界面速度场很容易被P2G步骤平滑化。
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/p2g.png}
+    \caption{二维情况下APIC和DC-APIC对粒子的对流效果对比}
+    \label{fig:p2g}
+\end{figure}
