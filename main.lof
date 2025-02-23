@@ -1,4 +1,12 @@
 \addvspace {10.0pt}
-\contentsline {figure}{\numberline {1.1}{\ignorespaces FIGURE}}{1}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces 物质点法的模拟场景}}{2}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces 节点物理仿真软件Houdini的操作界面}}{3}{figure.caption.7}%
 \addvspace {10.0pt}
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \textbf {基于相位场梯度的粒子与网格兼容性方法。} 二次B样条核范围由紫色方框标注。(a) 背景网格与B样条核的范围，其中计算的网格节点位于中心。蓝色箭头是网格节点相位值的梯度$\nabla s_i$。(b) 粒子颜色表示固体-流体相位。蓝色表示流体粒子，红色表示固体粒子。红色箭头是材料加权的粒子相位梯度值$\mathbf {Q}_p$。(c) 粒子与背景网格节点。绿色箭头表示从附近粒子计算的网格节点相位贡献估计值，通过$\nabla s_i\cdot \mathbf {Q}_p$得到。最后，通过它们所获得的总贡献的信号计算网格节点相位。(d) 计算所有网格节点的相位值。}}{14}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces \textbf {粒子到网格的传输对比。} (a) 传统APIC粒子到网格的传输方案。两个粒子在碰撞区域内进行平滑时，会因为核内平均而受到数值粘性影响。(b) DC-APIC粒子到网格的传输方案。法向分量传输给兼容网格节点，切向分量传输给兼容网格节点，避免了数值粘性。}}{16}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces \textbf {固定的兔子与掉落的沙子。} 我们的 DC-APIC 方法能够有效解决具有自由滑移条件的流固耦合，而传统的 MPM 方法难以区分水与弹性固体兔子。}}{17}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces \textbf {我们算法的数据流}。图示了在一个时间步内粒子与网格之间的数据流。红色实线表示 DC-APIC 方案的额外步骤。 \textbf {界面信息计算（IIC）}步骤在每个时间步的开始计算粒子法向量 $n_p$、网格节点法向量 $n_i$ 和网格节点的固流相场状态 $s_i$，这些信息将用于 DC-APIC 粒子到网格（P2G）和网格到粒子（G2P）步骤。}}{18}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces \textcolor {red}{\textbf {水滴在弹性球上}。 (顶部) 我们基于相场梯度兼容性计算的 DC-APIC MPM。水容易从自由滑移的弹性球上分离。 (中部) 传统 MPM 模拟的耦合存在不真实的粘度，水很难离开弹性体。 (底部) 基于 SDF 的 DC-APIC 重建了水平集以分类网格节点的相态，其结果显然与相场梯度相同，但计算时长较长。}}}{19}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces \textbf {不同密度的橡胶鸭子玩具掉入水中。} 从左到右，鸭子与水的密度比为 0.5，1.0 和 2.5。}}{20}{figure.caption.13}%
 \contentsfinish 

@@ -1,0 +1,146 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{#1}
+\providecommand{\href}[2]{\url{#2}}
+\providecommand{\doi}[1]{DOI: \href{http://dx.doi.org/#1}{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
+  \urlstyle{same}\fi
+
+\bibitem[Batty\ et~al.(2007)Batty, Bertails, and Bridson]{batty2007fast}
+BATTY C, BERTAILS F, BRIDSON R.
+\newblock A fast variational framework for accurate solid-fluid coupling\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2007, 26\penalty0 (3): 100--es.
+
+\bibitem[Klingner\ et~al.(2006)Klingner, Feldman, Chentanez, and O'brien]{klingner2006fluid}
+KLINGNER B~M, FELDMAN B~E, CHENTANEZ N, et~al.
+\newblock Fluid animation with dynamic meshes\allowbreak[M]//\allowbreak{}ACM SIGGRAPH 2006 Papers.
+\newblock 2006: 820--825.
+
+\bibitem[Chentanez\ et~al.(2006)Chentanez, Goktekin, Feldman, and O'Brien]{chentanez2006simultaneous}
+CHENTANEZ N, GOKTEKIN T~G, FELDMAN B~E, et~al.
+\newblock Simultaneous coupling of fluids and deformable bodies\allowbreak[M].
+\newblock 2006.
+
+\bibitem[Zarifi\ et~al.(2017)Zarifi and Batty]{zarifi2017positive}
+ZARIFI O, BATTY C.
+\newblock A positive-definite cut-cell method for strong two-way coupling between fluids and deformable bodies\allowbreak[C]//\allowbreak{}Proceedings of the ACM SIGGRAPH/Eurographics Symposium on Computer Animation.
+\newblock 2017: 1--11.
+
+\bibitem[Akinci\ et~al.(2012)Akinci, Ihmsen, Akinci, Solenthaler, and Teschner]{akinci2012versatile}
+AKINCI N, IHMSEN M, AKINCI G, et~al.
+\newblock Versatile rigid-fluid coupling for incompressible sph\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2012, 31\penalty0 (4): 1--8.
+
+\bibitem[Akinci\ et~al.(2013)Akinci, Cornelis, Akinci, and Teschner]{akinci2013coupling}
+AKINCI N, CORNELIS J, AKINCI G, et~al.
+\newblock Coupling elastic solids with smoothed particle hydrodynamics fluids\allowbreak[J].
+\newblock Computer Animation and Virtual Worlds, 2013, 24\penalty0 (3-4): 195--203.
+
+\bibitem[Zhu\ et~al.(2005)Zhu and Bridson]{zhu2005animating}
+ZHU Y, BRIDSON R.
+\newblock Animating sand as a fluid\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2005, 24\penalty0 (3): 965--972.
+
+\bibitem[Gao\ et~al.(2009)Gao, Li, Hu, and Barsky]{gao2009simulating}
+GAO Y, LI C~F, HU S~M, et~al.
+\newblock Simulating gaseous fluids with low and high speeds\allowbreak[C]//\allowbreak{}Computer Graphics Forum: volume~28.
+\newblock : Wiley Online Library, 2009: 1845--1852.
+
+\bibitem[Losasso\ et~al.(2008)Losasso, Talton, Kwatra, and Fedkiw]{losasso2008two}
+LOSASSO F, TALTON J, KWATRA N, et~al.
+\newblock Two-way coupled sph and particle level set fluid simulation\allowbreak[J].
+\newblock IEEE transactions on visualization and computer graphics, 2008, 14\penalty0 (4): 797--804.
+
+\bibitem[Raveendran\ et~al.(2011)Raveendran, Wojtan, and Turk]{raveendran2011hybrid}
+RAVEENDRAN K, WOJTAN C, TURK G.
+\newblock Hybrid smoothed particle hydrodynamics\allowbreak[C]//\allowbreak{}Proceedings of the 2011 ACM SIGGRAPH/Eurographics symposium on computer animation.
+\newblock 2011: 33--42.
+
+\bibitem[Stomakhin\ et~al.(2013)Stomakhin, Schroeder, Chai, Teran, and Selle]{stomakhin2013material}
+STOMAKHIN A, SCHROEDER C, CHAI L, et~al.
+\newblock A material point method for snow simulation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2013, 32\penalty0 (4): 1--10.
+
+\bibitem[Stomakhin\ et~al.(2014)Stomakhin, Schroeder, Jiang, Chai, Teran, and Selle]{stomakhin2014augmented}
+STOMAKHIN A, SCHROEDER C, JIANG C, et~al.
+\newblock Augmented mpm for phase-change and varied materials\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2014, 33\penalty0 (4): 1--11.
+
+\bibitem[Jiang\ et~al.(2015)Jiang, Schroeder, Selle, Teran, and Stomakhin]{jiang2015affine}
+JIANG C, SCHROEDER C, SELLE A, et~al.
+\newblock The affine particle-in-cell method\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2015, 34\penalty0 (4): 1--10.
+
+\bibitem[Kl{\'a}r\ et~al.(2016)Kl{\'a}r, Gast, Pradhana, Fu, Schroeder, Jiang, and Teran]{klar2016drucker}
+KL{\'A}R G, GAST T, PRADHANA A, et~al.
+\newblock Drucker-prager elastoplasticity for sand animation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2016, 35\penalty0 (4): 1--12.
+
+\bibitem[Tampubolon\ et~al.(2017{\natexlab{a}})Tampubolon, Gast, Kl{\'a}r, Fu, Teran, Jiang, and Museth]{tampubolon2017multi}
+TAMPUBOLON A~P, GAST T, KL{\'A}R G, et~al.
+\newblock Multi-species simulation of porous sand and water mixtures\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (4): 1--11.
+
+\bibitem[Jiang\ et~al.(2017)Jiang, Gast, and Teran]{jiang2017anisotropic}
+JIANG C, GAST T, TERAN J.
+\newblock Anisotropic elastoplasticity for cloth, knit and hair frictional contact\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (4): 1--14.
+
+\bibitem[Gao\ et~al.(2017)Gao, Tampubolon, Jiang, and Sifakis]{gao2017adaptive}
+GAO M, TAMPUBOLON A~P, JIANG C, et~al.
+\newblock An adaptive generalized interpolation material point method for simulating elastoplastic materials\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (6): 1--12.
+
+\bibitem[Wolper\ et~al.(2019)Wolper, Fang, Li, Lu, Gao, and Jiang]{wolper2019cd}
+WOLPER J, FANG Y, LI M, et~al.
+\newblock Cd-mpm: continuum damage material point methods for dynamic fracture animation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2019, 38\penalty0 (4): 1--15.
+
+\bibitem[Han\ et~al.(2019)Han, Gast, Guo, Wang, Jiang, and Teran]{han2019hybrid}
+HAN X, GAST T~F, GUO Q, et~al.
+\newblock A hybrid material point method for frictional contact with diverse materials\allowbreak[J].
+\newblock Proceedings of the ACM on Computer Graphics and Interactive Techniques, 2019, 2\penalty0 (2): 1--24.
+
+\bibitem[Yan\ et~al.(2018)Yan, Li, Chen, and Hu]{yan2018mpm}
+YAN X, LI C~F, CHEN X~S, et~al.
+\newblock Mpm simulation of interacting fluids and solids\allowbreak[C]//\allowbreak{}Computer Graphics Forum: volume~37.
+\newblock : Wiley Online Library, 2018: 183--193.
+
+\bibitem[Fang\ et~al.(2020)Fang, Qu, Li, Zhang, Zhu, Aanjaneya, and Jiang]{fang2020iq}
+FANG Y, QU Z, LI M, et~al.
+\newblock Iq-mpm: an interface quadrature material point method for non-sticky strongly two-way coupled nonlinear solids and fluids\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2020, 39\penalty0 (4): 51--1.
+
+\bibitem[Hu\ et~al.(2018)Hu, Fang, Ge, Qu, Zhu, Pradhana, and Jiang]{hu2018moving}
+HU Y, FANG Y, GE Z, et~al.
+\newblock A moving least squares material point method with displacement discontinuity and two-way rigid body coupling\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2018, 37\penalty0 (4): 1--14.
+
+\bibitem[Fei\ et~al.(2021)Fei, Guo, Wu, Huang, and Gao]{fei2021revisiting}
+FEI Y, GUO Q, WU R, et~al.
+\newblock Revisiting integration in the material point method: a scheme for easier separation and less dissipation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2021, 40\penalty0 (4): 1--16.
+
+\bibitem[Tu\ et~al.(2024)Tu, Li, Zhao, Liu, Wang, Wang, and Qin]{DBLP:journals/tog/TuLZLWWQ24}
+TU Z, LI C, ZHAO Z, et~al.
+\newblock A unified mpm framework supporting phase-field models and elastic-viscoplastic phase transition\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2024, 43\penalty0 (2): 19:1--19:19.
+\newblock \url{https://doi.org/10.1145/3638047}.
+
+\bibitem[Tampubolon\ et~al.(2017{\natexlab{b}})Tampubolon, Gast, Kl\'{a}r, Fu, Teran, Jiang, and Museth]{10.1145/3072959.3073651}
+TAMPUBOLON A~P, GAST T, KL\'{a}R G, et~al.
+\newblock Multi-species simulation of porous sand and water mixtures\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2017, 36\penalty0 (4).
+\newblock \url{https://doi.org/10.1145/3072959.3073651}.
+
+\bibitem[Bridson(2015)]{bridson2015fluid}
+BRIDSON R.
+\newblock Fluid simulation for computer graphics\allowbreak[M].
+\newblock : AK Peters/CRC Press, 2015.
+
+\bibitem[Homel\ et~al.(2017)Homel and Herbold]{homel2017field}
+HOMEL M~A, HERBOLD E~B.
+\newblock Field-gradient partitioning for fracture and frictional contact in the material point method\allowbreak[J].
+\newblock International Journal for Numerical Methods in Engineering, 2017, 109\penalty0 (7): 1013--1044.
+
+\end{thebibliography}
