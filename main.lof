@@ -2,16 +2,31 @@
 \contentsline {figure}{\numberline {1.1}{\ignorespaces 物质点法的模拟场景}}{2}{figure.caption.6}%
 \contentsline {figure}{\numberline {1.2}{\ignorespaces 节点物理仿真软件Houdini的操作界面}}{3}{figure.caption.7}%
 \addvspace {10.0pt}
-\contentsline {figure}{\numberline {2.1}{\ignorespaces APIC、ASFLIP和DC-APIC二维流固分离测试}}{12}{figure.caption.8}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces 二维情况下APIC和DC-APIC对粒子的对流效果对比}}{13}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces 物质点法求解材料运动的主要过程}}{12}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces APIC、ASFLIP和DC-APIC二维流固分离测试}}{15}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces 二维情况下APIC和DC-APIC对粒子的对流效果对比}}{16}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces 空间稀疏性示意图}}{17}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces VDB~\cite {openvdb}核心数据结构}}{18}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces SPGrid为底层的自适应网格烟雾模拟}}{18}{figure.caption.13}%
 \addvspace {10.0pt}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces 基于相场梯度的粒子与网格兼容性计算方法流程}}{15}{figure.caption.10}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces 基于DC-APIC积分器的MPM算法流程}}{18}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces 二维水球坠落实验：两种计算兼容性方法的DC-APIC算法和APIC算法的对比}}{20}{figure.caption.13}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces 三维沙堆砸落碰撞弹性兔子并分离实验}}{21}{figure.caption.14}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces 流固耦合固体密度测试}}{21}{figure.caption.15}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces 三维不同材料果冻同颗粒流交互实验}}{22}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces 溃坝冲击三维实验}}{22}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces DC-APIC算法、APIC算法和IQ-MPM算法的时间复杂度对比}}{23}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces 粒子动能变化曲线实验}}{24}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces 基于相场梯度的粒子与网格兼容性计算方法流程}}{21}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces 基于DC-APIC积分器的MPM算法流程}}{24}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces 二维水球坠落实验：两种计算兼容性方法的DC-APIC算法和APIC算法的对比}}{27}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces 三维沙堆砸落碰撞弹性兔子并分离实验}}{27}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces 流固耦合固体密度测试}}{28}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces 三维不同材料果冻同颗粒流交互实验}}{28}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces 溃坝冲击三维实验}}{29}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces DC-APIC算法、APIC算法和IQ-MPM算法的时间复杂度对比}}{29}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces 粒子动能变化曲线实验}}{30}{figure.caption.23}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces 自适应网格的T连接情形}}{34}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces 负权重导致的不稳定现象}}{35}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces 有约束T型连接示意图}}{36}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces 形状函数$H_{\gamma }$可视化图}}{36}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces 解约束后形状函数$N_{\eta }$可视化图}}{37}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces 自适应网格上进行G2P和P2G操作}}{39}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces 网格细分和充采样示例图}}{40}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces 自适应网格上进行细线切割模拟}}{41}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（二维）}}{41}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（三维）}}{42}{figure.caption.33}%
 \contentsfinish 

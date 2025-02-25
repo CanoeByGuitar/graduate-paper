@@ -104,6 +104,8 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 
 
 \section{实验结果与分析}
+本章节的所有实验均在Intel Core i7 processor 14700K，64G RAM环境进行，基于开源框架Ziran~\cite{fang2020iq}开发了DC-APIC积分器。渲染Demo使用Houdini和Arnold渲染器，首先利用Houdini内置的OpenVDB工具~\cite{museth2013vdb}中的VDB From Particles节点将粒子构建为SDF，然后中利用Convert VDB节点将SDF重建表面，然后进行PBR渲染。
+
 通过将本章节提出的 DC-APIC积分器结合MPM算法流程，实现CPU端仿真程序，并进行对比实验来验证该算法的有效性。具体的实验场景参数设置见表\ref{tab:demo_parameter}。
 \begin{table*}[h]
     \centering

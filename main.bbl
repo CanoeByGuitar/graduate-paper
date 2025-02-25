@@ -1,4 +1,4 @@
-\begin{thebibliography}{28}
+\begin{thebibliography}{53}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \providecommand{\href}[2]{\url{#2}}
@@ -121,6 +121,116 @@ FEI Y, GUO Q, WU R, et~al.
 \newblock Revisiting integration in the material point method: a scheme for easier separation and less dissipation\allowbreak[J].
 \newblock ACM Transactions on Graphics (TOG), 2021, 40\penalty0 (4): 1--16.
 
+\bibitem[Debunne\ et~al.(1999)Debunne, Desbrun, Barr, and Cani]{debunne1999interactive}
+DEBUNNE G, DESBRUN M, BARR A, et~al.
+\newblock Interactive multiresolution animation of deformable models\allowbreak[C]//\allowbreak{}Computer Animation and Simulation’99: Proceedings of the Eurographics Workshop in Milano, Italy, September 7--8, 1999.
+\newblock : Springer, 1999: 133--144.
+
+\bibitem[Capell\ et~al.(2002)Capell, Green, Curless, Duchamp, and Popovi{\'c}]{capell2002multiresolution}
+CAPELL S, GREEN S, CURLESS B, et~al.
+\newblock A multiresolution framework for dynamic deformations\allowbreak[C]//\allowbreak{}Proceedings of the 2002 ACM SIGGRAPH/Eurographics symposium on Computer animation.
+\newblock 2002: 41--47.
+
+\bibitem[Grinspun\ et~al.(2002)Grinspun, Krysl, and Schr{\"o}der]{grinspun2002charms}
+GRINSPUN E, KRYSL P, SCHR{\"O}DER P.
+\newblock Charms: A simple framework for adaptive simulation\allowbreak[J].
+\newblock ACM transactions on graphics (TOG), 2002, 21\penalty0 (3): 281--290.
+
+\bibitem[Seiler\ et~al.(2011)Seiler, Steinemann, Spillmann, and Harders]{seiler2011robust}
+SEILER M, STEINEMANN D, SPILLMANN J, et~al.
+\newblock Robust interactive cutting based on an adaptive octree simulation mesh\allowbreak[J].
+\newblock The Visual Computer, 2011, 27: 519--529.
+
+\bibitem[Steinemann\ et~al.(2008)Steinemann, Otaduy, and Gross]{steinemann2008fast}
+STEINEMANN D, OTADUY M~A, GROSS M.
+\newblock Fast adaptive shape matching deformations\allowbreak[C]//\allowbreak{}Proceedings of the 2008 ACM SIGGRAPH/eurographics symposium on computer animation.
+\newblock 2008: 87--94.
+
+\bibitem[Labelle\ et~al.(2007)Labelle and Shewchuk]{labelle2007isosurface}
+LABELLE F, SHEWCHUK J~R.
+\newblock Isosurface stuffing: fast tetrahedral meshes with good dihedral angles\allowbreak[M]//\allowbreak{}ACM SIGGRAPH 2007 papers.
+\newblock 2007: 57--es.
+
+\bibitem[Wicke\ et~al.(2010)Wicke, Ritchie, Klingner, Burke, Shewchuk, and O'Brien]{wicke2010dynamic}
+WICKE M, RITCHIE D, KLINGNER B~M, et~al.
+\newblock Dynamic local remeshing for elastoplastic simulation\allowbreak[J].
+\newblock ACM Transactions on graphics (TOG), 2010, 29\penalty0 (4): 1--11.
+
+\bibitem[Otaduy\ et~al.(2007)Otaduy, Germann, Redon, and Gross]{otaduy2007adaptive}
+OTADUY M~A, GERMANN D, REDON S, et~al.
+\newblock Adaptive deformations with fast tight bounds\allowbreak[C]//\allowbreak{}Proceedings of the 2007 ACM SIGGRAPH/Eurographics symposium on Computer animation.
+\newblock 2007: 181--190.
+
+\bibitem[Losasso\ et~al.(2004)Losasso, Gibou, and Fedkiw]{losasso2004simulating}
+LOSASSO F, GIBOU F, FEDKIW R.
+\newblock Simulating water and smoke with an octree data structure\allowbreak[M]//\allowbreak{}Acm siggraph 2004 papers.
+\newblock 2004: 457--462.
+
+\bibitem[Batty\ et~al.(2010)Batty, Xenos, and Houston]{batty2010tetrahedral}
+BATTY C, XENOS S, HOUSTON B.
+\newblock Tetrahedral embedded boundary methods for accurate and flexible adaptive fluids\allowbreak[C]//\allowbreak{}Computer Graphics Forum: volume~29.
+\newblock : Wiley Online Library, 2010: 695--704.
+
+\bibitem[Ando\ et~al.(2012)Ando, Thurey, and Tsuruno]{ando2012preserving}
+ANDO R, THUREY N, TSURUNO R.
+\newblock Preserving fluid sheets with adaptively sampled anisotropic particles\allowbreak[J].
+\newblock IEEE Transactions on Visualization and Computer Graphics, 2012, 18\penalty0 (8): 1202--1214.
+
+\bibitem[Ando\ et~al.(2013)Ando, Th{\"u}rey, and Wojtan]{ando2013highly}
+ANDO R, TH{\"U}REY N, WOJTAN C.
+\newblock Highly adaptive liquid simulations on tetrahedral meshes\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2013, 32\penalty0 (4): 1--10.
+
+\bibitem[Adams\ et~al.(2007)Adams, Pauly, Keiser, and Guibas]{adams2007adaptively}
+ADAMS B, PAULY M, KEISER R, et~al.
+\newblock Adaptively sampled particle fluids\allowbreak[M]//\allowbreak{}ACM SIGGRAPH 2007 papers.
+\newblock 2007: 48--es.
+
+\bibitem[Solenthaler\ et~al.(2011)Solenthaler and Gross]{solenthaler2011two}
+SOLENTHALER B, GROSS M.
+\newblock Two-scale particle simulation\allowbreak[M]//\allowbreak{}ACM SIGGRAPH 2011 papers.
+\newblock 2011: 1--8.
+
+\bibitem[Chentanez\ et~al.(2011)Chentanez and M{\"u}ller]{chentanez2011real}
+CHENTANEZ N, M{\"U}LLER M.
+\newblock Real-time eulerian water simulation using a restricted tall cell grid\allowbreak[M]//\allowbreak{}Acm siggraph 2011 papers.
+\newblock 2011: 1--10.
+
+\bibitem[Houston\ et~al.(2006)Houston, Nielsen, Batty, Nilsson, and Museth]{houston2006hierarchical}
+HOUSTON B, NIELSEN M~B, BATTY C, et~al.
+\newblock Hierarchical rle level set: A compact and versatile deformable surface representation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2006, 25\penalty0 (1): 151--175.
+
+\bibitem[Cohen\ et~al.(2010)Cohen, Tariq, and Green]{cohen2010interactive}
+COHEN J~M, TARIQ S, GREEN S.
+\newblock Interactive fluid-particle simulation using translating eulerian grids\allowbreak[C]//\allowbreak{}Proceedings of the 2010 ACM SIGGRAPH symposium on Interactive 3D Graphics and Games.
+\newblock 2010: 15--22.
+
+\bibitem[English\ et~al.(2013)English, Qiu, Yu, and Fedkiw]{english2013chimera}
+ENGLISH R~E, QIU L, YU Y, et~al.
+\newblock Chimera grids for water simulation\allowbreak[C]//\allowbreak{}Proceedings of the 12th ACM SIGGRAPH/Eurographics Symposium on Computer Animation.
+\newblock 2013: 85--94.
+
+\bibitem[Museth(2013{\natexlab{a}})]{museth2013vdb}
+MUSETH K.
+\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J].
+\newblock ACM transactions on graphics (TOG), 2013, 32\penalty0 (3): 1--22.
+
+\bibitem[Setaluri\ et~al.(2014)Setaluri, Aanjaneya, Bauer, and Sifakis]{setaluri2014spgrid}
+SETALURI R, AANJANEYA M, BAUER S, et~al.
+\newblock Spgrid: A sparse paged grid structure applied to adaptive smoke simulation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2014, 33\penalty0 (6): 1--12.
+
+\bibitem[Liu\ et~al.(2016)Liu, Mitchell, Aanjaneya, and Sifakis]{liu2016scalable}
+LIU H, MITCHELL N, AANJANEYA M, et~al.
+\newblock A scalable schur-complement fluids solver for heterogeneous compute platforms\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2016, 35\penalty0 (6): 1--12.
+
+\bibitem[Aanjaneya\ et~al.(2017)Aanjaneya, Gao, Liu, Batty, and Sifakis]{aanjaneya2017power}
+AANJANEYA M, GAO M, LIU H, et~al.
+\newblock Power diagrams and sparse paged grids for high resolution adaptive liquids\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (4): 1--12.
+
 \bibitem[Tu\ et~al.(2024)Tu, Li, Zhao, Liu, Wang, Wang, and Qin]{DBLP:journals/tog/TuLZLWWQ24}
 TU Z, LI C, ZHAO Z, et~al.
 \newblock A unified mpm framework supporting phase-field models and elastic-viscoplastic phase transition\allowbreak[J/OL].
@@ -138,6 +248,12 @@ BRIDSON R.
 \newblock Fluid simulation for computer graphics\allowbreak[M].
 \newblock : AK Peters/CRC Press, 2015.
 
+\bibitem[Museth(2013{\natexlab{b}})]{openvdb}
+MUSETH K.
+\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
+\newblock \url{https://doi.org/10.1145/2487228.2487235}.
+
 \bibitem[Yu\ et~al.(2013)Yu and Turk]{yu2013reconstructing}
 YU J, TURK G.
 \newblock Reconstructing surfaces of particle-based fluids using anisotropic kernels\allowbreak[J].
@@ -147,5 +263,17 @@ YU J, TURK G.
 HOMEL M~A, HERBOLD E~B.
 \newblock Field-gradient partitioning for fracture and frictional contact in the material point method\allowbreak[J].
 \newblock International Journal for Numerical Methods in Engineering, 2017, 109\penalty0 (7): 1013--1044.
+
+\bibitem[Bardenhagen\ et~al.(2004)Bardenhagen, Kober, et~al.]{bardenhagen2004generalized}
+BARDENHAGEN S~G, KOBER E~M, et~al.
+\newblock The generalized interpolation material point method\allowbreak[J].
+\newblock Computer Modeling in Engineering and Sciences, 2004, 5\penalty0 (6): 477--496.
+
+\bibitem[Lian\ et~al.(2015)Lian, Yang, Zhang, Zhang, Liu, and Huang]{LIAN2015291}
+LIAN Y, YANG P, ZHANG X, et~al.
+\newblock A mesh-grading material point method and its parallelization for problems with localized extreme deformation\allowbreak[J/OL].
+\newblock Computer Methods in Applied Mechanics and Engineering, 2015, 289: 291--315.
+\newblock \url{https://www.sciencedirect.com/science/article/pii/S0045782515000699}.
+\newblock \doi{https://doi.org/10.1016/j.cma.2015.02.020}.
 
 \end{thebibliography}

@@ -38,7 +38,71 @@
 
 \section{物质点法}
 \subsection{求解步骤}
-TODO
+目前主流的物质点法解算器通过结合APIC~\cite{jiang2015affine}传输规则和基于移动最小二乘的MLS-MPM~\cite{hu2018moving}的更新风格来实现，其主要思想是通过使用粒子离散化仿真目标，在背景网格上进行动态的解算，最终再将更新后的物理量传回粒子。本文用下标\(p,q\)标记粒子携带的物理量，用\(i,j\)来标记网格携带的物理量，图~\ref{fig:bg_mpmworkflow}展示了MPM结算流程，具体每一时间步的流程如下：
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{fig/bg_mpmworkflow.png} % 请替换为实际图片路径
+    \caption{物质点法求解材料运动的主要过程}
+    \label{fig:bg_mpmworkflow}
+\end{figure}
+
+
+
+1. \textbf{粒子属性传输到网格节点（Particles to Grid, P2G）:}
+这一步会将粒子的质量、速度等属性传输根据一个网格基函数传输到附近的格点上，三维空间下其形式为：
+\[
+N_i(\mathbf{x}_p) = N\left(\frac{1}{h}(x_p - x_i)\right)N\left(\frac{1}{h}(y_p - y_i)\right)N\left(\frac{1}{h}(z_p - z_i)\right) \quad (2.14)
+\]
+其中\(x,y,z\)分别代表三维空间下位置的分量，\(h\)代表背景网格的间隔宽度，\(N(x)\)通常选用二次B样条曲线函数，公式为：
+\[
+N(x)=
+\begin{cases}
+\frac{3}{4} - |x|^2 & 0 \leq |x| < \frac{1}{2} \\
+\frac{1}{2}(\frac{3}{2} - |x|)^2 & \frac{1}{2} \leq |x| < \frac{3}{2} \\
+0 & \frac{3}{2} \leq |x|
+\end{cases} \quad (2.15)
+\]
+对于从粒子\(p\)传输到邻近的网格节点\(i\)，本文使用\(w_{ip} = N_i(\mathbf{x}_p)\)表示插值权重来方便书写。为了传输质量与速度，有：
+\[
+m_i^n = \sum_p w_{ip}^n m_p \quad (2.16)
+\]
+\[
+(m\mathbf{v})_i^n = \sum_p w_{ip}^n m_p (\mathbf{v}_p^n + \mathbf{C}_p^n (\mathbf{x}_i - \mathbf{x}_p^n)) \quad (2.17)
+\]
+其中，\(\mathbf{C}_p^n\)是APIC中用于描述粒子周围局部的速度梯度的矩阵，用于保证系统有更好的动量守恒性质，其更新方式将在接下来的步骤给出。
+
+2. \textbf{网格动量更新}
+这一步则根据粒子的本构模型对网格节点的受力进行计算，并通过受力更新下时间步的网格速度，公式为：
+\[
+\mathbf{f}_i^* = - \sum_p V_p^0 M_p^{-1} w_{ip}^n \frac{\partial \Psi}{\partial \mathbf{F}} (\mathbf{F}_p^n) \mathbf{F}_p^{n,T} (\mathbf{x}_i - \mathbf{x}_p^n) \quad (2.18)
+\]
+\[
+\mathbf{v}_i^{n + 1} = \mathbf{v}_i^n + \frac{\Delta t \mathbf{f}_i^*}{m_i} \quad (2.19)
+\]
+其中，\(V_p^0\)当\(* = n\)和\(n + 1\)时分别为显式和隐式求解，隐式求解需要构建大型线性方程组进行迭代求解，但能够在大时间步下保持稳定，根据不同的使用场景需要进行权衡。这一步中还需要进行碰撞的处理，对处于碰撞内部的网格节点将根据碰撞的不同设定重新投影速度。
+
+3. \textbf{网格属性回传到粒子（Grid to Particles, G2P）}
+这一步将更新过的网格属性通过样条插值函数传回给附近的粒子，其中还需要更新APIC中需要使用的局部速度梯度：
+\[
+\mathbf{v}_p^{n + 1} = \sum_p w_{ip}^n \mathbf{v}_i^{n + 1} \quad (2.20)
+\]
+\[
+\mathbf{C}_p^{n + 1} = \sum_p M_p^{-1} w_{ip}^n \mathbf{v}_i^{n + 1} (\mathbf{x}_i - \mathbf{x}_p^n)^T \quad (2.21)
+\]
+
+4. \textbf{形变梯度更新}
+此时根据更新过的局部速度梯度采用MLS - MPM的方式对粒子的形变梯度进行跟踪得到试应变：
+\[
+\mathbf{F}_p^{tr} = (\mathbf{I} + \Delta t \mathbf{C}_p^{n + 1}) \mathbf{F}_p^n \quad (2.22)
+\]
+此时需要根据粒子的塑性屈服准则判断是否发生塑性形变，通过塑性处理后(可能没有发生塑性形变)则得到最终的\(\mathbf{F}_p^{n + 1}\)。
+
+5. \textbf{粒子平流}
+每个粒子根据其更新过速度进行位置的更新：
+\[
+\mathbf{x}_p^{n + 1} = \mathbf{x}_p^n + \Delta t \mathbf{v}_p^{n + 1} \quad (2.23)
+\]
+
 
 \subsection{粒子网格传输算法}
 在MPM中，传输算法是指在每个仿真步骤中，将物理量在材料点和欧拉网格间相互传递的过程。由于MPM结合了拉格朗日和欧拉框架的优点，因此传输算法的设计对准确建模材料行为至关重要。
@@ -111,3 +175,40 @@ Affine-augmented Separable FLIP（ASFLIP）方案\cite{fei2021revisiting}旨在�
     \caption{二维情况下APIC和DC-APIC对粒子的对流效果对比}
     \label{fig:p2g}
 \end{figure}
+
+\section{空间稀疏结构}
+在大规模的空间计算中，例如物理建模、图形学和三维重建，经常用到高分辨率二维或三维网格。如果使用稠密数据结构，这些网格会消耗大量内存空间和处理能力，事实上在模拟过程中，程序需要关注的只是这个稠密网格中的一小部分，其他的部分可能表示为不需要参与计算的空白空间（空气或真空）。如图~\ref{fig:sparse}所示，物理仿真中的空间稀疏特性往往是左侧这种局部稠密，整体稀疏的状态，用空间稀疏结构可以极大的节省内存。在图形学的其他领域中，空间稀疏结构，比如均匀网格、八叉树、层次包围盒（Bounding Volume Hierarchy, BVH）也被用来进行加速计算，例如光线追踪中射线与片原求交操作、碰撞检测的粗筛选阶段。接下来本文将着重介绍OpenVDB和SPGrid这两个物理模拟中常用的空间稀疏结构。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig/sparse.png}
+    \caption{空间稀疏性示意图}
+    \label{fig:sparse}
+\end{figure}
+
+\subsection{OpenVDB}
+VDB（Volumetric Dynamic grid）~\cite{openvdb}是一种层次数据结构，专门用于在三维网格上离散化的稀疏、随时间变化的体数据的高效表示。VDB融合了体动态网格的特性，与B+树存在若干相似之处。通过充分利用随时间变化数据的空间连贯性，能够将数据值和网格拓扑结构分别进行紧凑编码。这种独特的编码方式，极大地优化了数据的存储效率，减少了不必要的空间占用，为后续的数据处理提供了坚实基础。在数据访问方面，VDB表现卓越。它能够对一个理论上无限大的三维索引空间进行建模，从而实现对高分辨率的稀疏体数据进行缓存一致性且快速的数据访问。无论在数据插入、检索还是删除操作中，VDB均支持快速（平均为O(1)）的随机访问模式。VDB的层次化特性使其在自适应网格采样方面具有优势，能够根据数据的实际分布和变化情况，灵活地调整网格的采样策略，从而在保证数据精度的同时，进一步提高计算效率。图~\ref{fig:vdb}展示了VDB的核心数据结构，以一维数据为例，VDB包含一个根节点（灰色）、两层内部节点（绿色和橙色）以及叶节点（蓝色）。根节点是稀疏且可调整大小的，而其他节点是密集的，并且其分支因子逐渐减小，且限定为2的幂次方。每个节点中的大型水平数组分别表示哈希映射表mRootMap，以及直接访问表mInternalDAT和mLeafDAT。这些表对指向子节点（绿色、橙色或蓝色）、上层图块值（白色 / 灰色）或体素值（红色 / 灰色）的指针进行编码。灰色用于区分非活动值和活动值（白色和红色）。底部的白色节点展示了压缩后的叶节点，其中非活动体素（灰色）已被移除，仅留下活动体素（红色）。直接访问表上方的小数组展示了紧凑位掩码，例如mChildMask和mValueMask，它们紧凑地对局部拓扑进行编码。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{fig/VDB.png}
+    \caption{VDB~\cite{openvdb}核心数据结构}
+    \label{fig:vdb}
+\end{figure}
+
+\subsection{SPGrid}
+SPGrid~\cite{setaluri2014spgrid}是一种用于对稀疏分布的均匀笛卡尔网格进行紧凑存储和高效流处理的数据结构，可用于在高分辨率自适应网格上进行流体模拟，它在吞吐量和并行处理潜力方面可与基于均匀网格的方法相近。SPGrid利用了x86虚拟内存管理系统中固有的硬件加速机制，以提供与密集均匀网格相当的顺序访问和模板访问带宽。由于摒弃了基于树的自适应数据结构，转而将模拟变量存储在由稀疏分布的均匀网格构成的金字塔结构中，从而避免了与基于指针的表示法相关的间接内存访问开销。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig/spgrid_demo.png}
+    \caption{SPGrid为底层的自适应网格烟雾模拟}
+    \label{fig:sparse}
+\end{figure}
+
+与OpenVDB相比，SPGrid有以下几点不同：
+
+1. SPGrid更加强调优化吞吐量，特别是在多线程环境中，目标是达到与密集均匀网格直接可比的水平；而OpenVDB虽也寻求加速顺序和模板访问，但在这方面的优化程度没有SPGrid高。
+
+2. 地址转换和缓存机制：SPGrid 依赖硬件机制进行地址转换和缓存，比如有效利用转换后援缓冲器（TLB）；OpenVDB 则使用软件缓存来存储树节点的地址转换。
+
+3. 数据存储内容：SPGrid 仅存储单个均匀网格的稀疏子集，需依赖额外软件层来实现多分辨率存储；OpenVDB 不仅能存储单个均匀网格的相关数据，还能在较粗的树节点上存储值，并且其原生设计就可适应核心外处理。
+
+4. 适用场景和数据规模限制：SPGrid 专门针对所有数据都能驻留在物理内存中的情况；OpenVDB 适用于更广泛的场景，其网格的有效分辨率仅受可用空间限制，而 SPGrid 有有限（尽管非常大）的最大网格大小。
