@@ -1,5 +1,5 @@
-\chapter{基于DC-APIC积分器的自适应广义插值物质点法}
-物体接触、自碰撞、边界处理问题在物质点法中由粒子网格系统自动处理，虽然减少了程序设计上的难度，也引入了新的问题。每当两个粒子影响到某些共同的网格格点时，物质点法就将这两个粒子视为处于接触状态。因此，分离距离本质上与网格单元间距$\Delta x$成正比。即使是对于动力学非常简单的模拟，为了避免出现视觉上明显可见的碰撞间隙,也需要采用高分辨率网格。此外，物质点法无法处理比网格分辨率更精细的边界条件。这意味着材料无法穿过小于$\Delta x$的孔洞，同样地，厚度小于$\Delta x$的刀片也无法切割材料。本章将提供一个结合DC-APIC积分器的广义插值物质点法，同时支持自适应网格划分，旨在进一步提高DC-APIC解决物质点法数值粘性的效果与计算效率，同时克服物质点法固有的碰撞边界细节处理问题。本章首先完整介绍自适应广义插值物质点算法，包括广义插值物质点法、自适应基函数、多层网格间的嵌入与插值机制、网格细分和粒子重采样；然后结合分解兼容仿射粒子网格（DC-APIC）积分器，给出基于DC-APIC积分器的自适应广义插值物质点法的算法流程，包括法系计算、粒子兼容性计算和粒子网格传输。本章节的算法经过验证可以更好的模拟细粒度材料自碰撞边界形态以及流固分离现象，同时自适应算法拥有更好的计算效率。
+\chapter{基于广义插值物质点法的高精度流固界面仿真}
+上一章的改进积分器DC-APIC可以做到流固边界的无粘性自然分离，但由于采样相场梯度进行粒子网格兼容性计算，在特定场景，比如尖锐的几何处，由于粒子数量较少计算得到的兼容性不够准确，会影响仿真的稳定性。此外，物质点法无法处理比网格分辨率更精细的边界条件。当两个粒子影响到某些共同的网格格点时，物质点法就将这两个粒子视为处于接触状态。因此，分离距离本质上与网格单元间距$\Delta x$成正比。即使是对于动力学非常简单的模拟，为了避免出现视觉上明显可见的碰撞间隙,也需要采用高分辨率网格。这意味着材料无法穿过小于$\Delta x$的孔洞，同样地，厚度小于$\Delta x$的刀片也无法切割材料。本章将提出一种基于广义插值物质点法的仿真方法，并结合DC-APIC积分器，同时支持自适应网格划分，旨在进一步提高DC-APIC解决尖锐场景下物质点法数值粘性的效果与计算效率，同时克服物质点法固有的碰撞边界细节处理问题。本章首先完整介绍自适应广义插值物质点算法，包括广义插值物质点法、自适应基函数、多层网格间的嵌入与插值机制、网格细分和粒子重采样；然后结合分解兼容仿射粒子网格（DC-APIC）积分器，给出基于DC-APIC积分器的自适应广义插值物质点法的算法流程，包括法系计算、粒子兼容性计算和粒子网格传输。本章节的算法经过验证可以更好的模拟细粒度材料自碰撞边界形态以及流固分离现象，同时自适应算法拥有更好的计算效率。
 
 \section{自适应广义插值物质点法}
 
@@ -9,11 +9,16 @@
     w_{ip} = N_i(\mathbf{x}_p).
 \end{equation}
 于是权重梯度可以表示为$\nabla w_{ip} = \nabla^{\mathbf{x}}N_i(\mathbf{x}_p)$。为了提高数值稳定性，$N_i(\mathbf{x}_p)$一般采用$C^1$或$C^2$连续的插值函数，比如二次或三次B样条函数。插值函数的选取需要满足以下五条性质：
-* \textbf{守恒性：} 为满足质量和动量守恒，需要保证$\sigma_iw_{ip}=1,\forall \mathbf{x}_p$。
-* \textbf{非负性：}$w_{ip}\geq 0$。
-* \textbf{插值性：}$\mathbf{x}_p=\sum_iw_{ip}\mathbf{x}_i$。
-* \textbf{连续性：}$w_{ip}$至少满足一阶连续性。
-* \textbf{局部性：}只有$\mathbf{x}_p$在$\mathbf{x}_i$附近时才不为0，距离超过核半径的都为0。
+
+1. \textbf{守恒性：} 为满足质量和动量守恒，需要保证$\sigma_iw_{ip}=1,\forall \mathbf{x}_p$。
+
+2. \textbf{非负性：}$w_{ip}\geq 0$。
+
+3. \textbf{插值性：}$\mathbf{x}_p=\sum_iw_{ip}\mathbf{x}_i$。
+
+4. \textbf{连续性：}$w_{ip}$至少满足一阶连续性。
+
+5. \textbf{局部性：}只有$\mathbf{x}_p$在$\mathbf{x}_i$附近时才不为0，距离超过核半径的都为0。
 
 B样条函数正好符合这五条性质，但它很难拓展到自适应网格上。另一种可替代的权重梯度计算方式是广义插值物质点法(Generalized Interpolation Material Point, GIMP)~\cite{bardenhagen2004generalized}。GIMP不再限制$N_i(\mathbf{x}_p)$为$C^1$连续，而只需要$C^0$连续，比如标准的多线性插值函数，但粒子网格权重$w_{ip}$需保证$C^1$连续，其定义如下：
 \begin{equation}
@@ -39,7 +44,7 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 \end{equation}
 权重的梯度可以类似地定义为：
 \begin{equation}
-    \nabla w_{ip} = \frac{1}{\hat{V}_p} \int_{\Omega_p} \nabla^{\mathbf{x}} N_i(\mathbf{x}) d\mathbf{x}。
+    \nabla w_{ip} = \frac{1}{\hat{V}_p} \int_{\Omega_p} \nabla^{\mathbf{x}} N_i(\mathbf{x}) d\mathbf{x}.
 \end{equation}
 
 标准的多线性插值函数$N_i(\mathbf{x})$的定义如下：
@@ -74,9 +79,9 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 
 \subsection{自适应基函数}
 对于自适应网格算法而言，在模拟过程中网格会在一定条件下细化分裂或泛化合并，在粗细网格交界处会形成一些复杂情况，如图~\cite{fig:freeTjunk}，如何正确的构造$C^0$连续的$N_i(\mathbf{x})$对模拟结果正确性至关重要，这一节将阐述如何正确构造以应对所有复杂的情况。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/Tjunc0.png}
+    \includegraphics[width=0.8\linewidth]{fig/Tjunc0.png}
     \caption{自适应网格的T连接情形}
     \label{fig:freeTjunk}
 \end{figure}
@@ -92,9 +97,9 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 \end{equation}
 此时不难发现$N_c^1$的值可能为负，比如当$x=0.5,y=0.1$时。在物质点法中，负权重会导致不稳定性和严重的精度损失。例如，可以构建这样一种情况：两个粒子以恰好相反的权重影响一个网格节点。此时节点质量会变为零，从而导致网格节点速度的值不正确。随后，网格节点速度的更新以及从网格到粒子的传递都会出错，进而使模拟变得不稳定或不符合物理规律。图~\ref{fig:unstable}展示了在边界处出现负数质量格点产生的穿透现象。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/unstable_case.png}
+    \includegraphics[width=0.8\linewidth]{fig/unstable_case.png}
     \caption{负权重导致的不稳定现象}
     \label{fig:unstable}
 \end{figure}
@@ -102,18 +107,18 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 本文提出一种基于约束方式来得到正确的自适应网格基函数，下文将结合图~\ref{fig:free_T}所示自适应网格结构阐述该算法。图中红色的为真实节点(DOF节点)，绿色的为T型连接节点，真实节点一定是某个或某几个网格的顶点，而T型连接节点会作为某个网格的边上的点(非端点)出现。
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/free_T.png}
+    \includegraphics[width=0.9\linewidth]{fig/free_T.png}
     \caption{有约束T型连接示意图}
     \label{fig:free_T}
 \end{figure}
 
 首先计算所有节点（包括真实节点和T型连接节点）的形状函数$H_{\gamma}=\sum_nH_{\gamma}^n$,表示节点$\gamma$周围所有以$\gamma$为顶点的网格（标记为$n$）的双线性插值函数基之和。比如图~\ref{fig:free_T}中，$H_a=H_a^1+H_a^2$以及$H_b=H_b^2+H_b^3$，这一步计算完成后的形状函数可视化如图~\ref{fig:shapefunc}所示。使用这些没有施加约束的形状函数作为基，可以从格点插值出一个标量场$q_(\mathbf{x})=\sum_{\gamma} q_{\gamma}H_{\gamma}(\mathbf{x})$。显然，这一步的$q_(\mathbf{x})$是不连续的，因为形状函数本身是不连续的（如图~\ref{fig:shapefunc}所示），尤其是在T型结构附近。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/shapefunc.png}
+    \includegraphics[width=0.8\linewidth]{fig/shapefunc.png}
     \caption{形状函数$H_{\gamma}$可视化图}
     \label{fig:shapefunc}
 \end{figure}
@@ -129,7 +134,7 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 \end{equation}
 其他红色DOF节点的$N_{\eta}$均等于$H_{\eta}$，图~\ref{fig:finalShapefunc}给出了最终结果的可视化表示。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]{fig/final_shapefunc.png}
     \caption{解约束后形状函数$N_{\eta}$可视化图}
@@ -145,18 +150,18 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 \end{equation}
 以质量粒子到网格传输（G2P）为例,公式为$m_i=\sum_pm_pw_{ip}$。在自适应网格算法中，对于任意粒子$p$首先找到在粒子作用域$\Omega_p$内最细粒度的网格，然后将质量传输到该粒度的网格格点上，包括一些幽灵节点。等所有粒子都传输结束后，幽灵节点会把质量传递给四叉树中的父节点，也就是更粗一级的网格，这个操作会递归进行，直到所有节点都是真实节点。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/adaptive_transfer.png}
+    \includegraphics[width=0.7\linewidth]{fig/adaptive_transfer.png}
     \caption{自适应网格上进行G2P和P2G操作}
     \label{fig:adaptive_transfer}
 \end{figure}
 
 \subsection{网格细分和粒子重采样}
 本文用\(1 \leq q_g \leq Q_g\)表示网格层级，用\(1 \leq q_p \leq Q_p\)表示粒子类型，其中小写字母表示更精细的网格分辨率或更小的粒子。在预处理阶段，粒子的属性（例如位置、质量、体积和类型）由用户指定。启发式的做法是在内部使用较粗的网格分辨率（因为此处粒子分布较稀疏），而在靠近自由表面或碰撞边界处使用更精细的网格分辨率（因为此处粒子分布更密集）。静态网格自适应（例如图~\ref{fig:adaptive_cut}）在预处理步骤中完成；动态网格自适应（例如图~\ref{fig:adaptive_collide_case}）需要在每个时间步进行计算，网格细分和粒子重采样效果如图~\ref{fig:resample}所示。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/resample.png}
+    \includegraphics[width=0.7\linewidth]{fig/resample.png}
     \caption{网格细分和充采样示例图}
     \label{fig:resample}
 \end{figure}
@@ -164,9 +169,39 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 对于超弹性材料，网格和粒子的自适应完全由粒子类型决定。从最粗的层级开始，计算当前网格\(q_g\)的一个单元内最小的粒子类型\(q_p\)。如果\(q_p < q_g\)，并且每个子单元的粒子数量不少于规定的每个单元的粒子数，就对该单元进行细化。对于弹塑性材料，需要进行粒子重采样。首先为每个最细粒度网格计算其到“自由表面”的曼哈顿距离\(d\)。若所有子网格到自由表面距离超过规定的距离标准时，就将它们合并为一个网格，并对粒子进行重采样。
 
 \section{自适应DC-APIC积分器}
-\subsection{自适应法线计算}
-\subsection{自适应粒子网格兼容性计算}
+本节介绍DC-APIC积分器同自适应广义插值物质点法的结合步骤。根据基于DC-APIC粒子网格传输方式的物质点法，首先需要计算交界面处粒子法线和格点法线，接着根据相场梯度计算粒子与网格间的兼容性以指导后续粒子到网格(P2G)、网格到粒子(G2P)的物理量传输。接下来将分别介绍这三步和DC-APIC积分器的融合方法。
+\subsection{自适应法线和兼容性计算}
+与前文类似，首先通过固体粒子的负质量梯度场来确定固体的法向量。
+\begin{equation}
+\begin{aligned}
+m_i^s &= \sum_{p^s} m_p w_{ip},\\
+\mathbf{n}_p^s &= -\sum_i m_i^s \nabla w_{ip} / \| \sum_i m_i^s \nabla w_{ip} \| ,\\
+\end{aligned}
+\end{equation}
+其中 $m_i^s$ 是映射到一个网格节点的固体质量，$p^s$ 表示固体粒子，$\mathbf{n}_p^s$ 表示固体粒子的法向量，然后依次计算格点法线 $\mathbf{n}_i$ 和流体粒子法线$\mathbf{n}_p^f$：
+\begin{equation}
+    \begin{aligned}
+    \mathbf{n}_i &= \sum_{p^s} \mathbf{n}_p^s w_{ip} / \| \sum_{p^s} \mathbf{n}_p^s w_{ip} \| ,\\
+    \mathbf{n}_p^f &= -\sum_i \mathbf{n}_i w_{ip} / \| \sum_i \mathbf{n}_i w_{ip} \|,\\
+    \end{aligned}
+\end{equation}
+与前文不同的是，这里的粒子与格点插值权重$w_{ip}$通过$C^0$连续的自适应网格形状函数积分得到：
+\begin{equation}
+    \begin{aligned}
+        \hat{V}_p &= \int_{\Omega\cap\Omega_p} d\mathbf{x} \\
+        w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \, d\mathbf{x},
+    \end{aligned}
+    \label{eq:GIMP-0}
+\end{equation}
+
+兼容性计算与前文也类似，唯一的区别是，通过粒子相位状态估计网格相位梯度时通过$\nabla s_i = \sum_{p} s_p \nabla w_{ip}$，此处的$ \nabla w_{ip} $应采用广义插值物质点法的定义：
+\begin{equation}
+    \nabla w_{ip} = \frac{1}{\hat{V}_p} \int_{\Omega_p} \nabla^{\mathbf{x}} N_i(\mathbf{x}) d\mathbf{x}.
+\end{equation}
+
 \subsection{自适应粒子网格传输}
+融合DC-APIC积分器自适应粒子网格传输，在交界面梯度法线的指导下进行计算。对于粒子到网格传输阶段(G2P),粒子会首先找到当前粒子作用域$\Omega_p$内最细粒度的网格，在核函数半径内把质量传递到所有格点上（包括幽灵格点），将动量的切线方向传递到兼容的真是格点和幽灵格点上，然后进行递归地将幽灵节点的质量和动量传递给四叉树中的父节点，也就是更粗一级的网格，直到所有节点都是真实节点。
+粒子到网格传输阶段(G2P)是反向的过程，物理量首先从最粗一级网格传递到最高分辨率网格上，再按照兼容性和边界法线的指导传输回相应粒子上。
 
 \section{实验结果与分析}
 \subsection{实现细节}
@@ -174,7 +209,7 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 
 \subsection{细粒度切割}
 使用预先绘制的静态自适应网格可以解决传统MPM无法被小于$\Delta x$的几何体切割的问题。如图~\ref{fig:adaptive_cut}所示，一只黏稠的犰狳模型从两根相交的细金属丝间落下。图中左侧为碰撞发生前的模型；中间为根据本文方法，在金属丝附近将网格细化到基础分辨率的4倍，犰狳被正确切割；右侧为具有相近粒子数量的均匀网格，在很大程度上未能捕捉到碰撞事件。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]{fig/adaptive_cut.png}
     \caption{自适应网格上进行细线切割模拟}
@@ -183,7 +218,7 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 
 \subsection{弹性碰撞}
 使用动态绘制的自适应网格可以捕捉到物体发生碰撞时边界的细节，而不会产生空白的缝隙，且不需要全局引入高分辨率网格。如图~\ref{fig:adaptive_collide_case}所示，在二维场景中有两个相向运动的弹性体方块，在发生接触时，接触边界的网格进行细分。图中左侧为均匀的粗网格，仿真结果中留下了很大的分离间隙。中间为一个细化了4倍的均匀网格很好地呈现出了接触情况，但代价是在内部区域进行了不必要的计算；右边为我们的自适应方案，可以兼顾计算效果和效率。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]{fig/adaptive_collide_case.png}
     \caption{自适应网格上进行物体碰撞物理模拟（二维）}
@@ -192,15 +227,13 @@ B样条函数正好符合这五条性质，但它很难拓展到自适应网格�
 
 
 该实验在三维场景中同样被实现(图~\ref{fig:adaptive_collide_3d})，在碰撞出自动生成了更精细的网格，可以看出本文的方法在二维和三维中都可以被正确实现且有效解决MPM固有问题。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/adaptive_coll_3d.png}
+    \includegraphics[width=0.5\linewidth]{fig/adaptive_coll_3d.png}
     \caption{自适应网格上进行物体碰撞物理模拟（三维）}
     \label{fig:adaptive_collide_3d}
 \end{figure}
 
-\subsection{流固耦合}
-TODO
 
 \section{本章小节}
 本章聚焦于基于DC-APIC积分器的自适应广义插值物质点法，旨在攻克物质点法在物体接触、自碰撞以及边界处理等方面存在的问题。首先，系统阐述了自适应广义插值物质点法。介绍广义插值物质点法（GIMP）时，将其与传统MPM对比，明确GIMP在自适应网格方面的优势，其权重定义能满足数值稳定性需求，在均匀网格下与基于B样条的MPM等效，却更适合拓展到自适应网格。在自适应基函数部分，针对无约束T型连接负权重引发的不稳定问题，提出有约束T型连接的解决算法，从两种视角解读该算法，有效构建出连续的插值函数基。多层网格插值方面，详细说明了粗细粒度网格交界处物理量传输方式，通过定义形状函数和约束处理，完成粒子与网格间质量等物理量的准确传输。对于网格细分和粒子重采样，依据材料特性和粒子类型制定规则，实现静态和动态网格自适应。然后对自适应DC-APIC积分器展开探讨，涵盖自适应法线计算、粒子网格兼容性计算以及粒子网格传输等内容，为算法高效运行提供保障。在细粒度切割实验中，静态自适应网格成功解决传统 MPM 无法被小尺寸几何体切割的难题；弹性碰撞实验里，动态自适应网格精准捕捉物体碰撞边界细节，兼具计算效果与效率优势。综上所述，本章所提出的方法显著提升了物质点法处理复杂场景的能力，有效克服了传统方法的固有缺陷，为相关领域的数值模拟提供了更为精准、高效的解决方案，在未来有望广泛应用于更多实际场景。

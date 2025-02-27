@@ -1,4 +1,4 @@
-\chapter{分解兼容仿射粒子网格（DC-APIC）积分器} \label{chap:dcapic}
+\chapter{改进积分器的物质点法非粘性流固耦合仿真} \label{chap:dcapic}
 针对物质点法在进行物理仿真时存在的难以约束自由滑动边界条件的问题，本章节提出了分解兼容仿射粒子网格（DC-APIC）积分器算法，有效地解决传统MPM算法中数值粘性问题。本章首先提出粒子与网格兼容性的定义，并给出两种计算方式：基于符号距离函数场（SDF）的方法和基于相场梯度的方法；接着分辨阐述DC-APIC粒子到网格传输算法和网格到粒子传输算法，详细给出了质量和动量的传输公式，并论述了该方法维持动量守恒的特性；然后给出结合DC-APIC的物质点法的算法全流程，着重描述了在处理交接面几何边界时采用的不同法线计算方式；最后在多个二维和三维的实验中对比了本文同其他传统传输方式的优点，并罗列了时间开销。
 
 \section{粒子与网格的兼容性}
@@ -107,9 +107,9 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 本章节的所有实验均在Intel Core i7 processor 14700K，64G RAM环境进行，基于开源框架Ziran~\cite{fang2020iq}开发了DC-APIC积分器。渲染Demo使用Houdini和Arnold渲染器，首先利用Houdini内置的OpenVDB工具~\cite{museth2013vdb}中的VDB From Particles节点将粒子构建为SDF，然后中利用Convert VDB节点将SDF重建表面，然后进行PBR渲染。
 
 通过将本章节提出的 DC-APIC积分器结合MPM算法流程，实现CPU端仿真程序，并进行对比实验来验证该算法的有效性。具体的实验场景参数设置见表\ref{tab:demo_parameter}。
-\begin{table*}[h]
+\begin{table*}[htbp]
     \centering
-    \caption{\textbf{Parameters and performance.}}
+    \caption{实验参数和性能测试}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{l@{\hspace{1cm}}|c|c|c|c|c|c|c}
     \hline
@@ -147,14 +147,14 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\linewidth]{figures/sdf_phase_compare.png}
-    \caption{二维水球坠落实验：两种计算兼容性方法的DC-APIC算法和APIC算法的对比}
+    \caption{二维实验：两种计算兼容性方法的DC-APIC算法和APIC算法的对比}
     \label{fig:sdf_phase_compare}
 \end{figure}
 
 图~\ref{fig:sdf_phase_compare}中通过二维水块落在弹性软体球上的实验，比较了基于粒子重建SDF和基于相场梯度这两种方法计算粒子网格兼容性的效果对比。使用本文提出的基于相场梯度计算兼容性的方法可以取得SDF方法类似的效果，并且开销更小。图中还额外对比了APIC积分器的效果，其模拟的耦合存在不真实的粘度，水很难离开弹性体；而另外两种使用DC-APIC积分器的方法都使得水能够自由滑落球面。
 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering 
     \includegraphics[width=1\linewidth]{figures/bunny3d.png} 
     \caption{三维沙堆砸落碰撞弹性兔子并分离实验} 
@@ -163,17 +163,17 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 
 图~\ref{fig:bunny3d}展示了三维场景下，本文的DC-APIC方法能够有效解决具有自由滑移条件的流固耦合边界条件，而传统的基于DC-APIC积分器的MPM方法难以分离沙粒流与弹性固体兔子。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/duck.png}
+    \includegraphics[width=0.7\linewidth]{figures/duck.png}
     \caption{流固耦合固体密度测试}
     \label{fig:duck}
 \end{figure}
 图~\ref{fig:duck}通过不同固体与流体密度比，测试了本文DC-APIC方法能够正确处理浮力，实现物理正确的固体落水的漂浮、悬浮或沉底效果。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/jelly_6.png}
+    \includegraphics[width=0.55\linewidth]{figures/jelly_6.png}
     \caption{三维不同材料果冻同颗粒流交互实验}
     \label{fig:jelly}
 \end{figure}
@@ -187,9 +187,9 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 \end{figure}
 在图~\ref{fig:bunny_bath}中，水体溃坝并击倒一只由超弹性材料构成的小熊玩具并将其冲走,模拟实验中水粒子正确地绕过弹性表面流动，没有产生非物理的粘性。
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{figures/echarts.png}
+    \includegraphics[width=0.7\linewidth]{figures/echarts.png}
     \caption{DC-APIC算法、APIC算法和IQ-MPM算法的时间复杂度对比}
     \label{fig:echarts}
 \end{figure}

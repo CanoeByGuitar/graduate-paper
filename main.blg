@@ -4,46 +4,47 @@ The top-level auxiliary file: main.aux
 The style file: gbt7714-unsrt.bst
 Database file #1: reference.bib
 Warning--I didn't find a database entry for "fig:freeTjunk"
+Warning--I didn't find a database entry for "fig:cuda"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 57 entries,
+You've used 58 entries,
             3424 wiz_defined-function locations,
-            1076 strings with 16785 characters,
-and the built_in function-call counts, 459728 in all, are:
-= -- 47973
-> -- 47897
-< -- 47344
-+ -- 15328
-- -- 703
-* -- 2312
-:= -- 50096
-add.period$ -- 180
-call.type$ -- 57
-change.case$ -- 269
-chr.to.int$ -- 13973
-cite$ -- 57
-duplicate$ -- 1196
-empty$ -- 3523
-format.name$ -- 1072
-if$ -- 132585
+            1082 strings with 17021 characters,
+and the built_in function-call counts, 469266 in all, are:
+= -- 48964
+> -- 48913
+< -- 48322
++ -- 15643
+- -- 737
+* -- 2357
+:= -- 51145
+add.period$ -- 184
+call.type$ -- 58
+change.case$ -- 274
+chr.to.int$ -- 14259
+cite$ -- 58
+duplicate$ -- 1216
+empty$ -- 3580
+format.name$ -- 1098
+if$ -- 135332
 int.to.chr$ -- 3
-int.to.str$ -- 58
+int.to.str$ -- 59
 missing$ -- 0
-newline$ -- 303
-num.names$ -- 171
-pop$ -- 20770
+newline$ -- 309
+num.names$ -- 174
+pop$ -- 21167
 preamble$ -- 1
-purify$ -- 57
+purify$ -- 58
 quote$ -- 0
-skip$ -- 55054
+skip$ -- 56230
 stack$ -- 0
-substring$ -- 15710
-swap$ -- 197
-text.length$ -- 597
+substring$ -- 16026
+swap$ -- 201
+text.length$ -- 612
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 553
+type$ -- 564
 warning$ -- 0
-while$ -- 798
+while$ -- 814
 width$ -- 0
-write$ -- 891
-(There was 1 warning)
+write$ -- 908
+(There were 2 warnings)

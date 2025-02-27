@@ -132,7 +132,7 @@ FLIP传输方案\cite{zhu2005animating}通过添加一个额外的粒子速度�
 \end{equation}
 其中$\alpha$是PIC-FLIP混合比率~\cite{bridson2015fluid}。当$\alpha=0$时，公式~\eqref{eq:flip}回归为PIC，当$\alpha=1$时，它是完全的FLIP。尽管FLIP传输方案通过额外的粒子速度保持项使仿真更加生动，但它仍然存在不稳定性。
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]{figures/asflip.png}
     \caption{APIC、ASFLIP和DC-APIC二维流固分离测试}
@@ -187,7 +187,7 @@ Affine-augmented Separable FLIP（ASFLIP）方案\cite{fei2021revisiting}旨在�
 
 \subsection{OpenVDB}
 VDB（Volumetric Dynamic grid）~\cite{openvdb}是一种层次数据结构，专门用于在三维网格上离散化的稀疏、随时间变化的体数据的高效表示。VDB融合了体动态网格的特性，与B+树存在若干相似之处。通过充分利用随时间变化数据的空间连贯性，能够将数据值和网格拓扑结构分别进行紧凑编码。这种独特的编码方式，极大地优化了数据的存储效率，减少了不必要的空间占用，为后续的数据处理提供了坚实基础。在数据访问方面，VDB表现卓越。它能够对一个理论上无限大的三维索引空间进行建模，从而实现对高分辨率的稀疏体数据进行缓存一致性且快速的数据访问。无论在数据插入、检索还是删除操作中，VDB均支持快速（平均为O(1)）的随机访问模式。VDB的层次化特性使其在自适应网格采样方面具有优势，能够根据数据的实际分布和变化情况，灵活地调整网格的采样策略，从而在保证数据精度的同时，进一步提高计算效率。图~\ref{fig:vdb}展示了VDB的核心数据结构，以一维数据为例，VDB包含一个根节点（灰色）、两层内部节点（绿色和橙色）以及叶节点（蓝色）。根节点是稀疏且可调整大小的，而其他节点是密集的，并且其分支因子逐渐减小，且限定为2的幂次方。每个节点中的大型水平数组分别表示哈希映射表mRootMap，以及直接访问表mInternalDAT和mLeafDAT。这些表对指向子节点（绿色、橙色或蓝色）、上层图块值（白色 / 灰色）或体素值（红色 / 灰色）的指针进行编码。灰色用于区分非活动值和活动值（白色和红色）。底部的白色节点展示了压缩后的叶节点，其中非活动体素（灰色）已被移除，仅留下活动体素（红色）。直接访问表上方的小数组展示了紧凑位掩码，例如mChildMask和mValueMask，它们紧凑地对局部拓扑进行编码。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]{fig/VDB.png}
     \caption{VDB~\cite{openvdb}核心数据结构}
@@ -196,7 +196,7 @@ VDB（Volumetric Dynamic grid）~\cite{openvdb}是一种层次数据结构，专
 
 \subsection{SPGrid}
 SPGrid~\cite{setaluri2014spgrid}是一种用于对稀疏分布的均匀笛卡尔网格进行紧凑存储和高效流处理的数据结构，可用于在高分辨率自适应网格上进行流体模拟，它在吞吐量和并行处理潜力方面可与基于均匀网格的方法相近。SPGrid利用了x86虚拟内存管理系统中固有的硬件加速机制，以提供与密集均匀网格相当的顺序访问和模板访问带宽。由于摒弃了基于树的自适应数据结构，转而将模拟变量存储在由稀疏分布的均匀网格构成的金字塔结构中，从而避免了与基于指针的表示法相关的间接内存访问开销。
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\linewidth]{fig/spgrid_demo.png}
     \caption{SPGrid为底层的自适应网格烟雾模拟}
