@@ -7,7 +7,7 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces 二维情况下APIC和DC-APIC对粒子的对流效果对比}}{16}{figure.caption.10}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces 空间稀疏性示意图}}{17}{figure.caption.11}%
 \contentsline {figure}{\numberline {2.5}{\ignorespaces VDB~\cite {openvdb}核心数据结构}}{18}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces SPGrid为底层的自适应网格烟雾模拟}}{18}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces SPGrid为底层的自适应网格烟雾模拟}}{19}{figure.caption.13}%
 \addvspace {10.0pt}
 \contentsline {figure}{\numberline {3.1}{\ignorespaces 基于相场梯度的粒子与网格兼容性计算方法流程}}{21}{figure.caption.14}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces 基于DC-APIC积分器的MPM算法流程}}{24}{figure.caption.15}%
@@ -29,4 +29,12 @@
 \contentsline {figure}{\numberline {4.8}{\ignorespaces 自适应网格上进行细线切割模拟}}{41}{figure.caption.31}%
 \contentsline {figure}{\numberline {4.9}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（二维）}}{41}{figure.caption.32}%
 \contentsline {figure}{\numberline {4.10}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（三维）}}{42}{figure.caption.33}%
+\addvspace {10.0pt}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces 《冰雪奇缘》中使用MPM模拟雪崩~\cite {stomakhin2013material}}}{45}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces 节点系统案例：毛刺球程序化制作}}{46}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces 节点控制Tag}}{47}{figure.caption.36}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces 节点系统类图}}{48}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces 节点参数反射流程}}{49}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces 系统界面展示}}{50}{figure.caption.40}%
+\addvspace {10.0pt}
 \contentsfinish 

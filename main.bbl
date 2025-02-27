@@ -1,10 +1,21 @@
-\begin{thebibliography}{53}
+\begin{thebibliography}{57}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \providecommand{\href}[2]{\url{#2}}
 \providecommand{\doi}[1]{DOI: \href{http://dx.doi.org/#1}{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
   \urlstyle{same}\fi
+
+\bibitem[Museth(2013{\natexlab{a}})]{openvdb}
+MUSETH K.
+\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
+\newblock \url{https://doi.org/10.1145/2487228.2487235}.
+
+\bibitem[Stomakhin\ et~al.(2013)Stomakhin, Schroeder, Chai, Teran, and Selle]{stomakhin2013material}
+STOMAKHIN A, SCHROEDER C, CHAI L, et~al.
+\newblock A material point method for snow simulation\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2013, 32\penalty0 (4): 1--10.
 
 \bibitem[Batty\ et~al.(2007)Batty, Bertails, and Bridson]{batty2007fast}
 BATTY C, BERTAILS F, BRIDSON R.
@@ -55,11 +66,6 @@ LOSASSO F, TALTON J, KWATRA N, et~al.
 RAVEENDRAN K, WOJTAN C, TURK G.
 \newblock Hybrid smoothed particle hydrodynamics\allowbreak[C]//\allowbreak{}Proceedings of the 2011 ACM SIGGRAPH/Eurographics symposium on computer animation.
 \newblock 2011: 33--42.
-
-\bibitem[Stomakhin\ et~al.(2013)Stomakhin, Schroeder, Chai, Teran, and Selle]{stomakhin2013material}
-STOMAKHIN A, SCHROEDER C, CHAI L, et~al.
-\newblock A material point method for snow simulation\allowbreak[J].
-\newblock ACM Transactions on Graphics (TOG), 2013, 32\penalty0 (4): 1--10.
 
 \bibitem[Stomakhin\ et~al.(2014)Stomakhin, Schroeder, Jiang, Chai, Teran, and Selle]{stomakhin2014augmented}
 STOMAKHIN A, SCHROEDER C, JIANG C, et~al.
@@ -211,7 +217,7 @@ ENGLISH R~E, QIU L, YU Y, et~al.
 \newblock Chimera grids for water simulation\allowbreak[C]//\allowbreak{}Proceedings of the 12th ACM SIGGRAPH/Eurographics Symposium on Computer Animation.
 \newblock 2013: 85--94.
 
-\bibitem[Museth(2013{\natexlab{a}})]{museth2013vdb}
+\bibitem[Museth(2013{\natexlab{b}})]{museth2013vdb}
 MUSETH K.
 \newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J].
 \newblock ACM transactions on graphics (TOG), 2013, 32\penalty0 (3): 1--22.
@@ -248,12 +254,6 @@ BRIDSON R.
 \newblock Fluid simulation for computer graphics\allowbreak[M].
 \newblock : AK Peters/CRC Press, 2015.
 
-\bibitem[Museth(2013{\natexlab{b}})]{openvdb}
-MUSETH K.
-\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
-\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
-\newblock \url{https://doi.org/10.1145/2487228.2487235}.
-
 \bibitem[Yu\ et~al.(2013)Yu and Turk]{yu2013reconstructing}
 YU J, TURK G.
 \newblock Reconstructing surfaces of particle-based fluids using anisotropic kernels\allowbreak[J].
@@ -275,5 +275,29 @@ LIAN Y, YANG P, ZHANG X, et~al.
 \newblock Computer Methods in Applied Mechanics and Engineering, 2015, 289: 291--315.
 \newblock \url{https://www.sciencedirect.com/science/article/pii/S0045782515000699}.
 \newblock \doi{https://doi.org/10.1016/j.cma.2015.02.020}.
+
+\bibitem[Goldade\ et~al.(2020)Goldade, Aanjaneya, and Batty]{Constraintbubbles}
+GOLDADE R, AANJANEYA M, BATTY C.
+\newblock Constraint bubbles and affine regions: reduced fluid models for efficient immersed bubbles and flexible spatial coarsening\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2020, 39\penalty0 (4).
+\newblock \url{https://doi.org/10.1145/3386569.3392455}.
+
+\bibitem[Sugimoto\ et~al.(2024)Sugimoto, King, Hachisuka, and Batty]{BattySpheres}
+SUGIMOTO R, KING N, HACHISUKA T, et~al.
+\newblock Projected walk on spheres: A monte carlo closest point method for surface pdes\allowbreak[C/OL]//\allowbreak{}SA '24: SIGGRAPH Asia 2024 Conference Papers.
+\newblock New York, NY, USA: Association for Computing Machinery, 2024.
+\newblock \url{https://doi.org/10.1145/3680528.3687599}.
+
+\bibitem[Sheerin\ et~al.(2022)Sheerin, Beveridge, Ihde, Duguid, Casper, Parkhill, Lee, and Fraiha]{rope}
+SHEERIN D, BEVERIDGE J, IHDE E, et~al.
+\newblock Rigging the rigging: An animation friendly rope system for the sea beast\allowbreak[C/OL]//\allowbreak{}DigiPro '22: Proceedings of the 2022 Digital Production Symposium.
+\newblock New York, NY, USA: Association for Computing Machinery, 2022.
+\newblock \url{https://doi.org/10.1145/3543664.3543680}.
+
+\bibitem[Bridson(2007)]{poissondisk}
+BRIDSON R.
+\newblock Fast poisson disk sampling in arbitrary dimensions\allowbreak[C/OL]//\allowbreak{}SIGGRAPH '07: ACM SIGGRAPH 2007 Sketches.
+\newblock New York, NY, USA: Association for Computing Machinery, 2007: 22–es.
+\newblock \url{https://doi.org/10.1145/1278780.1278807}.
 
 \end{thebibliography}

@@ -1,0 +1,101 @@
+\chapter{可视化节点物理模拟DCC系统设计与实现}
+数字内容创作工具(DCC工具)是游戏和影视行业美术资产制作生产使用的工具，常见的DCC工具包括Maya、3Ds Max、Blender、Houdini、MotionBuilder等。尽管DCC工具往往集建模、骨骼动画、物理模拟和渲染于一身，但大部分工具都有侧重的功能点，比如Maya工具以角色骨骼动画为主要功能，Houdini以节点物理模拟系统被广泛使用。
+
+Houdini是一款功能强大的三维计算机图形软件由加拿大 Side Effects Software Inc.（SESI）公司开发，Houdini使用基于节点的工作流，节点通过相互连接组成的网络可以作为程序化创建资产生产的管线，这个网络可以封装成一个新的节点，作为公共节点或预制件供其他用户/项目使用，同时每个节点都可以通过C++插件的方式开发，供图形程序为项目定制特定算法，例如动画电影《冰雪奇缘》中的雪的物理模拟，是由Stomakhin等~\cite{stomakhin2013material}设计算法并以节点的形式实现在Houdini中，再由专业的动效美术打磨成电影中的画面，如图~\ref{fig:mpmsnow}所示。近年来，有些课题组发表在计算机图形学顶会Siggraph中的文章~\cite{Constraintbubbles, BattySpheres}，也使用Houdini插件开发的形式，由于其集建模、渲染、动画功能于一身，可以加大地提升工作效率。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig/mpmsnow.png} % 请替换为实际图片路径
+    \caption{《冰雪奇缘》中使用MPM模拟雪崩~\cite{stomakhin2013material}}
+    \label{fig:mpmsnow}
+\end{figure}
+
+基于节点系统的开发方式是目前最主流、最现代的游戏和影视资产制作方式，可以充分发挥团队各种角色的作用，例如策划和美术不擅长程序编写，用节点连线的方式可以让他们轻松发挥创意；而暴露自定义节点的功能给图形程序和技术美术(Technical artists, TA)可以让他们定制更底层的算法或生产管线，以满足项目生产的特定需求。例如动画电影《海兽猎人》~\cite{rope}中有大量绳索制作的需求，常规绳索动画由动画师去Key关键帧耗时耗力，但物理图形程序可以为动画师提供物理约束节点，自动生成绳索受自身重力以及角色拖拽的物理效果，同时提供上层工具，供美术团队形成高效制作流水线。在游戏领域，玩法逻辑部分也大量使用节点系统来让策划避免程序编写，例如暴雪游戏《守望先锋》中实现了名为Statescript的自有脚本系统，同时支持可视化节点和网络同步。
+
+尽管国外影视行业中普遍存在大量自研节点DCC工具，但还没有成熟的国产节点系统DCC引擎，国内影视作品一般采用付费外包国外顶级视效团队，如制作《指环王》《霍比特人》《异形》《阿凡达》等电影的Weta FX公司；即使使用本土特效团队，依然避免不了使用国外DCC软件的窘境。以《哪吒2》为例，大量使用Houdini制作VFX特效，每年每台设备需要支付约4万人民币的使用费，极大的增加了动画开发成本。另一方面，由于Houdini不是开源软件，在某些工作中无法深层定制底层特性，例如无法使用自定义内存分配策略来适配特定算法，例如自定义空间稀疏结构SPGrid。
+
+本章将设计与实现一个可视化节点物理模拟DCC系统，提供节点编辑程序化生成管线和主要物理模拟算法，包括软体模拟方法(PBD)、流体模拟方法(FLIP)和连续材料模拟方法(MPM)。本章目标是提供一个节点编辑DCC系统的雏形，对国产DCC软件发展具有探索意义，同时作为一套图形科研工具，供图形科研工作者更方便地布置资产和编写物理模拟算法。本章将首先介绍该DCC整体设计架构，接着从节点系统和物理模拟系统两方面详细描述模块功能的实现，然后解读系统的重要技术细节，如多线程、向量化和各种设计模式，最后将结合制作一段流体动画展示系统界面与功能。
+
+\section{整体架构设计}
+
+\section{核心模块功能实现}
+\subsection{节点系统}
+节点系统是本章实现系统的核心功能，一个节点相当于程序视角中的一个函数，可以携带多个输入参数和多个输出参数，节点的输出可以连接到另一个节点的输入上，相当于函数的调用和返回。众多节点的组合可以形成更强大的功能，以发挥用户的创意，以图~\ref{fig:zenonodes}为例，首先CreateSphere节点创建了一个三维球面mesh，PrimScatter在该mesh表面均匀采样粒子，接着TransformPrimitive节点对粒子进行1.2倍缩放，然后MakeSmallList节点接收原始采样点和缩放后采样点组成列表输入PrimMerge进行粒子合并，合并后粒子数量为$2n$, 最后通过PrimitiveFarSimpleLines对任意粒子$i$将粒子$i$和粒子$n+i$相连，并渲染出来，做出类似于毛刺球的效果。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig/zeno_node_system.png} 
+    \caption{节点系统案例：毛刺球程序化制作}
+    \label{fig:zenonodes}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig/contro_tag.png} 
+    \caption{节点控制Tag}
+    \label{fig:controltag}
+\end{figure}
+
+节点UI包括节点名、输入输出参数、连线和控制Tag，如图~\ref{fig:controltag}所示，控制Tag浮动在节点右上角，从左到右依次为Out、Once、Mute和View四种Tag。Out表示该节点的前置节点必然会被执行，无论复杂度如何；Mute表示该节点不会被执行，而是跳过，在某些情况下跳过节点会引起后续的错误，需要谨慎使用；Once控制节点仅被执行一次，在物理仿真中有些操作在每一帧的每个substep都会被执行，例如MPM的工作流中的粒子网格传输P2G和G2P每个substep都会被执行，但另外很多操作在全流程中只需要进行一次，比如模型导入、模型Transform矩阵设置、在符号距离场（SDF）内使用Poisson Disk算法~\cite{poissondisk}采样均匀等距粒子作为MPM初始粒子等操作；View会让节点当前结果（如果是可被渲染的）显示在3D可视化窗口中。节点主体UI实现在SNode类中，最终继承自QT库中的QGraphicsWidget类，主要类成员和函数如~\ref{tab:snode}所示；节点间连线UI实现在SLink类中，SLink必须包含inNode和outNode两个成员，用于指示两个节点间的链接，同SNode类似同样有hoverEnterEvent函数于鼠标悬停时的表粗显示。
+
+\begin{table*}[h]
+    \centering
+    \caption{SNode类主要成员和函数}
+    % 调整表格列宽，让布局更规整
+    \begin{tabular}{p{5cm}|p{10cm}} 
+    \hline
+    名称 & 描述 \\
+    \hline
+    NameItem & 节点名字 \\
+    headerWidget & 节点头部子Widget，包含控制Tag部分UI \\
+    bodyWidget & 节点主体子Widget，含输入输出字段的矩形框部分 \\
+    inSockets & 输入节点的代理 \\
+    outSockets & 输出节点的代理 \\
+    lastMoving & 节点可移动，记录上一次移动位置，用于回撤功能 \\
+    bEnableSnap & 是否开启吸附功能 \\
+    bVisible & 是否可见 \\
+    dirtyMarker & 脏数据标记器，用于数据被用户修改时改变字段颜色 \\
+    \hline
+    onCollaspeBtnClicked & 折叠面板回调函数 \\
+    onOptionsBtnToggled & 控制Tag被开关回调函数 \\
+    onNameUpdated & 节点名字被修改回调函数 \\
+    mousePressEvent & 鼠标单击节点回调函数 \\
+    mouseDoubleClickEvent & 鼠标双击节点回调函数 \\
+    hoverEnterEvent & 鼠标悬停在节点回调函数 \\
+    \hline
+    \end{tabular}
+    \label{tab:snode}
+\end{table*}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{fig/INode.png} 
+    \caption{节点系统类图}
+    \label{fig:inode}
+\end{figure}
+
+节点底层系统也是整个DCC软件的核心部分，其类图设计如图~\ref{fig:inode}所示，INode通过C++宏定义自动创建INodeClass类，其中包含Descriptor类标明INode名字、输入输出参数名字、类型和默认值，INodeClass会被全局唯一的Session类收集管理。Session部分可以将节点注解以字符串的方式传递给UI部分作为UI的Model层被管理。整个过程是一种动态反射，图~\ref{fig:reflect}展示了反射的流程，首先INode使用宏定义创建INodeClass类的成员以及newInstance函数，该函数的返回值会被cast成INode指针，接着Session中可以实现所有继承自INodeClass的类的注解序列化为字符串，最后UI中model部分的代码可以将该字符串反序列化为自己的数据结构。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{fig/reflect.png} 
+    \caption{节点参数反射流程}
+    \label{fig:reflect}
+\end{figure}
+
+\subsection{物理模拟系统}
+
+\section{技术细节}
+\subsection{多线程}
+\subsection{向量化}
+\subsection{设计模式}
+
+\section{界面与功能展示}
+图~\ref{fig:zenoui}展示了该系统基本面板，包括节点编辑器、三维视窗和动画Timeline，三维视窗顶部按钮包括物体操作（平移、旋转、缩放）、渲染设置（开启/关闭网格、背景颜色、物体线框渲染/平滑着色）。节点编辑器可以进行缩放和拖拽，并可启用网格吸附功能，在节点编辑器中可以创建节点并连接来程序化进行资产制作，图中绿色节点为FLIP流体求解器，是一个子节点网络，在该自网络内，用节点连接的方式实现了流体隐式粒子流（FLIP）算法。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{fig/zeno_ui.png} 
+    \caption{系统界面展示}
+    \label{fig:zenoui}
+\end{figure}

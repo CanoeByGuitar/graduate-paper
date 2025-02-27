@@ -612,6 +612,79 @@ keywords = {sparse grids, fluid simulation, adaptive discretizations}
   year={1995},
   publisher={Elsevier}
 }
+@inproceedings{rope,
+author = {Sheerin, Daniel and Beveridge, Joshua and Ihde, Enoch and Duguid, Stirling and Casper, Brian and Parkhill, Andrea and Lee, Ed and Fraiha, Carlos},
+title = {Rigging the Rigging: An Animation Friendly Rope System for The Sea Beast},
+year = {2022},
+isbn = {9781450394185},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3543664.3543680},
+doi = {10.1145/3543664.3543680},
+abstract = {This talk presents an animation friendly, procedural solution for animating ropes in the movie The Sea Beast. With over 5000 ropes on our hero tall ship, we embarked on development of a better rope solution for our animators. The resulting rope rig would allow our animators to interact with ropes using intuitive controls, while producing complex shapes and preserving length. Character interactions with ropes were easy to produce, and stretchy, rubbery ropes avoided. This new rope rig was critical to the believability of our world, considering the massive number of ropes, in so many shots. With this new rig, we were even able to final some shots in animation, without having to simulate the rope dynamics at all.},
+booktitle = {Proceedings of the 2022 Digital Production Symposium},
+articleno = {3},
+numpages = {7},
+keywords = {Animation, Character Effects, Pipeline, Procedural Animation, Rendering, Rigging, Ropes},
+location = {Vancouver, BC, Canada},
+series = {DigiPro '22}
+}
+
+@inproceedings{BattySpheres,
+author = {Sugimoto, Ryusuke and King, Nathan and Hachisuka, Toshiya and Batty, Christopher},
+title = {Projected Walk on Spheres: A Monte Carlo Closest Point Method for Surface PDEs},
+year = {2024},
+isbn = {9798400711312},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3680528.3687599},
+doi = {10.1145/3680528.3687599},
+abstract = {We present projected walk on spheres (PWoS), a novel pointwise and discretization-free Monte Carlo solver for surface PDEs with Dirichlet boundaries, as a generalization of the walk on spheres method (WoS)&nbsp;[Muller 1956; Sawhney and Crane 2020]. We adapt the recursive relationship of WoS designed for PDEs in volumetric domains to a volumetric neighborhood around the surface, and at the end of each recursion step, we project the sample point on the sphere back to the surface. We motivate this simple modification to WoS with the theory of the closest point extension used in the closest point method. To define the valid volumetric neighborhood domain for PWoS, we develop strategies to estimate the local feature size of the surface and to compute the distance to the Dirichlet boundaries on the surface extended in their normal directions. We also design a mean value filtering method for PWoS to improve the method’s efficiency when the surface is represented as a polygonal mesh or a point cloud. Finally, we study the convergence of PWoS and demonstrate its application to graphics tasks, including diffusion curves, geodesic distance computation, and wave propagation animation. We show that our method works with various types of surfaces, including a surface of mixed codimension.},
+booktitle = {SIGGRAPH Asia 2024 Conference Papers},
+articleno = {8},
+numpages = {10},
+keywords = {projected walk on spheres, walk on spheres, surface partial differential equations, closest point method, Monte Carlo methods},
+location = {
+},
+series = {SA '24}
+}
+
+@article{Constraintbubbles,
+author = {Goldade, Ryan and Aanjaneya, Mridul and Batty, Christopher},
+title = {Constraint bubbles and affine regions: reduced fluid models for efficient immersed bubbles and flexible spatial coarsening},
+year = {2020},
+issue_date = {August 2020},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {39},
+number = {4},
+issn = {0730-0301},
+url = {https://doi.org/10.1145/3386569.3392455},
+doi = {10.1145/3386569.3392455},
+abstract = {We propose to enhance the capability of standard free-surface flow simulators with efficient support for immersed bubbles through two new models: constraint-based bubbles and affine fluid regions. Unlike its predecessors, our constraint-based model entirely dispenses with the need for advection or projection inside zero-density bubbles, with extremely modest additional computational overhead that is proportional to the surface area of all bubbles. This surface-only approach is easy to implement, realistically captures many familiar bubble behaviors, and even allows two or more distinct liquid bodies to correctly interact across completely unsimulated air. We augment this model with a per-bubble volume-tracking and correction framework to minimize the cumulative effects of gradual volume drift. To support bubbles with non-zero densities, we propose a novel reduced model for an irregular fluid region with a single pointwise incompressible affine vector field. This model requires only 11 interior velocity degrees of freedom per affine fluid region in 3D, and correctly reproduces buoyant, stationary, and sinking behaviors of a secondary fluid phase with non-zero density immersed in water. Since the pressure projection step in both the above schemes is a slightly modified Poisson-style system, we propose novel Multigrid-based preconditioners for Conjugate Gradients for fast numerical solutions of our new discretizations. Furthermore, we observe that by enforcing an incompressible affine vector field over a coalesced set of grid cells, our reduced model is effectively an irregular coarse super-cell. This offers a convenient and flexible adaptive coarsening strategy that integrates readily with the standard staggered grid approach for fluid simulation, yet supports coarsened regions that are arbitrary voxelized shapes, and provides an analytically divergence-free interior. We demonstrate its effectiveness with a new adaptive liquid simulator whose interior regions are coarsened into a mix of tiles with regular and irregular shapes.},
+journal = {ACM Trans. Graph.},
+month = aug,
+articleno = {43},
+numpages = {15},
+keywords = {adaptivity, liquid, reduced model, two-phase}
+}
+
+@inproceedings{poissondisk,
+author = {Bridson, Robert},
+title = {Fast Poisson disk sampling in arbitrary dimensions},
+year = {2007},
+isbn = {9781450347266},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1278780.1278807},
+doi = {10.1145/1278780.1278807},
+abstract = {In many applications in graphics, particularly rendering, generating samples from a blue noise distribution is important. However, existing efficient techniques do not easily generalize beyond two dimensions. Here I demonstrate a simple modification to dart throwing which permits generation of Poisson disk samples in O(N) time, easily implemented in arbitrary dimension.},
+booktitle = {ACM SIGGRAPH 2007 Sketches},
+pages = {22–es},
+keywords = {Poisson disk, blue noise, sampling},
+location = {San Diego, California},
+series = {SIGGRAPH '07}
+}
 
 @article{openvdb,
 author = {Museth, Ken},
