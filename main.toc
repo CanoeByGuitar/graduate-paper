@@ -19,7 +19,7 @@
 \contentsline {section}{\numberline {2.3}空间稀疏结构}{17}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}OpenVDB}{18}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}SPGrid}{19}{subsection.2.3.2}%
-\contentsline {chapter}{\numberline {第三章\hspace {.3em}}改进积分器的物质点法非粘性流固耦合仿真}{21}{chapter.3}%
+\contentsline {chapter}{\numberline {第三章\hspace {.3em}}基于非连续速度场的流固耦合仿真}{21}{chapter.3}%
 \contentsline {section}{\numberline {3.1}粒子与网格的兼容性}{21}{section.3.1}%
 \contentsline {section}{\numberline {3.2}粒子-网格传输算法}{23}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}DC-APIC粒子到网格传输算法}{23}{subsection.3.2.1}%
@@ -45,7 +45,7 @@
 \contentsline {subsection}{\numberline {4.3.2}细粒度切割}{41}{subsection.4.3.2}%
 \contentsline {subsection}{\numberline {4.3.3}弹性碰撞}{42}{subsection.4.3.3}%
 \contentsline {section}{\numberline {4.4}本章小节}{42}{section.4.4}%
-\contentsline {chapter}{\numberline {第五章\hspace {.3em}}可视化节点物理模拟DCC系统设计与实现}{44}{chapter.5}%
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}结构化物理仿真系统设计与实现}{44}{chapter.5}%
 \contentsline {section}{\numberline {5.1}节点系统DCC工具介绍}{44}{section.5.1}%
 \contentsline {section}{\numberline {5.2}整体架构设计}{46}{section.5.2}%
 \contentsline {section}{\numberline {5.3}核心模块功能实现}{46}{section.5.3}%

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  27 FEB 2025 15:38
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  27 FEB 2025 22:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2591,7 +2591,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CA1AF6BB43A9871C0A32D4D29B7B0BCE;6264.
+(rerunfilecheck)             Checksum: 7F7EDE851ACD4C03782F3796FD64D616;6201.
  ) 
 Here is how much of TeX's memory you used:
  35107 strings out of 474773
