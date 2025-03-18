@@ -152,14 +152,16 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 \mathbf{n}_p^s &= -\sum_i m_i^s \nabla w_{ip} / \| \sum_i m_i^s \nabla w_{ip} \| ,\\
 w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \, d\mathbf{x},
 \end{aligned}
+\label{eq:norm1}
 \end{equation}
 其中 $m_i^s$ 是映射到网格格点$i$的固体质量，$p^s$ 表示固体粒子，$\mathbf{n}_p^s$ 表示固体粒子的法向量，然后依次计算格点法线 $\mathbf{n}_i$ 和流体粒子法线$\mathbf{n}_p^f$：
-\begin{equation}
+\begin{equation}  
     \begin{aligned}
     \mathbf{n}_i &= \sum_{p^s} \mathbf{n}_p^s w_{ip} / \| \sum_{p^s} \mathbf{n}_p^s w_{ip} \| ,\\
     \mathbf{n}_p^f &= -\sum_i \mathbf{n}_i w_{ip} / \| \sum_i \mathbf{n}_i w_{ip} \|,\\
     w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \, d\mathbf{x},
     \end{aligned}
+    \label{eq:norm2}
 \end{equation}
 这里$\hat{V}_p = \int_{\Omega\cap\Omega_p} d\mathbf{x}$表示粒子的作用域。与前文不同的是，这里的粒子与格点插值权重$w_{ip}$通过$C^0$连续的自适应网格形状函数积分得到。
 
@@ -170,12 +172,14 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
         \mathbf{Q}_p &= (-1)^{s_p}\sum_{i} \nabla s_i w_{ip} \\
         \nabla w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega_p} \nabla^{\mathbf{x}} N_i(\mathbf{x}) d\mathbf{x},
     \end{aligned}
+    \label{eq:qp}
 \end{equation}
 然后，根据粒子相位和网格节点的相位梯度的点积符号将网格节点划分为不同的相位，$I_i=\sum_{i}(\nabla s_i \cdot \mathbf{Q}_p)$，若$I_i > 0$，我们将格点$i$分类为固体格点，并赋值$s_i=1$。反之，如果$I_i<0$，我们将格点$p$分类为流体格点，并赋值$s_i=0$。
 
 
 
 \subsection{自适应非连续速度场粒子网格传输}
+\label{sec:adpt_transfer}
 融合DC-APIC积分器的自适应粒子网格传输可以实现流固交界面的非连续速度场，进而约束流固表面为自由滑移边界条件。整个过程以交界面处的粒子和网格法作为几何约束，对于粒子到网格传输阶段(G2P),粒子会首先找到当前粒子作用域$\Omega_p$内最细粒度的网格，在核函数半径内把质量传递到所有格点上（包括幽灵格点），将动量的切线方向传递到兼容的真实格点和幽灵格点上，然后进行递归地将幽灵格点的质量和动量传递给四叉树中的父节点，也就是更粗一级的网格，直到所有接受传输的节点都是真实节点，公式与~\ref{eq:DCAPIC_p2g}类似,唯一区别在于粒子与格点插值权重$w_{ip}$通过$C^0$连续的自适应网格形状函数积分得到。粒子到网格传输阶段(G2P)是反向的过程，物理量首先从最粗一级网格传递到最高分辨率网格上，再按照兼容性和边界法线的指导传输回相应粒子上，需要注意的是，如式~\ref{eq:DCAPIC_g2p_adapt},粒子仅接受来自真实格点的物理量，其中$R$表示真实格点组成的集合。
 \begin{equation}
     \label{eq:DCAPIC_g2p_adapt}
@@ -185,20 +189,111 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
     \end{aligned}
 \end{equation}
 
+本文提出的自适应非连续速度场粒子网格传输方法可以处理小于网格大小$dx$的尖锐边界，使用均匀粗网格和自适应网格的粒子网格传输(P2G)后的速度场对比如图~\ref{fig:vel_comp}所示,图中上方为粒子和背景网格，蓝色粒子表示流体粒子，红色表示固体粒子，黑色箭头表示速度，绿色折现表示固体边界，该边界形态尖锐且尖端大小小于$dx$；图中下方为P2G后的速度场，左侧为均匀网格的速度场，右侧为自适应网格速度场，格点颜色表示格点的流固相场状态$s_i$，格点箭头表示格点速度，背景颜色表示网格速度场在$y$轴上的方向，蓝色表示速度场在$y$轴上向下，红色表示在$y$轴上向上，颜色越接近白色表示速度绝对值越小。可以发现自适应网格DC-APIC方法可以有效的保留固体尖锐边界的速度细节，而普通均匀粗网格则会丢失这一部分信息，导致在DC-APIC积分器中，尖锐处的粒子丢失网格速度约束，产生穿透等非物理现象。
 
-\subsection{粒子重采样}
-计算粒子网格兼容性的过程依赖于粒子数量，对于存在尖刺状边缘的固体，尖刺附近粒子数量不足，导致兼容性判断存在误差，会出现前后帧计算结果不一致的现象，从而影响仿真的稳定性。为了进一步保证边界处兼容性计算的稳定性，本文使用特定策略的重采样算法。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/vel_field_comp.png}
+    \caption{均匀网格和自适应网格在P2G后的速度场对比图}
+    \label{fig:vel_comp}
+\end{figure}
 
-首先对流体粒子和固体粒子分别进行一次粒子到网格传输(G2P):
+
+% \subsection{粒子重采样}
+% 计算粒子网格兼容性的过程依赖于粒子数量，对于存在尖刺状边缘的固体，尖刺附近粒子数量不足，导致兼容性判断存在误差，会出现前后帧计算结果不一致的现象，从而影响仿真的稳定性。为了进一步保证边界处兼容性计算的稳定性，本文使用特定策略的重采样算法。
+
+% 首先对流体粒子和固体粒子分别进行一次粒子到网格传输(G2P):
+% \begin{equation}
+%     \begin{aligned}
+%         m_i^s &= \sum_{p}w_{ip}m_p^s, \\
+%         m_i^f &= \sum_{p}w_{ip}m_p^f, \\
+%     \end{aligned}
+% \end{equation}
+% 其中上标$s$表示固体，上标$f$表示流体，统计同时包含固体质量$m_i^s$和流体质量$m_i^f$的格点，将该格点周围区域（B样条函数影响范围）内的粒子标记为需要进行重采样的粒子。对于每一个待重采样的粒子，找到包含该粒子的最高精度的网格，该网格大小为$dx$, 取边长为$\frac{dx}{4}$的正方形（三维中为立方体），中心放置在粒子上，然后随机旋转这个正方形(立方体)，最终的4个顶点(三维中为8个顶点)就是分割后的新粒子，为了保证质量和动量守恒，新粒子的质量和体积为原粒子的$\frac{1}{4}$(三维的话是$\frac{1}{4}$)，速度和形变梯度和原粒子相同。
+
+\subsection{动态网格划分}
+在自适应物理模拟算法中，通常有静态划分和动态划分两种网格划分方式，静态划分常用于边界条件固定的情况，例如软体被固定细线切割，可以在仿真前预先设置细线附近网格粒度更精细，以正确识别细线；而动态网格划分更常用，可以处理任意碰撞边界的细节，包括流体与障碍物、固体与障碍物、流体与固体的碰撞。值得说明的是，此处的流体和固体都指通过物质点法离散的粒子，而障碍物表示边界条件，通常由符号距离场（Signed Distance Function, SDF）表示。
+
+本文创新地提出通过基于相场梯度的粒子层级来驱动网格划分方法，用$1 \leq l_g \leq L_g$表示网格层级，用$1 \leq l_p \leq L_p$表示粒子类型，其中$l_g$和$l_p$分别表示网格的层级和粒子的层级，$L_g = L_p$表示网格或粒子的最大层级，为保持一致性，本文设定1为最粗粒度层级，$L_g = L_p$为最精细粒度层级。首先给出粒子层级驱动网格划分的方法，如算法~\ref{alg:partlevel2grid}所示，其中$Grids$表示自适应网格激活状态表，可以用双层数组来表示，$Grids[l][I]$表示第$l$层网格的下标为$I$的格点激活状态。
+
+% \begin{algorithm}
+%     \caption{粒子层级驱动网格划分算法}
+%     \label{alg:partlevel2grid}
+%     \begin{algorithmic}[1]
+%         \Procedure{DynamicActiveGrid}{int $N$, T $C$, int* $Lp$, T* $Xp$, $Grids$}\Comment{$base$是粒子$Xp[p]$的B样条插值基点,即被影响的左侧一个插值格点}
+%             \For{$p = 0$ \textbf{to} $N$}
+%                 \State $dx \gets C \cdot 2^{Lp[p]}$
+%                 \State $base \gets \lfloor Xp[p]/dx+0.5 \rfloor - 1$ \Comment{// $n$表示粒子个数，$C$表示最粗粒度网格边长，$Lp$表示粒子等级列表,$Grids$自适应网格激活状态表}
+%                 \For{$i = 0$ \textbf{to} $3$}
+%                     \State $I \gets$ 对应的索引值（如 $[0,0], [0,1], [1,0], [1,1]$）
+%                     \State $Grids[Lp[p]][base + I] \gets 1$  
+%                     \Comment{// 1 表示被激活}
+%                 \EndFor
+%             \EndFor
+%         \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
+
+\begin{algorithm}
+    \caption{粒子层级驱动网格划分算法}
+    \label{alg:partlevel2grid}
+    
+    \SetKwInOut{Input}{输入}
+    \SetKwInOut{Output}{输出}
+    
+    \Input{$N$: 粒子数量, $C$: 最粗粒度网格边长, $Lp$: 粒子等级列表, $Xp$: 粒子位置数组, $Grids$: 自适应网格激活状态表}
+    
+    % \Procedure{DynamicActiveGrid}{int $N$, T $C$, int* $Lp$, T* $Xp$, $Grids$} 
+    
+    \For{$p = 0$ \KwTo $N$}{ 
+        $dx \gets C \cdot 2^{Lp[p]}$ \;
+        $base \gets \lfloor Xp[p] / dx + 0.5 \rfloor - 1$ \tcp*[r]{计算粒子的B样条插值基点}
+        
+        \For{$i = 0$ \KwTo $3$}{
+            $I \gets$ 对应的索引值（如 $[0,0], [0,1], [1,0], [1,1]$） \;
+            $Grids[Lp[p]][base + I] \gets 1$ \tcp*[r]{1表示网格单元被激活}
+        }
+    }
+    % \EndProcedure
+
+\end{algorithm}
+
+
+粒子的层级在仿真过程中也会不断演变，由于在流固交界处需要更精细的网格，本文使用基于相场梯度的启发式算法来更新边界处粒子层级。
+材料加权的粒子相位梯度$\mathbf{Q}_p$的模长可以作为流固碰撞边界的检测标准，如图~\ref{todo}所示，$||\mathbf{Q}_p||$越大，粒子$p$越靠近交界面，这是由于在流体或固体内部区域时，相场梯度朝各个方向均约等于0。由此，本文的启发算法如下，若粒子层级为$1 \leq l_p \leq L_p$，选取$K = L_p - 1$个阈值$\alpha_k$($1 \leq k \leq K$)。根据公式\ref{eq:qp}得到的材料加权的粒子相位梯度$\mathbf{Q}_p$,取其模长同阈值进行对比，计算粒子层级公式如下：
 \begin{equation}
-    \begin{aligned}
-        m_i^s &= \sum_{p}w_{ip}m_p^s, \\
-        m_i^f &= \sum_{p}w_{ip}m_p^f, \\
-    \end{aligned}
+    l_p = k,\quad \alpha_k \leq ||\mathbf{Q}_p|| < \alpha_{k+1}
 \end{equation}
-其中上标$s$表示固体，上标$f$表示流体，统计同时包含固体质量$m_i^s$和流体质量$m_i^f$的格点，将该格点周围区域（B样条函数影响范围）内的粒子标记为需要进行重采样的粒子。对于每一个待重采样的粒子，找到包含该粒子的最高精度的网格，该网格大小为$dx$, 取边长为$\frac{dx}{4}$的正方形（三维中为立方体），中心放置在粒子上，然后随机旋转这个正方形(立方体)，最终的4个顶点(三维中为8个顶点)就是分割后的新粒子，为了保证质量和动量守恒，新粒子的质量和体积为原粒子的$\frac{1}{4}$(三维的话是$\frac{1}{4}$)，速度和形变梯度和原粒子相同。
+
+
+
+
+
 
 \subsection{算法流程}
+图~\ref{fig:adp_mpm}展示了本文融合DC-APIC积分器的自适应网格物质点法算法流程。对于第$t^n$时间步的粒子集，首先根据粒子位置$\mathbf{x}_p^n$和粒子相场值$\mathbf{s}_p^n$通过公式~\ref{eq:norm1}、~\ref{eq:norm2}和~\ref{eq:qp}计算粒子法线$\mathbf{n}_p$、格点法线$\mathbf{n}_i$和材料加权的粒子相位梯度$\mathbf{Q}_p$；接着根据材料加权的粒子相位梯度$\mathbf{Q}_p$来更新粒子的层级$l_p$,并根据算法~\ref{alg:partlevel2grid}重新划分自适应网格以适用粒子层级；然后使用基于DC-APIC积分器的粒子网格传输(P2G)算法，将质量和动量传递到背景网格上，在网格上解算应力并求解下一时间步的速度$\mathbf{v}_i^{n+1}$。网格求解步骤结束后，再通过基于DC-APIC积分器的网格粒子传输(G2P)算法,将速度传递回粒子上，并通过对流更新粒子位置为$\mathbf{x}_p^{n+1}$。
+
+根据第~\ref{sec:adpt_transfer}节的论述，粒子网格传输(G2P)过程中，对于每一个粒子$p$需要找到其作用域范围内最精细的网格层级，将物理量传输到该层级，并向上层粗网格传递非真实节点的值，直至所有格点为真实节点停止。因此此处的P2G流程设计如下：
+\begin{enumerate}
+    \item[(1)] 使用二重数组$mass[l][p]$和$velocity[l][p]$存储最邻近网格层级为$l$的粒子$p$的质量和速度, 遍历全体粒子查询最邻近网格并分配至该数组中；
+    \item[(2)] 遍历二重数组$mass[l][p]$和$velocity[l][p]$的每一个层级$l$,对每个层级进行基于DC-APIC积分器的P2G操作，DC-APIC需要的信息来源如图~\ref{fig:adp_mpm}中红色箭头所示；
+    \item[(3)] 从最细粒度到最粗粒度遍历网格层次，计算幽灵节点和T型连接节点对真实节点的权重约束。
+\end{enumerate}
+
+G2P的过程和P2G相反，其流程如下：
+\begin{enumerate}
+    \item[(1)] 遍历二重数组$velocity[l][p]$的每一个层级$l$,对每个层级进行基于DC-APIC积分器的G2P操作；
+    \item[(2)] 从最粗粒度到最细粒度遍历网格层次，反向计算幽灵节点和T型连接节点对真实节点的权重约束。
+\end{enumerate}
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{fig/adapt_mpm_pipeline.png}
+    \caption{融合DC-APIC积分器的自适应网格物质点法算法流程}
+    \label{fig:adp_mpm}
+\end{figure}
 
 \section{实验结果与分析}
 \subsection{实现细节}

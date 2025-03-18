@@ -23,18 +23,20 @@
 \contentsline {figure}{\numberline {4.2}{\ignorespaces 未施加约束的形状函数$H_{\gamma }$可视化图}}{36}{figure.caption.25}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces 解约束前后形状函数$N_{\eta }$对比图}}{36}{figure.caption.26}%
 \contentsline {figure}{\numberline {4.4}{\ignorespaces 自适应网格上进行G2P和P2G操作}}{38}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces 基于自适应网格的流固分离仿真结果（二维）}}{41}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces 流固分离仿真场景的自适应网格展示}}{41}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（二维）}}{42}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces 弹性体碰撞仿真中自适应网格和均匀网格的对比}}{43}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（三维）}}{43}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces 均匀网格和自适应网格在P2G后的速度场对比图}}{41}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces 融合DC-APIC积分器的自适应网格物质点法算法流程}}{43}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces 基于自适应网格的流固分离仿真结果（二维）}}{44}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces 流固分离仿真场景的自适应网格展示}}{45}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（二维）}}{45}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces 弹性体碰撞仿真中自适应网格和均匀网格的对比}}{46}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（三维）}}{47}{figure.caption.36}%
 \addvspace {10.0pt}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces 《冰雪奇缘》中使用MPM模拟雪崩~\cite {stomakhin2013material}}}{46}{figure.caption.34}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces 节点系统案例：毛刺球程序化制作}}{48}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces 节点控制Tag}}{48}{figure.caption.36}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces 节点系统类图}}{50}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces 节点参数反射流程}}{50}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces 粒子到网格传输的GPU优化}}{51}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces 系统界面展示}}{52}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces 《冰雪奇缘》中使用MPM模拟雪崩~\cite {stomakhin2013material}}}{49}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces 节点系统案例：毛刺球程序化制作}}{51}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces 节点控制Tag}}{51}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces 节点系统类图}}{53}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces 节点参数反射流程}}{53}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces 粒子到网格传输的GPU优化}}{54}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces 系统界面展示}}{55}{figure.caption.44}%
 \addvspace {10.0pt}
 \contentsfinish 
