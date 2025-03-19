@@ -38,73 +38,78 @@
 
 \section{物质点法}
 \subsection{求解步骤}
-目前主流的物质点法解算器通过结合APIC~\cite{jiang2015affine}传输规则和基于移动最小二乘的MLS-MPM~\cite{hu2018moving}的更新风格来实现，其主要思想是通过使用粒子离散化仿真目标，在背景网格上进行动态的解算，最终再将更新后的物理量传回粒子。本文用下标\(p,q\)标记粒子携带的物理量，用\(i,j\)来标记网格携带的物理量，图~\ref{fig:bg_mpmworkflow}展示了MPM结算流程，具体每一时间步的流程如下：
+物质点法的求解分为显式求解和隐式求解两种，显式求解通过显示欧拉积分，根据应力和外力计算加速度，然后更新速度，并由新的速度更新位置，显式求解对时间步长和迭代次数要求严格，容易出现数值爆炸的现象，例如时间步过长导致本构模型中应力解算出现除0操作，进而应力计算趋向无穷，粒子在一个时间步内移动至模拟区域外，整个物理系统崩溃。和显式求解不同的是，隐式求解在网格上根据下一时间步的位置$\mathbf{x}^{n+1}$计算应力，并更新得到下一时间步的速度$\mathbf{v}^{n+1}$,这一步更新由于需要的$\mathbf{x}^{n+1}$是未知量，因此构成了一个线性系统，需要使用牛顿法迭代求解，迭代的次数决定了求解的精度，因此隐式求解方法可以有更长的时间步，但在每个时间步需要求解一个线性系统。一般情况下，隐式求解的整体求解时间更长，但稳定性显著提高，尤其是在物体杨氏模量很高的情况下（宏观表现为刚度很高），通常只能采用隐式求解。
+
+下文主要介绍显示求解步骤，其主要思路为，对于$t^n$时刻的粒子，将粒子的质量和动量按照某一传输方式（又称积分器）传递到背景网格中（P2G）；接着在背景网格上计算网格格点所受应力，该应力和周围粒子的形变梯度和材料属性相关，应力结合外力（比如重力）更新网格格点的速度值；然后通过网格到粒子传输（G2P）将速度传递回粒子上；最后通过$t^{n+1}$时间步的速度，更新粒子位置。图~\ref{fig:bg_mpmworkflow}展示了物质点法显示求解流程，具体流程如下：
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{fig/bg_mpmworkflow.png} % 请替换为实际图片路径
+    \includegraphics[width=\textwidth]{fig/bg_mpmworkflow.png} 
     \caption{物质点法求解材料运动的主要过程}
     \label{fig:bg_mpmworkflow}
 \end{figure}
 
 
 
-1. \textbf{粒子属性传输到网格节点（Particles to Grid, P2G）:}
-这一步会将粒子的质量、速度等属性传输根据一个网格基函数传输到附近的格点上，三维空间下其形式为：
-\[
-N_i(\mathbf{x}_p) = N\left(\frac{1}{h}(x_p - x_i)\right)N\left(\frac{1}{h}(y_p - y_i)\right)N\left(\frac{1}{h}(z_p - z_i)\right) \quad (2.14)
-\]
-其中\(x,y,z\)分别代表三维空间下位置的分量，\(h\)代表背景网格的间隔宽度，\(N(x)\)通常选用二次B样条曲线函数，公式为：
-\[
-N(x)=
-\begin{cases}
-\frac{3}{4} - |x|^2 & 0 \leq |x| < \frac{1}{2} \\
-\frac{1}{2}(\frac{3}{2} - |x|)^2 & \frac{1}{2} \leq |x| < \frac{3}{2} \\
-0 & \frac{3}{2} \leq |x|
-\end{cases} \quad (2.15)
-\]
-对于从粒子\(p\)传输到邻近的网格节点\(i\)，本文使用\(w_{ip} = N_i(\mathbf{x}_p)\)表示插值权重来方便书写。为了传输质量与速度，有：
-\[
-m_i^n = \sum_p w_{ip}^n m_p \quad (2.16)
-\]
-\[
-(m\mathbf{v})_i^n = \sum_p w_{ip}^n m_p (\mathbf{v}_p^n + \mathbf{C}_p^n (\mathbf{x}_i - \mathbf{x}_p^n)) \quad (2.17)
-\]
-其中，\(\mathbf{C}_p^n\)是APIC中用于描述粒子周围局部的速度梯度的矩阵，用于保证系统有更好的动量守恒性质，其更新方式将在接下来的步骤给出。
+1. \textbf{粒子到网格传输（Particles to Grid, P2G）:}
+这一步将粒子携带的质量、速度等物理量传输到背景网格中，传输方式有多种将在第~\ref{sec:trans}节中重点介绍，这里根据最常用的APIC传输方式进行介绍。首先粒子网格通过二次B样条基函数进行插值，其公式为：
+\begin{equation}
+    \begin{aligned}
+        N_i(\mathbf{x}_p) &= N\left(\frac{1}{h}(x_p - x_i)\right)N\left(\frac{1}{h}(y_p - y_i)\right)N\left(\frac{1}{h}(z_p - z_i)\right)\\
+        N(x) &=
+            \begin{cases}
+            \frac{3}{4} - |x|^2 & 0 \leq |x| < \frac{1}{2} \\
+            \frac{1}{2}(\frac{3}{2} - |x|)^2 & \frac{1}{2} \leq |x| < \frac{3}{2} \\
+            0 & \frac{3}{2} \leq |x|
+            \end{cases}
+    \end{aligned}
+\end{equation}
 
-2. \textbf{网格动量更新}
-这一步则根据粒子的本构模型对网格节点的受力进行计算，并通过受力更新下时间步的网格速度，公式为：
-\[
-\mathbf{f}_i^* = - \sum_p V_p^0 M_p^{-1} w_{ip}^n \frac{\partial \Psi}{\partial \mathbf{F}} (\mathbf{F}_p^n) \mathbf{F}_p^{n,T} (\mathbf{x}_i - \mathbf{x}_p^n) \quad (2.18)
-\]
-\[
-\mathbf{v}_i^{n + 1} = \mathbf{v}_i^n + \frac{\Delta t \mathbf{f}_i^*}{m_i} \quad (2.19)
-\]
-其中，\(V_p^0\)当\(* = n\)和\(n + 1\)时分别为显式和隐式求解，隐式求解需要构建大型线性方程组进行迭代求解，但能够在大时间步下保持稳定，根据不同的使用场景需要进行权衡。这一步中还需要进行碰撞的处理，对处于碰撞内部的网格节点将根据碰撞的不同设定重新投影速度。
+为了方便书写，常用$w_{ip} = N_i(\mathbf{x}_p)$表示粒子$p$和格点$i$之间的插值权重，根据APIC，质量和速度传输公式如下：
+\begin{equation}
+    \begin{aligned}
+        m_i^n &= \sum_p w_{ip}^n m_p \\
+        (m\mathbf{v})_i^n &= \sum_p w_{ip}^n m_p (\mathbf{v}_p^n + \mathbf{C}_p^n (\mathbf{x}_i - \mathbf{x}_p^n))
+    \end{aligned}
+\end{equation}
+其中，\(\mathbf{C}_p^n\)是表示粒子局部速度梯度矩阵，用于维持粒子的线性动量和角动量守恒。
 
-3. \textbf{网格属性回传到粒子（Grid to Particles, G2P）}
-这一步将更新过的网格属性通过样条插值函数传回给附近的粒子，其中还需要更新APIC中需要使用的局部速度梯度：
-\[
-\mathbf{v}_p^{n + 1} = \sum_p w_{ip}^n \mathbf{v}_i^{n + 1} \quad (2.20)
-\]
-\[
-\mathbf{C}_p^{n + 1} = \sum_p M_p^{-1} w_{ip}^n \mathbf{v}_i^{n + 1} (\mathbf{x}_i - \mathbf{x}_p^n)^T \quad (2.21)
-\]
+2. \textbf{网格速度操作}
+这一步根据材料的能量密度函数和网格格点周围粒子的形变梯度求解应力，并结合外力对格点存储的来自粒子的速度进行更新，公式如下：
+\begin{equation}
+    \begin{aligned}
+        \mathbf{f}_i^* &= - \sum_p V_p^0 M_p^{-1} w_{ip}^n \frac{\partial \Psi}{\partial \mathbf{F}} (\mathbf{F}_p^n) \mathbf{F}_p^{n,T} (\mathbf{x}_i - \mathbf{x}_p^n) \\
+        \mathbf{v}_i^{n + 1} &= \mathbf{v}_i^n + \frac{\Delta t \mathbf{f}_i^*}{m_i}
+    \end{aligned}
+\end{equation}
+其中，\(V_p^0\)表示粒子的初始体积，当\(* = n\)时表示显示求解，\(* =n + 1\)时表示隐式求解，这一步需要考虑边界条件，比如遇到穿透障碍物的情况，需要按障碍物的摩擦系数把速度投影到障碍物外。
 
-4. \textbf{形变梯度更新}
-此时根据更新过的局部速度梯度采用MLS - MPM的方式对粒子的形变梯度进行跟踪得到试应变：
-\[
-\mathbf{F}_p^{tr} = (\mathbf{I} + \Delta t \mathbf{C}_p^{n + 1}) \mathbf{F}_p^n \quad (2.22)
-\]
-此时需要根据粒子的塑性屈服准则判断是否发生塑性形变，通过塑性处理后(可能没有发生塑性形变)则得到最终的\(\mathbf{F}_p^{n + 1}\)。
+3. \textbf{网格到粒子传输（Grid to Particles, G2P）}
+这一步用于把网格上计算好的下一时间步的速度传递回粒子上，依然适用APIC积分器，公式如下：
+\begin{equation}
+    \begin{aligned}
+        \mathbf{v}_p^{n + 1} &= \sum_p w_{ip}^n \mathbf{v}_i^{n + 1} \\
+        \mathbf{C}_p^{n + 1} &= \sum_p M_p^{-1} w_{ip}^n \mathbf{v}_i^{n + 1} (\mathbf{x}_i - \mathbf{x}_p^n)^T
+    \end{aligned}
+\end{equation}
+其中$ M_p^{-1}$为累加粒子质量的逆矩阵。
 
-5. \textbf{粒子平流}
-每个粒子根据其更新过速度进行位置的更新：
-\[
-\mathbf{x}_p^{n + 1} = \mathbf{x}_p^n + \Delta t \mathbf{v}_p^{n + 1} \quad (2.23)
-\]
+4. \textbf{更新形变梯度}
+根据局部速度梯度更新粒子的形变梯度
+\begin{equation}
+    \mathbf{F}_{n+1} = (\mathbf{I} + \Delta t \mathbf{C}_p^{n + 1}) \mathbf{F}_p^n
+\end{equation}
+如果粒子具有塑性的话，需要根据相应的塑形回映算法，将形变梯度进行更新。
+
+5. \textbf{更新粒子位置}
+根据更新后的粒子速度，通过对流获取粒子新的位置
+\begin{equation}
+    \mathbf{x}_p^{n + 1} = \mathbf{x}_p^n + \Delta t \mathbf{v}_p^{n + 1}
+\end{equation}
 
 
-\subsection{粒子网格传输算法}
+
+\subsection{粒子网格传输方式}
+\label{sec:trans}
 在MPM中，传输算法是指在每个仿真步骤中，将物理量在材料点和欧拉网格间相互传递的过程。由于MPM结合了拉格朗日和欧拉框架的优点，因此传输算法的设计对准确建模材料行为至关重要。
 
 本文用上标$n$、$n+1$表示时间$t^n$和$t^{n+1}$时的物理量，为了简便，本文设定$\Delta t=t^{n+1}-t^n$，$\Delta \mathbf{x}_{ip}^{n}=\mathbf{x}_i-\mathbf{x}_p^n$，并且$w_{ip}=N_i(\mathbf{x}_p)$，其中$N_i(\mathbf{x}_p)$表示节点$i$和粒子$p$之间的二次B样条插值函数，主要用于传输步骤。
@@ -132,12 +137,6 @@ FLIP传输方案\cite{zhu2005animating}通过添加一个额外的粒子速度�
 \end{equation}
 其中$\alpha$是PIC-FLIP混合比率~\cite{bridson2015fluid}。当$\alpha=0$时，公式~\eqref{eq:flip}回归为PIC，当$\alpha=1$时，它是完全的FLIP。尽管FLIP传输方案通过额外的粒子速度保持项使仿真更加生动，但它仍然存在不稳定性。
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1\linewidth]{figures/asflip.png}
-    \caption{APIC、ASFLIP和DC-APIC二维流固分离测试}
-    \label{fig:asflip}
-\end{figure}
 
 APIC \cite{jiang2015affine}方案通过保持角动量和防止不稳定性来减少一部分耗散。APIC中的P2G和G2P传输步骤如下：
 \begin{equation}
@@ -169,12 +168,6 @@ Affine-augmented Separable FLIP（ASFLIP）方案\cite{fei2021revisiting}旨在�
 
 总结来说，对于混合粒子-网格方法，数值粘性来自粒子和网格之间的传输。通常，粒子的数量远大于网格节点的数量。因此，P2G步骤可能导致信息丢失。如图~\ref{fig:p2g}(a)所示，当两个质量相等且速度相反的粒子将动量传输到网格时，速度将被平均化。从另一个角度来看，MPM基于材料连续性的假设，这使得它难以在物理上描述材料分离，特别是在流固耦合的情况下。两个相位之间的界面速度场很容易被P2G步骤平滑化。
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.75\linewidth]{figures/p2g.png}
-    \caption{二维情况下APIC和DC-APIC对粒子的对流效果对比}
-    \label{fig:p2g}
-\end{figure}
 
 \section{空间稀疏结构}
 在大规模的空间计算中，例如物理建模、图形学和三维重建，经常用到高分辨率二维或三维网格。如果使用稠密数据结构，这些网格会消耗大量内存空间和处理能力，事实上在模拟过程中，程序需要关注的只是这个稠密网格中的一小部分，其他的部分可能表示为不需要参与计算的空白空间（空气或真空）。如图~\ref{fig:sparse}所示，物理仿真中的空间稀疏特性往往是左侧这种局部稠密，整体稀疏的状态，用空间稀疏结构可以极大的节省内存。在图形学的其他领域中，空间稀疏结构，比如均匀网格、八叉树、层次包围盒（Bounding Volume Hierarchy, BVH）也被用来进行加速计算，例如光线追踪中射线与片原求交操作、碰撞检测的粗筛选阶段。接下来本文将着重介绍OpenVDB和SPGrid这两个物理模拟中常用的空间稀疏结构。

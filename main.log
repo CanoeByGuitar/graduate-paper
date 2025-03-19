@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  18 MAR 2025 16:42
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  18 MAR 2025 18:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1958,12 +1958,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [11
 
 ]
-File: fig/bg_mpmworkflow.png Graphic file (type bmp)
-<fig/bg_mpmworkflow.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1972,7 +1966,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+File: fig/bg_mpmworkflow.png Graphic file (type bmp)
+<fig/bg_mpmworkflow.png>
+
+Underfull \vbox (badness 3977) has occurred while \output is active []
 
 
 
@@ -1983,6 +1980,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [13]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1991,12 +1991,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [14]
-File: figures/asflip.png Graphic file (type bmp)
-<figures/asflip.png>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2016,19 +2010,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [16]
-File: figures/p2g.png Graphic file (type bmp)
-<figures/p2g.png>
 File: fig/sparse.png Graphic file (type bmp)
 <fig/sparse.png>
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[17]
 File: fig/VDB.png Graphic file (type bmp)
 <fig/VDB.png>
 
@@ -2039,10 +2022,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[18]
+[17]
 File: fig/spgrid_demo.png Graphic file (type bmp)
 <fig/spgrid_demo.png>
 
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[18]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2060,12 +2051,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [20]
 第三章
-File: figures/phase-field-gradient.png Graphic file (type bmp)
-<figures/phase-field-gradient.png>
+File: figures/p2g.png Graphic file (type bmp)
+<figures/p2g.png>
 
-Overfull \hbox (2.37883pt too wide) in paragraph at lines 16--17
-[]\TU/SongtiSCLight(0)/m/n/12 根 据 粒 子 位 置，|  使 用 各 向 异 性 核 \TU/TimesNewRoman(0)/m/n/12 [[]] \TU/SongtiSCLight(0)/m/n/12 可 以 平 滑 地 重 建 出 符 号 距 离 函 数 场  |（\TU/TimesNewRoman(0)/m/n/12 Signed
- []
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2077,6 +2066,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [21
 
 ]
+File: figures/phase-field-gradient.png Graphic file (type bmp)
+<figures/phase-field-gradient.png>
+
+Overfull \hbox (2.37883pt too wide) in paragraph at lines 25--26
+[]\TU/SongtiSCLight(0)/m/n/12 根 据 粒 子 位 置，|  使 用 各 向 异 性 核 \TU/TimesNewRoman(0)/m/n/12 [[]] \TU/SongtiSCLight(0)/m/n/12 可 以 平 滑 地 重 建 出 符 号 距 离 函 数 场  |（\TU/TimesNewRoman(0)/m/n/12 Signed
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[22]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2087,15 +2091,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[22]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
 [23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2123,9 +2122,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [26]
-File: figures/sdf_phase_compare.png Graphic file (type bmp)
-<figures/sdf_phase_compare.png>
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2134,17 +2130,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [27]
+File: figures/sdf_phase_compare.png Graphic file (type bmp)
+<figures/sdf_phase_compare.png>
 File: figures/bunny3d.png Graphic file (type bmp)
 <figures/bunny3d.png>
-File: figures/duck.png Graphic file (type bmp)
-<figures/duck.png>
-File: figures/jelly_6.png Graphic file (type bmp)
-<figures/jelly_6.png>
-File: figures/bunny_bath.png Graphic file (type bmp)
-<figures/bunny_bath.png>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2154,6 +2143,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [28]
+File: figures/duck.png Graphic file (type bmp)
+<figures/duck.png>
+File: figures/jelly_6.png Graphic file (type bmp)
+<figures/jelly_6.png>
+File: figures/bunny_bath.png Graphic file (type bmp)
+<figures/bunny_bath.png>
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2164,6 +2160,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [29]
 File: figures/echarts.png Graphic file (type bmp)
 <figures/echarts.png>
+File: figures/energy.png Graphic file (type bmp)
+<figures/energy.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2173,9 +2171,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [30]
-File: figures/energy.png Graphic file (type bmp)
-<figures/energy.png>
-) (./chapter-adaptive/apative.tex
+File: figures/asflip.png Graphic file (type bmp)
+<figures/asflip.png>
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2183,7 +2181,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[31]
+[31]) (./chapter-adaptive/apative.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[32]
 第四章
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2192,7 +2198,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[32
+[33
 
 ]
 
@@ -2202,7 +2208,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[33]
+[34]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2210,7 +2216,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[34]
+[35]
 File: fig/free_T.png Graphic file (type bmp)
 <fig/free_T.png>
 File: fig/shapefunc.png Graphic file (type bmp)
@@ -2226,7 +2232,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[35]
+[36]
 File: fig/final_shapefunc.png Graphic file (type bmp)
 <fig/final_shapefunc.png>
 
@@ -2237,7 +2243,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[36]
+[37]
 File: fig/adaptive_transfer.png Graphic file (type bmp)
 <fig/adaptive_transfer.png>
 
@@ -2248,7 +2254,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[37]
+[38]
 Underfull \vbox (badness 6110) has occurred while \output is active []
 
 
@@ -2259,7 +2265,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[38]
+[39]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2267,7 +2273,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[39]
+[40]
 File: fig/vel_field_comp.png Graphic file (type bmp)
 <fig/vel_field_comp.png>
 
@@ -2278,7 +2284,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[40]
+[41]
 
 Package fontspec Warning: Font "STFangsong" does not contain requested Script
 (fontspec)                "CJK".
@@ -2309,18 +2315,7 @@ Package fontspec Info: Font family 'STFangsong(0)' created for font
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
 
-LaTeX Warning: Reference `todo' on page 41 undefined on input line 263.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[41]
-
-LaTeX Warning: Reference `eq:norm0' on page 42 undefined on input line 274.
+LaTeX Warning: Reference `todo' on page 42 undefined on input line 263.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2330,6 +2325,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [42]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[43]
 File: fig/adapt_mpm_pipeline.png Graphic file (type bmp)
 <fig/adapt_mpm_pipeline.png>
 
@@ -2340,7 +2343,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[43]
+[44]
 File: fig/adapt_2d_parts.png Graphic file (type bmp)
 <fig/adapt_2d_parts.png>
 File: fig/adapt_2d_grids.png Graphic file (type bmp)
@@ -2349,7 +2352,7 @@ File: fig/adaptive_collide_case.png Graphic file (type bmp)
 <fig/adaptive_collide_case.png>
 
 
-LaTeX Warning: Reference `fig:adaptive_collide_comp' on page 44 undefined on input line 329.
+LaTeX Warning: Reference `fig:adaptive_collide_comp' on page 45 undefined on input line 329.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2358,7 +2361,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[44]
+[45]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -2373,15 +2376,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[45]) (./chapter-zeno/zeno.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[46]
+[46]) (./chapter-zeno/zeno.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2390,6 +2385,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [47]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[48]
 第五章
 File: fig/mpmsnow.png Graphic file (type bmp)
 <fig/mpmsnow.png>
@@ -2400,7 +2403,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[48
+[49
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2413,7 +2416,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[49]
+[50]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2421,7 +2424,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[50]
+[51]
 File: fig/zeno_node_system.png Graphic file (type bmp)
 <fig/zeno_node_system.png>
 File: fig/contro_tag.png Graphic file (type bmp)
@@ -2434,7 +2437,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[51]
+[52]
 Overfull \hbox (24.4pt too wide) in paragraph at lines 50--73
  [][] 
  []
@@ -2448,12 +2451,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[52]
+[53]
 File: fig/reflect.png Graphic file (type bmp)
 <fig/reflect.png>
 
 
-Package natbib Warning: Citation `fig:cuda' on page 53 undefined on input line 92.
+Package natbib Warning: Citation `fig:cuda' on page 54 undefined on input line 92.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2462,7 +2465,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[53]
+[54]
 File: fig/cuda.png Graphic file (type bmp)
 <fig/cuda.png>
 File: fig/zeno_ui.png Graphic file (type bmp)
@@ -2478,7 +2481,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[54]
+[55]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2486,7 +2489,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[55]
+[56]
 第六章
 )
 
@@ -2496,7 +2499,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[56
+[57
 
 ]
 
@@ -2506,17 +2509,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[57]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[58
-
-] (./main.bbl
+[58]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2526,8 +2519,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [59
 
-
-]
+] (./main.bbl
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2535,7 +2527,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[60]
+[60
+
+
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2552,6 +2547,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [62]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[63]
 Underfull \hbox (badness 2065) in paragraph at lines 291--295
 []\TU/TimesNewRoman(0)/m/n/12 BRIDSON R.  Fast poisson disk sampling in arbitrary dimensions[C/OL]//
  []
@@ -2563,7 +2566,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[63])
+[64])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2571,7 +2574,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[64]
+[65]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2579,7 +2582,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[65
+[66
 
 
 
@@ -2592,7 +2595,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[66
+[67
 
 
 ] (./src/D3-MYACHIEVEMENTS.tex
@@ -2638,7 +2641,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[67
+[68
 
 
 ] (./main.aux)
@@ -2661,15 +2664,15 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9DFF4A98867097DE3D6E2304C40A1ED8;6303.
+(rerunfilecheck)             Checksum: DFB181253BCF591305B0616C7603F727;6303.
  ) 
 Here is how much of TeX's memory you used:
- 35159 strings out of 474773
- 747222 string characters out of 5757724
+ 35157 strings out of 474773
+ 747161 string characters out of 5757724
  1945839 words of memory out of 5000000
- 56588 multiletter control sequences out of 15000+600000
+ 56586 multiletter control sequences out of 15000+600000
  601374 words of font info for 330 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,15n,122p,1618b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (84 pages).
+Output written on main.pdf (85 pages).

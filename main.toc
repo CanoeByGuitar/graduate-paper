@@ -15,46 +15,46 @@
 \contentsline {section}{\numberline {2.1}本构模型}{11}{section.2.1}%
 \contentsline {section}{\numberline {2.2}物质点法}{12}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}求解步骤}{12}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}粒子网格传输算法}{14}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.2}粒子网格传输方式}{15}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}空间稀疏结构}{17}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}OpenVDB}{18}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}SPGrid}{19}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.2}SPGrid}{18}{subsection.2.3.2}%
 \contentsline {chapter}{\numberline {第三章\hspace {.3em}}基于非连续速度场的流固耦合仿真}{21}{chapter.3}%
 \contentsline {section}{\numberline {3.1}粒子与网格的兼容性}{21}{section.3.1}%
-\contentsline {section}{\numberline {3.2}粒子-网格传输算法}{23}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}DC-APIC粒子到网格传输算法}{23}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}DC-APIC网格到粒子传输算法}{24}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.2}粒子-网格传输算法}{24}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}DC-APIC粒子到网格传输算法}{24}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}DC-APIC网格到粒子传输算法}{25}{subsection.3.2.2}%
 \contentsline {section}{\numberline {3.3}基于DC-APIC传输算法的MPM工作流程}{25}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}界面信息计算}{26}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}法向量估计}{26}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.2}法向量估计}{27}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}实验结果与分析}{27}{section.3.4}%
-\contentsline {section}{\numberline {3.5}本章小节}{31}{section.3.5}%
-\contentsline {chapter}{\numberline {第四章\hspace {.3em}}基于广义插值物质点法的高精度流固界面仿真}{32}{chapter.4}%
-\contentsline {section}{\numberline {4.1}自适应广义插值物质点法}{32}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}广义插值物质点法}{32}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}自适应基函数}{34}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}多层网格插值}{37}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}自适应DC-APIC积分器}{38}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}自适应法线和兼容性计算}{38}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}自适应非连续速度场粒子网格传输}{39}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}动态网格划分}{40}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}算法流程}{42}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}实验结果与分析}{43}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}实现细节}{43}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}流固分离}{44}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}弹性碰撞}{44}{subsection.4.3.3}%
-\contentsline {section}{\numberline {4.4}本章小节}{46}{section.4.4}%
-\contentsline {chapter}{\numberline {第五章\hspace {.3em}}结构化物理仿真系统设计与实现}{48}{chapter.5}%
-\contentsline {section}{\numberline {5.1}节点系统DCC工具介绍}{48}{section.5.1}%
-\contentsline {section}{\numberline {5.2}整体架构设计}{50}{section.5.2}%
-\contentsline {section}{\numberline {5.3}核心模块功能实现}{50}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}节点系统}{50}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}物理模拟系统}{53}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}界面与功能展示}{55}{section.5.4}%
-\contentsline {chapter}{\numberline {第六章\hspace {.3em}}总结与展望}{56}{chapter.6}%
-\contentsline {section}{\numberline {6.1}工作总结}{56}{section.6.1}%
-\contentsline {section}{\numberline {6.2}未来展望}{56}{section.6.2}%
-\contentsline {chapter}{参考文献}{59}{section.6.2}%
-\contentsline {chapter}{致谢}{66}{chapter*.45}%
-\contentsline {chapter}{发表论文和科研情况}{67}{section*.47}%
+\contentsline {section}{\numberline {3.5}本章小节}{32}{section.3.5}%
+\contentsline {chapter}{\numberline {第四章\hspace {.3em}}基于广义插值物质点法的高精度流固界面仿真}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}自适应广义插值物质点法}{33}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}广义插值物质点法}{33}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}自适应基函数}{35}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}多层网格插值}{38}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}自适应DC-APIC积分器}{39}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}自适应法线和兼容性计算}{39}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}自适应非连续速度场粒子网格传输}{40}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}动态网格划分}{41}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}算法流程}{43}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}实验结果与分析}{44}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}实现细节}{44}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}流固分离}{45}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}弹性碰撞}{45}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}本章小节}{47}{section.4.4}%
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}结构化物理仿真系统设计与实现}{49}{chapter.5}%
+\contentsline {section}{\numberline {5.1}节点系统DCC工具介绍}{49}{section.5.1}%
+\contentsline {section}{\numberline {5.2}整体架构设计}{51}{section.5.2}%
+\contentsline {section}{\numberline {5.3}核心模块功能实现}{51}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}节点系统}{51}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}物理模拟系统}{54}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}界面与功能展示}{56}{section.5.4}%
+\contentsline {chapter}{\numberline {第六章\hspace {.3em}}总结与展望}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}工作总结}{57}{section.6.1}%
+\contentsline {section}{\numberline {6.2}未来展望}{57}{section.6.2}%
+\contentsline {chapter}{参考文献}{60}{section.6.2}%
+\contentsline {chapter}{致谢}{67}{chapter*.45}%
+\contentsline {chapter}{发表论文和科研情况}{68}{section*.47}%
 \contentsfinish 
