@@ -4,44 +4,44 @@ The top-level auxiliary file: main.aux
 The style file: gbt7714-unsrt.bst
 Database file #1: reference.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 53 entries,
+You've used 56 entries,
             3424 wiz_defined-function locations,
-            1041 strings with 15534 characters,
-and the built_in function-call counts, 423976 in all, are:
-= -- 44211
-> -- 44140
-< -- 43736
-+ -- 14167
-- -- 536
-* -- 2151
-:= -- 46210
-add.period$ -- 163
-call.type$ -- 53
-change.case$ -- 251
-chr.to.int$ -- 12911
-cite$ -- 53
-duplicate$ -- 1110
-empty$ -- 3279
-format.name$ -- 1002
-if$ -- 122276
+            1053 strings with 16098 characters,
+and the built_in function-call counts, 448847 in all, are:
+= -- 46796
+> -- 46726
+< -- 46300
++ -- 15000
+- -- 572
+* -- 2286
+:= -- 48925
+add.period$ -- 172
+call.type$ -- 56
+change.case$ -- 266
+chr.to.int$ -- 13658
+cite$ -- 56
+duplicate$ -- 1182
+empty$ -- 3493
+format.name$ -- 1070
+if$ -- 129471
 int.to.chr$ -- 3
-int.to.str$ -- 54
+int.to.str$ -- 57
 missing$ -- 0
-newline$ -- 278
-num.names$ -- 159
-pop$ -- 19220
+newline$ -- 293
+num.names$ -- 168
+pop$ -- 20219
 preamble$ -- 1
-purify$ -- 53
+purify$ -- 56
 quote$ -- 0
-skip$ -- 50717
+skip$ -- 53770
 stack$ -- 0
-substring$ -- 14423
-swap$ -- 185
-text.length$ -- 549
+substring$ -- 15263
+swap$ -- 198
+text.length$ -- 588
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 518
+type$ -- 542
 warning$ -- 0
-while$ -- 744
+while$ -- 794
 width$ -- 0
-write$ -- 823
+write$ -- 866

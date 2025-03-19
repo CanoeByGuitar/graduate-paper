@@ -1,4 +1,4 @@
-\begin{thebibliography}{53}
+\begin{thebibliography}{56}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \providecommand{\href}[2]{\url{#2}}
@@ -6,11 +6,40 @@
 \expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
   \urlstyle{same}\fi
 
-\bibitem[Museth(2013{\natexlab{a}})]{openvdb}
-MUSETH K.
-\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
-\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
-\newblock \url{https://doi.org/10.1145/2487228.2487235}.
+\bibitem[Jiang\ et~al.(2015)Jiang, Schroeder, Selle, Teran, and Stomakhin]{jiang2015affine}
+JIANG C, SCHROEDER C, SELLE A, et~al.
+\newblock The affine particle-in-cell method\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2015, 34\penalty0 (4): 1--10.
+
+\bibitem[Jiang\ et~al.(2017)Jiang, Gast, and Teran]{jiang2017anisotropic}
+JIANG C, GAST T, TERAN J.
+\newblock Anisotropic elastoplasticity for cloth, knit and hair frictional contact\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (4): 1--14.
+
+\bibitem[Gao\ et~al.(2017)Gao, Tampubolon, Jiang, and Sifakis]{gao2017adaptive}
+GAO M, TAMPUBOLON A~P, JIANG C, et~al.
+\newblock An adaptive generalized interpolation material point method for simulating elastoplastic materials\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (6): 1--12.
+
+\bibitem[Zhao\ et~al.(2020)Zhao, Huang, Li, Wang, and Qin]{zhao2020novel}
+ZHAO Z, HUANG K, LI C, et~al.
+\newblock A novel plastic phase-field method for ductile fracture with gpu optimization\allowbreak[C]//\allowbreak{}Computer Graphics Forum: volume~39.
+\newblock : Wiley Online Library, 2020: 105--117.
+
+\bibitem[Fang\ et~al.(2020)Fang, Qu, Li, Zhang, Zhu, Aanjaneya, and Jiang]{fang2020iq}
+FANG Y, QU Z, LI M, et~al.
+\newblock Iq-mpm: an interface quadrature material point method for non-sticky strongly two-way coupled nonlinear solids and fluids\allowbreak[J].
+\newblock ACM Transactions on Graphics (TOG), 2020, 39\penalty0 (4): 51--1.
+
+\bibitem[Yu\ et~al.(2024)Yu, Li, Lan, Yang, and Jiang]{yu2024xpbi}
+YU C, LI X, LAN L, et~al.
+\newblock Xpbi: Position-based dynamics with smoothing kernels handles continuum inelasticity\allowbreak[C]//\allowbreak{}SIGGRAPH Asia 2024 Conference Papers.
+\newblock 2024: 1--12.
+
+\bibitem[Li\ et~al.(2024)Li, Li, Han, Wang, Yang, and Jiang]{li2024dynamic}
+LI X, LI M, HAN X, et~al.
+\newblock A dynamic duo of finite elements and material points\allowbreak[C]//\allowbreak{}ACM SIGGRAPH 2024 Conference Papers.
+\newblock 2024: 1--11.
 
 \bibitem[Batty\ et~al.(2007)Batty, Bertails, and Bridson]{batty2007fast}
 BATTY C, BERTAILS F, BRIDSON R.
@@ -72,11 +101,6 @@ STOMAKHIN A, SCHROEDER C, JIANG C, et~al.
 \newblock Augmented mpm for phase-change and varied materials\allowbreak[J].
 \newblock ACM Transactions on Graphics (TOG), 2014, 33\penalty0 (4): 1--11.
 
-\bibitem[Jiang\ et~al.(2015)Jiang, Schroeder, Selle, Teran, and Stomakhin]{jiang2015affine}
-JIANG C, SCHROEDER C, SELLE A, et~al.
-\newblock The affine particle-in-cell method\allowbreak[J].
-\newblock ACM Transactions on Graphics (TOG), 2015, 34\penalty0 (4): 1--10.
-
 \bibitem[Kl{\'a}r\ et~al.(2016)Kl{\'a}r, Gast, Pradhana, Fu, Schroeder, Jiang, and Teran]{klar2016drucker}
 KL{\'A}R G, GAST T, PRADHANA A, et~al.
 \newblock Drucker-prager elastoplasticity for sand animation\allowbreak[J].
@@ -86,16 +110,6 @@ KL{\'A}R G, GAST T, PRADHANA A, et~al.
 TAMPUBOLON A~P, GAST T, KL{\'A}R G, et~al.
 \newblock Multi-species simulation of porous sand and water mixtures\allowbreak[J].
 \newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (4): 1--11.
-
-\bibitem[Jiang\ et~al.(2017)Jiang, Gast, and Teran]{jiang2017anisotropic}
-JIANG C, GAST T, TERAN J.
-\newblock Anisotropic elastoplasticity for cloth, knit and hair frictional contact\allowbreak[J].
-\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (4): 1--14.
-
-\bibitem[Gao\ et~al.(2017)Gao, Tampubolon, Jiang, and Sifakis]{gao2017adaptive}
-GAO M, TAMPUBOLON A~P, JIANG C, et~al.
-\newblock An adaptive generalized interpolation material point method for simulating elastoplastic materials\allowbreak[J].
-\newblock ACM Transactions on Graphics (TOG), 2017, 36\penalty0 (6): 1--12.
 
 \bibitem[Wolper\ et~al.(2019)Wolper, Fang, Li, Lu, Gao, and Jiang]{wolper2019cd}
 WOLPER J, FANG Y, LI M, et~al.
@@ -111,11 +125,6 @@ HAN X, GAST T~F, GUO Q, et~al.
 YAN X, LI C~F, CHEN X~S, et~al.
 \newblock Mpm simulation of interacting fluids and solids\allowbreak[C]//\allowbreak{}Computer Graphics Forum: volume~37.
 \newblock : Wiley Online Library, 2018: 183--193.
-
-\bibitem[Fang\ et~al.(2020)Fang, Qu, Li, Zhang, Zhu, Aanjaneya, and Jiang]{fang2020iq}
-FANG Y, QU Z, LI M, et~al.
-\newblock Iq-mpm: an interface quadrature material point method for non-sticky strongly two-way coupled nonlinear solids and fluids\allowbreak[J].
-\newblock ACM Transactions on Graphics (TOG), 2020, 39\penalty0 (4): 51--1.
 
 \bibitem[Hu\ et~al.(2018)Hu, Fang, Ge, Qu, Zhu, Pradhana, and Jiang]{hu2018moving}
 HU Y, FANG Y, GE Z, et~al.
@@ -217,7 +226,7 @@ ENGLISH R~E, QIU L, YU Y, et~al.
 \newblock Chimera grids for water simulation\allowbreak[C]//\allowbreak{}Proceedings of the 12th ACM SIGGRAPH/Eurographics Symposium on Computer Animation.
 \newblock 2013: 85--94.
 
-\bibitem[Museth(2013{\natexlab{b}})]{museth2013vdb}
+\bibitem[Museth(2013{\natexlab{a}})]{museth2013vdb}
 MUSETH K.
 \newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J].
 \newblock ACM transactions on graphics (TOG), 2013, 32\penalty0 (3): 1--22.
@@ -253,6 +262,12 @@ TAMPUBOLON A~P, GAST T, KL\'{a}R G, et~al.
 BRIDSON R.
 \newblock Fluid simulation for computer graphics\allowbreak[M].
 \newblock : AK Peters/CRC Press, 2015.
+
+\bibitem[Museth(2013{\natexlab{b}})]{openvdb}
+MUSETH K.
+\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
+\newblock \url{https://doi.org/10.1145/2487228.2487235}.
 
 \bibitem[Yu\ et~al.(2013)Yu and Turk]{yu2013reconstructing}
 YU J, TURK G.
