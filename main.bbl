@@ -1,4 +1,4 @@
-\begin{thebibliography}{56}
+\begin{thebibliography}{60}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \providecommand{\href}[2]{\url{#2}}
@@ -289,5 +289,25 @@ GAO M, WANG X, WU K, et~al.
 \newblock Gpu optimization of material point methods\allowbreak[J/OL].
 \newblock ACM Trans. Graph., 2018, 37\penalty0 (6).
 \newblock \url{https://doi.org/10.1145/3272127.3275044}.
+
+\bibitem[Li\ et~al.(2020{\natexlab{a}})Li, Ferguson, Schneider, Langlois, Zorin, Panozzo, Jiang, and Kaufman]{li2020incremental}
+LI M, FERGUSON Z, SCHNEIDER T, et~al.
+\newblock Incremental potential contact: intersection-and inversion-free, large-deformation dynamics.\allowbreak[J].
+\newblock ACM Trans. Graph., 2020, 39\penalty0 (4): 49.
+
+\bibitem[Lan\ et~al.(2021)Lan, Yang, Kaufman, Yao, Li, and Jiang]{lan2021medial}
+LAN L, YANG Y, KAUFMAN D, et~al.
+\newblock Medial ipc: accelerated incremental potential contact with medial elastics\allowbreak[J].
+\newblock ACM Transactions on Graphics, 2021, 40\penalty0 (4).
+
+\bibitem[Li\ et~al.(2020{\natexlab{b}})Li, Kaufman, and Jiang]{li2020codimensional}
+LI M, KAUFMAN D~M, JIANG C.
+\newblock Codimensional incremental potential contact\allowbreak[J].
+\newblock arXiv preprint arXiv:2012.04457, 2020.
+
+\bibitem[Du\ et~al.(2024)Du, Yu, Ma, Jiang, Zong, Yang, Masterjohn, Castro, Han, and Jiang]{du2024embedded}
+DU W, YU C, MA S, et~al.
+\newblock Embedded ipc: Fast and intersection-free simulation in reduced subspace for robot manipulation\allowbreak[J].
+\newblock arXiv preprint arXiv:2409.16385, 2024.
 
 \end{thebibliography}
