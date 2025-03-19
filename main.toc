@@ -39,22 +39,20 @@
 \contentsline {subsection}{\numberline {4.2.2}自适应非连续速度场粒子网格传输}{40}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}动态网格划分}{41}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}算法流程}{43}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}实验结果与分析}{44}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}实现细节}{44}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.3}实验结果与分析}{45}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}实现细节}{45}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}流固分离}{45}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}弹性碰撞}{45}{subsection.4.3.3}%
-\contentsline {section}{\numberline {4.4}本章小节}{47}{section.4.4}%
-\contentsline {chapter}{\numberline {第五章\hspace {.3em}}结构化物理仿真系统设计与实现}{49}{chapter.5}%
-\contentsline {section}{\numberline {5.1}节点系统DCC工具介绍}{49}{section.5.1}%
-\contentsline {section}{\numberline {5.2}整体架构设计}{51}{section.5.2}%
-\contentsline {section}{\numberline {5.3}核心模块功能实现}{51}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}节点系统}{51}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}物理模拟系统}{54}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}界面与功能展示}{56}{section.5.4}%
-\contentsline {chapter}{\numberline {第六章\hspace {.3em}}总结与展望}{57}{chapter.6}%
-\contentsline {section}{\numberline {6.1}工作总结}{57}{section.6.1}%
-\contentsline {section}{\numberline {6.2}未来展望}{57}{section.6.2}%
-\contentsline {chapter}{参考文献}{60}{section.6.2}%
-\contentsline {chapter}{致谢}{67}{chapter*.45}%
-\contentsline {chapter}{发表论文和科研情况}{68}{section*.47}%
+\contentsline {subsection}{\numberline {4.3.3}弹性碰撞}{46}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}本章小节}{48}{section.4.4}%
+\contentsline {chapter}{\numberline {第五章\hspace {.3em}}非连续速度场物质点法的GPU优化算法}{50}{chapter.5}%
+\contentsline {section}{\numberline {5.1}GPU物质点法算法流程}{50}{section.5.1}%
+\contentsline {section}{\numberline {5.2}面向非连续数据的线程束写入优化算法}{53}{section.5.2}%
+\contentsline {section}{\numberline {5.3}实验结果}{55}{section.5.3}%
+\contentsline {section}{\numberline {5.4}本章小节}{57}{section.5.4}%
+\contentsline {chapter}{\numberline {第六章\hspace {.3em}}总结与展望}{58}{chapter.6}%
+\contentsline {section}{\numberline {6.1}工作总结}{58}{section.6.1}%
+\contentsline {section}{\numberline {6.2}未来展望}{58}{section.6.2}%
+\contentsline {chapter}{参考文献}{61}{section.6.2}%
+\contentsline {chapter}{致谢}{67}{chapter*.48}%
+\contentsline {chapter}{发表论文和科研情况}{68}{section*.50}%
 \contentsfinish 

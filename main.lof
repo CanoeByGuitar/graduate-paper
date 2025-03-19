@@ -24,19 +24,19 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces 解约束前后形状函数$N_{\eta }$对比图}}{37}{figure.caption.26}%
 \contentsline {figure}{\numberline {4.4}{\ignorespaces 自适应网格上进行G2P和P2G操作}}{39}{figure.caption.27}%
 \contentsline {figure}{\numberline {4.5}{\ignorespaces 均匀网格和自适应网格在P2G后的速度场对比图}}{42}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces 融合DC-APIC积分器的自适应网格物质点法算法流程}}{44}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces 基于自适应网格的流固分离仿真结果（二维）}}{45}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces 流固分离仿真场景的自适应网格展示}}{46}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（二维）}}{46}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces 弹性体碰撞仿真中自适应网格和均匀网格的对比}}{47}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（三维）}}{48}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces 二维实验中材料加权的粒子相位梯度$\mathbf {Q}_p$的示意图}}{43}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces 融合DC-APIC积分器的自适应网格物质点法算法流程}}{45}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces 基于自适应网格的流固分离仿真结果（二维）}}{46}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces 流固分离仿真场景的自适应网格展示}}{46}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（二维）}}{47}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces 弹性体碰撞仿真中自适应网格和均匀网格的对比}}{47}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces 自适应网格上进行物体碰撞物理模拟（三维）}}{48}{figure.caption.37}%
 \addvspace {10.0pt}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces 《冰雪奇缘》中使用MPM模拟雪崩~\cite {stomakhin2013material}}}{50}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces 节点系统案例：毛刺球程序化制作}}{52}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces 节点控制Tag}}{52}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces 节点系统类图}}{54}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces 节点参数反射流程}}{54}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces 粒子到网格传输的GPU优化}}{55}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces 系统界面展示}}{56}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces GSPGrid数据结构示意图}}{51}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces 并行粒子网格传输的收集和散播示意图}}{51}{figure.caption.39}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces 基于线程数规约的P2G算法}}{52}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces 归约非连续数据的方法和跨线程束写入冲突解决方案}}{53}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces 犰狳坠落仿真场景}}{55}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces 溃坝冲击弹性物体仿真场景}}{56}{figure.caption.45}%
 \addvspace {10.0pt}
 \contentsfinish 

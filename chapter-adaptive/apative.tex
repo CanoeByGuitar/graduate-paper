@@ -260,12 +260,17 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
 
 
 粒子的层级在仿真过程中也会不断演变，由于在流固交界处需要更精细的网格，本文使用基于相场梯度的启发式算法来更新边界处粒子层级。
-材料加权的粒子相位梯度$\mathbf{Q}_p$的模长可以作为流固碰撞边界的检测标准，如图~\ref{todo}所示，$||\mathbf{Q}_p||$越大，粒子$p$越靠近交界面，这是由于在流体或固体内部区域时，相场梯度朝各个方向均约等于0。由此，本文的启发算法如下，若粒子层级为$1 \leq l_p \leq L_p$，选取$K = L_p - 1$个阈值$\alpha_k$($1 \leq k \leq K$)。根据公式\ref{eq:qp}得到的材料加权的粒子相位梯度$\mathbf{Q}_p$,取其模长同阈值进行对比，计算粒子层级公式如下：
+材料加权的粒子相位梯度$\mathbf{Q}_p$的模长可以作为流固碰撞边界的检测标准，如图~\ref{fig:grad_cp}所示，$||\mathbf{Q}_p||$越大，粒子$p$越靠近交界面，这是由于在流体或固体内部区域时，相场梯度朝各个方向均约等于0。由此，本文的启发算法如下，若粒子层级为$1 \leq l_p \leq L_p$，选取$K = L_p - 1$个阈值$\alpha_k$($1 \leq k \leq K$)。根据公式\ref{eq:qp}得到的材料加权的粒子相位梯度$\mathbf{Q}_p$,取其模长同阈值进行对比，计算粒子层级公式如下：
 \begin{equation}
     l_p = k,\quad \alpha_k \leq ||\mathbf{Q}_p|| < \alpha_{k+1}
 \end{equation}
 
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/grad_cp.png}
+    \caption{二维实验中材料加权的粒子相位梯度$\mathbf{Q}_p$的示意图}
+    \label{fig:grad_cp}
+\end{figure}
 
 
 

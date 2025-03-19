@@ -1,112 +1,291 @@
-\chapter{结构化物理仿真系统设计与实现}
-前面两章介绍了改进积分器以及自适应物质点法以实现非粘性双向流固耦合和精细交界面仿真，本章将设计与实现一个可视化节点物理模拟DCC系统，提供节点编辑程序化生成管线，并在其中实现本文提出的改进积分器和自适应物质点法。本章目标是提供一个节点编辑DCC系统的雏形，对国产DCC软件发展具有探索意义，同时作为一套图形科研工具，供图形科研工作者更方便地布置资产和编写物理模拟算法。本章将首先介绍该DCC整体设计架构，接着从节点系统和物理模拟系统两方面详细描述模块功能的实现，然后解读系统的重要技术细节，如多线程、向量化和各种设计模式，最后将结合制作一段流体动画展示系统界面与功能。
+% \chapter{结构化物理仿真系统设计与实现}
+% 前面两章介绍了改进积分器以及自适应物质点法以实现非粘性双向流固耦合和精细交界面仿真，本章将设计与实现一个可视化节点物理模拟DCC系统，提供节点编辑程序化生成管线，并在其中实现本文提出的改进积分器和自适应物质点法。本章目标是提供一个节点编辑DCC系统的雏形，对国产DCC软件发展具有探索意义，同时作为一套图形科研工具，供图形科研工作者更方便地布置资产和编写物理模拟算法。本章将首先介绍该DCC整体设计架构，接着从节点系统和物理模拟系统两方面详细描述模块功能的实现，然后解读系统的重要技术细节，如多线程、向量化和各种设计模式，最后将结合制作一段流体动画展示系统界面与功能。
 
-\section{节点系统DCC工具介绍}
-数字内容创作工具(DCC工具)是游戏和影视行业美术资产制作生产使用的工具，常见的DCC工具包括Maya、3Ds Max、Blender、Houdini、MotionBuilder等。尽管DCC工具往往集建模、骨骼动画、物理模拟和渲染于一身，但大部分工具都有侧重的功能点，比如Maya工具以角色骨骼动画为主要功能，Houdini以节点物理模拟系统被广泛使用。
+% \section{节点系统DCC工具介绍}
+% 数字内容创作工具(DCC工具)是游戏和影视行业美术资产制作生产使用的工具，常见的DCC工具包括Maya、3Ds Max、Blender、Houdini、MotionBuilder等。尽管DCC工具往往集建模、骨骼动画、物理模拟和渲染于一身，但大部分工具都有侧重的功能点，比如Maya工具以角色骨骼动画为主要功能，Houdini以节点物理模拟系统被广泛使用。
 
-Houdini是一款功能强大的三维计算机图形软件由加拿大 Side Effects Software Inc.（SESI）公司开发，Houdini使用基于节点的工作流，节点通过相互连接组成的网络可以作为程序化创建资产生产的管线，这个网络可以封装成一个新的节点，作为公共节点或预制件供其他用户/项目使用，同时每个节点都可以通过C++插件的方式开发，供图形程序为项目定制特定算法，例如动画电影《冰雪奇缘》中的雪的物理模拟，是由Stomakhin等~\cite{stomakhin2013material}设计算法并以节点的形式实现在Houdini中，再由专业的动效美术打磨成电影中的画面，如图~\ref{fig:mpmsnow}所示。近年来，有些课题组发表在计算机图形学顶会Siggraph中的文章~\cite{Constraintbubbles, BattySpheres}，也使用Houdini插件开发的形式，由于其集建模、渲染、动画功能于一身，可以加大地提升工作效率。
+% Houdini是一款功能强大的三维计算机图形软件由加拿大 Side Effects Software Inc.（SESI）公司开发，Houdini使用基于节点的工作流，节点通过相互连接组成的网络可以作为程序化创建资产生产的管线，这个网络可以封装成一个新的节点，作为公共节点或预制件供其他用户/项目使用，同时每个节点都可以通过C++插件的方式开发，供图形程序为项目定制特定算法，例如动画电影《冰雪奇缘》中的雪的物理模拟，是由Stomakhin等~\cite{stomakhin2013material}设计算法并以节点的形式实现在Houdini中，再由专业的动效美术打磨成电影中的画面，如图~\ref{fig:mpmsnow}所示。近年来，有些课题组发表在计算机图形学顶会Siggraph中的文章~\cite{Constraintbubbles, BattySpheres}，也使用Houdini插件开发的形式，由于其集建模、渲染、动画功能于一身，可以加大地提升工作效率。
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{fig/mpmsnow.png} % 请替换为实际图片路径
+%     \caption{《冰雪奇缘》中使用MPM模拟雪崩~\cite{stomakhin2013material}}
+%     \label{fig:mpmsnow}
+% \end{figure}
+
+% 基于节点系统的开发方式是目前最主流、最现代的游戏和影视资产制作方式，可以充分发挥团队各种角色的作用，例如策划和美术不擅长程序编写，用节点连线的方式可以让他们轻松发挥创意；而暴露自定义节点的功能给图形程序和技术美术(Technical artists, TA)可以让他们定制更底层的算法或生产管线，以满足项目生产的特定需求。例如动画电影《海兽猎人》~\cite{rope}中有大量绳索制作的需求，常规绳索动画由动画师去Key关键帧耗时耗力，但物理图形程序可以为动画师提供物理约束节点，自动生成绳索受自身重力以及角色拖拽的物理效果，同时提供上层工具，供美术团队形成高效制作流水线。在游戏领域，玩法逻辑部分也大量使用节点系统来让策划避免程序编写，例如暴雪游戏《守望先锋》中实现了名为Statescript的自有脚本系统，同时支持可视化节点和网络同步。
+
+% % 尽管国外影视行业中普遍存在大量自研节点DCC工具，但还没有成熟的国产节点系统DCC引擎，国内影视作品一般采用付费外包国外顶级视效团队，如制作《指环王》《霍比特人》《异形》《阿凡达》等电影的Weta FX公司；即使使用本土特效团队，依然避免不了使用国外DCC软件的窘境。以《哪吒2》为例，大量使用Houdini制作VFX特效，每年每台设备需要支付约4万人民币的使用费，极大的增加了动画开发成本。另一方面，由于Houdini不是开源软件，在某些工作中无法深层定制底层特性，例如无法使用自定义内存分配策略来适配特定算法，例如自定义空间稀疏结构SPGrid。
+
+% \section{整体架构设计}
+% 本研究实现的节点系统物理模拟DCC（Digital Content Creation）软件，旨在为用户打造高效、灵活且功能强大的物理模拟创作环境。其整体架构主要由节点编辑器、计算引擎和数据管理模块三大部分构成，并基于MVC（Model- View-Controller）模式进行设计，以确保各部分职责清晰、协同高效。在用户交互层面，节点编辑器依托Qt5框架构建。作为View层，它为用户提供直观的可视化编程界面，用户能够便捷地通过拖拽、连接节点来定制模拟流程。每个节点都封装了特定功能，如物质点法模拟、碰撞检测等，且具备丰富可调节属性，以满足多样化的模拟需求。Controller层则负责处理用户在编辑器中的操作，将其转化为对Model层数据的指令。
+
+% 计算引擎是整个模拟系统的核心，承担着执行节点间数据传递与复杂计算的重任。在CPU端，引入英特尔线程构建模块（TBB）实现多线程并行计算，并利用单指令多数据（SIMD）技术对计算密集型任务进行优化，显著提升运算效率。而在GPU端，采用CUDA并行计算平台，充分发挥GPU的强大并行计算能力，尤其针对物质点法中大量粒子与网格的复杂计算，大幅加速模拟进程。
+
+% 数据管理模块负责高效存储和管理模拟数据。采用精心设计的数据结构，保障数据在节点间能够快速、准确地传递与访问。同时，支持多种常见数据格式的导入导出，方便与其他软件进行无缝协作。通过各模块间的紧密配合，本系统为用户提供了流畅、高效的创作体验，在影视特效、游戏开发等领域展现出广阔的应用前景。 
+% \section{核心模块功能实现}
+% \subsection{节点系统}
+% 节点系统是本章实现系统的核心功能，一个节点相当于程序视角中的一个函数，可以携带多个输入参数和多个输出参数，节点的输出可以连接到另一个节点的输入上，相当于函数的调用和返回。众多节点的组合可以形成更强大的功能，以发挥用户的创意，以图~\ref{fig:zenonodes}为例，首先CreateSphere节点创建了一个三维球面mesh，PrimScatter在该mesh表面均匀采样粒子，接着TransformPrimitive节点对粒子进行1.2倍缩放，然后MakeSmallList节点接收原始采样点和缩放后采样点组成列表输入PrimMerge进行粒子合并，合并后粒子数量为$2n$, 最后通过PrimitiveFarSimpleLines对任意粒子$i$将粒子$i$和粒子$n+i$相连，并渲染出来，做出类似于毛刺球的效果。
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{fig/zeno_node_system.png} 
+%     \caption{节点系统案例：毛刺球程序化制作}
+%     \label{fig:zenonodes}
+% \end{figure}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.3\textwidth]{fig/contro_tag.png} 
+%     \caption{节点控制Tag}
+%     \label{fig:controltag}
+% \end{figure}
+
+% 节点UI包括节点名、输入输出参数、连线和控制Tag，如图~\ref{fig:controltag}所示，控制Tag浮动在节点右上角，从左到右依次为Out、Once、Mute和View四种Tag。Out表示该节点的前置节点必然会被执行，无论复杂度如何；Mute表示该节点不会被执行，而是跳过，在某些情况下跳过节点会引起后续的错误，需要谨慎使用；Once控制节点仅被执行一次，在物理仿真中有些操作在每一帧的每个substep都会被执行，例如MPM的工作流中的粒子网格传输P2G和G2P每个substep都会被执行，但另外很多操作在全流程中只需要进行一次，比如模型导入、模型Transform矩阵设置、在符号距离场（SDF）内使用Poisson Disk算法~\cite{poissondisk}采样均匀等距粒子作为MPM初始粒子等操作；View会让节点当前结果（如果是可被渲染的）显示在3D可视化窗口中。节点主体UI实现在SNode类中，最终继承自QT库中的QGraphicsWidget类，主要类成员和函数如~\ref{tab:snode}所示；节点间连线UI实现在SLink类中，SLink必须包含inNode和outNode两个成员，用于指示两个节点间的链接，同SNode类似同样有hoverEnterEvent函数于鼠标悬停时的表粗显示。
+
+% \begin{table*}[h]
+%     \centering
+%     \caption{SNode类主要成员和函数}
+%     % 调整表格列宽，让布局更规整
+%     \begin{tabular}{p{5cm}|p{10cm}} 
+%     \hline
+%     名称 & 描述 \\
+%     \hline
+%     NameItem & 节点名字 \\
+%     headerWidget & 节点头部子Widget，包含控制Tag部分UI \\
+%     bodyWidget & 节点主体子Widget，含输入输出字段的矩形框部分 \\
+%     inSockets & 输入节点的代理 \\
+%     outSockets & 输出节点的代理 \\
+%     lastMoving & 节点可移动，记录上一次移动位置，用于回撤功能 \\
+%     bEnableSnap & 是否开启吸附功能 \\
+%     bVisible & 是否可见 \\
+%     dirtyMarker & 脏数据标记器，用于数据被用户修改时改变字段颜色 \\
+%     \hline
+%     onCollaspeBtnClicked & 折叠面板回调函数 \\
+%     onOptionsBtnToggled & 控制Tag被开关回调函数 \\
+%     onNameUpdated & 节点名字被修改回调函数 \\
+%     mousePressEvent & 鼠标单击节点回调函数 \\
+%     mouseDoubleClickEvent & 鼠标双击节点回调函数 \\
+%     hoverEnterEvent & 鼠标悬停在节点回调函数 \\
+%     \hline
+%     \end{tabular}
+%     \label{tab:snode}
+% \end{table*}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=1\textwidth]{fig/INode.png} 
+%     \caption{节点系统类图}
+%     \label{fig:inode}
+% \end{figure}
+
+% 节点底层系统也是整个DCC软件的核心部分，其类图设计如图~\ref{fig:inode}所示，INode通过C++宏定义自动创建INodeClass类，其中包含Descriptor类标明INode名字、输入输出参数名字、类型和默认值，INodeClass会被全局唯一的Session类收集管理。Session部分可以将节点注解以字符串的方式传递给UI部分作为UI的Model层被管理。整个过程是一种动态反射，图~\ref{fig:reflect}展示了反射的流程，首先INode使用宏定义创建INodeClass类的成员以及newInstance函数，该函数的返回值会被cast成INode指针，接着Session中可以实现所有继承自INodeClass的类的注解序列化为字符串，最后UI中model部分的代码可以将该字符串反序列化为自己的数据结构。
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=1\textwidth]{fig/reflect.png} 
+%     \caption{节点参数反射流程}
+%     \label{fig:reflect}
+% \end{figure}
+
+% \subsection{物理模拟系统}
+% 物理模拟系统分为CPU端解算器和GPU端解算器两部分构成，在CPU端实现了流体隐式粒子流（FLIP）算法的核心步骤，包括初始化采样粒子、粒子和网格间的相互传输(G2P、P2G)、压强解算等；GPU端通过CUDA实现了物质点法(MPM)，在性能优化层面参考了Gao等提出的GPU调度算法~\cite{gpumpm}，如图~\cite{fig:cuda}所示,在一个线程束内，几组粒子往往会将其属性添加到相应的网格节点上。对于特定组的粒子（例如，粒子1-4），传统上对同一位置的同时写入操作是通过原子操作完成的。本文利用线程束级别的CUDA内置函数，即ballot和shfl来解决这个问题。首先，选择每组的一个代表（即边界标记被设置的最左边的那个粒子）。然后，通过从右到左的迭代混洗，将同一组内所有其他粒子的属性添加到代表粒子的属性上。每次迭代后，混洗的步长翻倍，迭代的总次数应足以覆盖线程束中最长的区域。最后，由代表粒子负责将总和写入目标网格节点。通过这种方式，消除了所有线程束规模的写入冲突。为了进一步减少不同线程束之间的全局写入冲突，共享内存充当了一个缓冲区，用于临时存储来自不同线程束的求和结果。需要注意的是，这种跨线程束的冲突很少发生，以至于对共享内存进行原子加法操作所产生的负面影响几乎可以忽略不计。
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{fig/cuda.png} 
+%     \caption{粒子到网格传输的GPU优化}
+%     \label{fig:cuda}
+% \end{figure}
+% % \section{技术细节}
+% % \subsection{多线程}
+% % \subsection{向量化}
+% % \subsection{设计模式}
+
+% \section{界面与功能展示}
+% 图~\ref{fig:zenoui}展示了该系统基本面板，包括节点编辑器、三维视窗和动画Timeline，三维视窗顶部按钮包括物体操作（平移、旋转、缩放）、渲染设置（开启/关闭网格、背景颜色、物体线框渲染/平滑着色）。节点编辑器可以进行缩放和拖拽，并可启用网格吸附功能，在节点编辑器中可以创建节点并连接来程序化进行资产制作，图中绿色节点为FLIP流体求解器，是一个子节点网络，在该自网络内，用节点连接的方式实现了流体隐式粒子流（FLIP）算法。
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=1\textwidth]{fig/zeno_ui.png} 
+%     \caption{系统界面展示}
+%     \label{fig:zenoui}
+% \end{figure}
+
+\chapter{非连续速度场物质点法的GPU优化算法}
+为了进一步提高高精度流固耦合场景下物质点法的计算效率，本章为基于DC-APIC积分器的非连续速度场设计了GPU优化方案。本章首先回顾了GPU物质点法的主要流程和重要数据结构GSPGrid，其中重点介绍了基于线程数规约的P2G算法；然后基于这种基于线程数规约的算法，提出了面向非连续数据的线程束写入优化算法，以适应本文第二章中根据兼容性控制粒子传输方式的算法；最后通过两个百万粒子级别的高分辨率场景，对基于CPU的DC-APIC物质点法和其GPU优化版本进行对比，实验结果有效地验证了本章非连续速度场物质点法的GPU优化算法的高效性。
+
+\section{GPU物质点法算法流程}
+GPU物质点法底层使用GSPGrid数据结构~\cite{gpumpm},它是SPGrid~\cite{setaluri2014spgrid}的GPU优化版本，其结构如图~\ref{fig:gspgrid}所示。整个模拟区域的背景网格被拆分成4x4x4(二维下为4x4)的GSPGrid块（图中深蓝色区域）,若粒子$p$的插值基点为$base$,则把该粒子数据存储在$base$向xyz轴(二维下为xy轴)偏移$\Delta x$的网格单元内。如图~\ref{fig:gspgrid}左上侧子图所示，对于一个2x2的网格，将左下格点作为插值基点的所有粒子分布在黄色区域内。因此存储在同一GSPGrid块内的粒子应当分布在橙色区域中，这个区域称为对偶块。所有的粒子网格传输操作(P2G和G2P)都在同一局部GSPGrid块内规约进行。为每个粒子分配一个CUDA线程进行并行计算，为避免读写冲突，需要对粒子进行排序，排序后同一对偶块内的粒子会交替地在不同线程进行规约计算。但是对于高精度仿真场景，一个GSPGrid块内的粒子数量是多于CUDA块数量的，GSPGrid额外增加一个虚拟地址到物理地址到页表映射，让一个GSPGrid对应一个或多个CUDA块。部分粒子会处在两个GSPGrid块的交界处，例如图~\ref{fig:gspgrid}中的绿色粒子，在G2P和P2G阶段该粒子和周围9个格点发生数据交换，其中蓝色格点在本地GSPGrid块上，而红色节点需要访问邻居块，因此需要使用GPU共享内存，存储周围7个邻居块的数据(二维下是3个)。
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{fig/mpmsnow.png} % 请替换为实际图片路径
-    \caption{《冰雪奇缘》中使用MPM模拟雪崩~\cite{stomakhin2013material}}
-    \label{fig:mpmsnow}
+    \includegraphics[width=0.7\linewidth]{fig/gaspgrid.png}
+    \caption{GSPGrid数据结构示意图}
+    \label{fig:gspgrid}
 \end{figure}
 
-基于节点系统的开发方式是目前最主流、最现代的游戏和影视资产制作方式，可以充分发挥团队各种角色的作用，例如策划和美术不擅长程序编写，用节点连线的方式可以让他们轻松发挥创意；而暴露自定义节点的功能给图形程序和技术美术(Technical artists, TA)可以让他们定制更底层的算法或生产管线，以满足项目生产的特定需求。例如动画电影《海兽猎人》~\cite{rope}中有大量绳索制作的需求，常规绳索动画由动画师去Key关键帧耗时耗力，但物理图形程序可以为动画师提供物理约束节点，自动生成绳索受自身重力以及角色拖拽的物理效果，同时提供上层工具，供美术团队形成高效制作流水线。在游戏领域，玩法逻辑部分也大量使用节点系统来让策划避免程序编写，例如暴雪游戏《守望先锋》中实现了名为Statescript的自有脚本系统，同时支持可视化节点和网络同步。
+在粒子到网格传输(P2G)过程中,并行计算会导致多个粒子同时写入同一格点造成写冲突，为实现安全写操作通常有收集(Gather)和散播(Scatter)两种方式,如图~\ref{fig:gather}所示，前者在每一个时间步收集每个格点影响范围内的粒子$id$形成一个队列，每次并行计算所有队列同一位置的粒子对网格贡献；后者直接使用原子操作并行写入。图中实线箭头表示按序同步执行，虚线箭头表示异步执行原子操作。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/gather.png}
+    \caption{并行粒子网格传输的收集和散播示意图}
+    \label{fig:gather}
+\end{figure}
 
-% 尽管国外影视行业中普遍存在大量自研节点DCC工具，但还没有成熟的国产节点系统DCC引擎，国内影视作品一般采用付费外包国外顶级视效团队，如制作《指环王》《霍比特人》《异形》《阿凡达》等电影的Weta FX公司；即使使用本土特效团队，依然避免不了使用国外DCC软件的窘境。以《哪吒2》为例，大量使用Houdini制作VFX特效，每年每台设备需要支付约4万人民币的使用费，极大的增加了动画开发成本。另一方面，由于Houdini不是开源软件，在某些工作中无法深层定制底层特性，例如无法使用自定义内存分配策略来适配特定算法，例如自定义空间稀疏结构SPGrid。
-
-\section{整体架构设计}
-本研究实现的节点系统物理模拟DCC（Digital Content Creation）软件，旨在为用户打造高效、灵活且功能强大的物理模拟创作环境。其整体架构主要由节点编辑器、计算引擎和数据管理模块三大部分构成，并基于MVC（Model- View-Controller）模式进行设计，以确保各部分职责清晰、协同高效。在用户交互层面，节点编辑器依托Qt5框架构建。作为View层，它为用户提供直观的可视化编程界面，用户能够便捷地通过拖拽、连接节点来定制模拟流程。每个节点都封装了特定功能，如物质点法模拟、碰撞检测等，且具备丰富可调节属性，以满足多样化的模拟需求。Controller层则负责处理用户在编辑器中的操作，将其转化为对Model层数据的指令。
-
-计算引擎是整个模拟系统的核心，承担着执行节点间数据传递与复杂计算的重任。在CPU端，引入英特尔线程构建模块（TBB）实现多线程并行计算，并利用单指令多数据（SIMD）技术对计算密集型任务进行优化，显著提升运算效率。而在GPU端，采用CUDA并行计算平台，充分发挥GPU的强大并行计算能力，尤其针对物质点法中大量粒子与网格的复杂计算，大幅加速模拟进程。
-
-数据管理模块负责高效存储和管理模拟数据。采用精心设计的数据结构，保障数据在节点间能够快速、准确地传递与访问。同时，支持多种常见数据格式的导入导出，方便与其他软件进行无缝协作。通过各模块间的紧密配合，本系统为用户提供了流畅、高效的创作体验，在影视特效、游戏开发等领域展现出广阔的应用前景。 
-\section{核心模块功能实现}
-\subsection{节点系统}
-节点系统是本章实现系统的核心功能，一个节点相当于程序视角中的一个函数，可以携带多个输入参数和多个输出参数，节点的输出可以连接到另一个节点的输入上，相当于函数的调用和返回。众多节点的组合可以形成更强大的功能，以发挥用户的创意，以图~\ref{fig:zenonodes}为例，首先CreateSphere节点创建了一个三维球面mesh，PrimScatter在该mesh表面均匀采样粒子，接着TransformPrimitive节点对粒子进行1.2倍缩放，然后MakeSmallList节点接收原始采样点和缩放后采样点组成列表输入PrimMerge进行粒子合并，合并后粒子数量为$2n$, 最后通过PrimitiveFarSimpleLines对任意粒子$i$将粒子$i$和粒子$n+i$相连，并渲染出来，做出类似于毛刺球的效果。
+Gao等提出的散播优化算法~\cite{gpumpm}如图~\ref{fig:warp}所示，在一个线程束内，几组粒子需要分别将其属性添加到相应的格点上。对于特定组的粒子（例如，粒子2-5），传统方法会通过原子操作来同时对同一位置执行写入操作，我们利用线程束级别的CUDA内置函数，即ballot和shfl来解决这一问题。首先，为每组选择一个代表粒子（即边界标记被置位1的粒子）。然后，通过从右向左迭代式的洗牌(shfl)操作，将同一组内其他所有粒子的属性累加到代表粒子上。每次迭代后，洗牌的步长加倍。最后，由代表粒子负责将累加结果写入目标格点。通过这种方式，所有线程束规模的写入冲突都得以消除。为了进一步减少不同线程束之间的全局写入冲突，共享内存充当缓冲区，用于临时存储不同线程束的求和结果。共享内存的写入必须使用原子操作，但在实验中这种跨线程束的冲突很少发生，因此带来的额外开销可以忽略不计。
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{fig/zeno_node_system.png} 
-    \caption{节点系统案例：毛刺球程序化制作}
-    \label{fig:zenonodes}
+    \includegraphics[width=1.0\linewidth]{fig/gpumpm_warp.png}
+    \caption{基于线程数规约的P2G算法}
+    \label{fig:warp}
 \end{figure}
+
+\section{面向非连续数据的线程束写入优化算法}
+对于大多数常见的串行数据，如速度和应力，使用包含CUDA原语的传统线程束写入算法可以轻松完成求和操作。然而，在本文第三章提出的基于非连续速度场的物质点法中，格点的固体质量需要根据该格点周围受B样条插值函数影响的固体粒子来计算。区分固体粒子和流体粒子的最佳方法是在采样时为它们分配一个标签。因此，我们创新地提出面向非连续数据的线程束写入优化算法，以适应新的属性。
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textwidth]{fig/contro_tag.png} 
-    \caption{节点控制Tag}
-    \label{fig:controltag}
+    \includegraphics[width=1\linewidth]{figures/warp_write.png}
+    \caption{归约非连续数据的方法和跨线程束写入冲突解决方案}
+    \label{fig:reduce}
 \end{figure}
 
-节点UI包括节点名、输入输出参数、连线和控制Tag，如图~\ref{fig:controltag}所示，控制Tag浮动在节点右上角，从左到右依次为Out、Once、Mute和View四种Tag。Out表示该节点的前置节点必然会被执行，无论复杂度如何；Mute表示该节点不会被执行，而是跳过，在某些情况下跳过节点会引起后续的错误，需要谨慎使用；Once控制节点仅被执行一次，在物理仿真中有些操作在每一帧的每个substep都会被执行，例如MPM的工作流中的粒子网格传输P2G和G2P每个substep都会被执行，但另外很多操作在全流程中只需要进行一次，比如模型导入、模型Transform矩阵设置、在符号距离场（SDF）内使用Poisson Disk算法~\cite{poissondisk}采样均匀等距粒子作为MPM初始粒子等操作；View会让节点当前结果（如果是可被渲染的）显示在3D可视化窗口中。节点主体UI实现在SNode类中，最终继承自QT库中的QGraphicsWidget类，主要类成员和函数如~\ref{tab:snode}所示；节点间连线UI实现在SLink类中，SLink必须包含inNode和outNode两个成员，用于指示两个节点间的链接，同SNode类似同样有hoverEnterEvent函数于鼠标悬停时的表粗显示。
+图\ref{fig:reduce}展示了这一过程的工作原理。首先进行线程束计算算法，通过CUDA线程束内置函数ballot计算每个粒子的边界标记和间隔，当线程束计算算法完成后，由同一个线程管理的多个粒子将知晓自己是否是当前线程束中的第一个粒子，以及还剩下多少个粒子。然后对每组粒子进行从右向左的洗牌(shfl)操作，由于本文使用DC-APIC积分器来实现非连续的流固耦合速度场，在某一些核函数内，粒子网格传输会忽略部分粒子的影响，例如在计算格点固体质量时，会忽略流体粒子的影响；在G2P和P2G过程中，受兼容性影响，部分粒子的质量和动量也不会全部传递到周围格点，所以这一步的洗牌操作会根据粒子标签有选择的进行，例如图中的$m_4^f$和$m_6^f$没有传递给下一次迭代。算法~\ref{alg:gpu1}给出了计算固体网格质量的线程束写入算法。
 
-\begin{table*}[h]
+\begin{algorithm}
+    \caption{计算固体网格质量的非连续数据的线程束写入算法}
+    \label{alg:gpu1}
+    \DontPrintSemicolon
+    \KwIn{$T* buffer$, $T$ mass, $int$ tag, $int$ iter}
+    \Begin{
+        $stride \gets 1$\;
+        $kind \gets tag$ \tcp*[r]{1 代表固体，0 代表流体}
+        
+        \eIf{$kind$}{
+            $val \gets mass$ \tcp*[r]{仅对固体粒子的质量进行规约}
+        }{
+            $val \gets 0$
+        }
+        
+        \While{$stride \leq iter$}{
+            $tmp \gets \textbf{shfldown}(val, stride)$\;
+            \If{$stride \leq interval$}{
+                $val \gets val + tmp$
+            }
+            $stride \gets stride \ll 1$\;
+        }
+        
+        \If{boundary}{
+            $*buffer \gets *buffer + val$
+        }
+    }
+    \end{algorithm}
+    
+由于每一时间步都会更新粒子位置，GSPGrid数据结构也需要在每一时间步随之更新，因此粒子需要被重新排序，然而对于高分辨率模拟而言，重新排序本身可能会成为瓶颈。这是因为每个粒子都携带着诸如位置、速度和形变梯度等多种属性，以非合并的方式读写这些数据会非常耗时，因此基本的粒子属性根据其内在特性有着不同的重排序方案。由于粒子的质量在仿真过程中是恒定的，所以设定质量顺序保持不变，针对本文提出的DC-APIC积分器带来的额外粒子属性，流固相场值$s_p$同质量一样在仿真过程中不会改变，因此无需重新排序。对于速度属性，在每次G2P之后速度都会进行更新，相当于在每个时间步的最后对其进行重新排序，因此需要维护一个从当前顺序到先前顺序的映射关系。DC-APIC积分器所需的粒子法线也类似于速度的重排方式。
+
+\section{实验结果}
+本章在GPU物质点法的基础算法流程上提出了面向非连续数据的线程束写入优化算法，并在两个高精度大场景中验证该算法的稳定性和计算效率。
+
+第一个高精度场景如图~\ref{fig:gpu_demo1}所示，将100只犰狳弹性体模型连续灌入透明水杯中，并持续加入大量水进行流固耦合，弹性体和流体材料物理参数和场景参数如表~\ref{tab:gpu_parameter}所示。
+
+\begin{figure}[htbp]
     \centering
-    \caption{SNode类主要成员和函数}
-    % 调整表格列宽，让布局更规整
-    \begin{tabular}{p{5cm}|p{10cm}} 
+    \includegraphics[width=1\linewidth]{fig/gpu_demo1.png}
+    \caption{犰狳坠落仿真场景}
+    \label{fig:gpu_demo1}
+\end{figure}
+
+
+\begin{table*}[htbp]
+    \centering
+    \caption{犰狳实验参数}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{c|c|c|c|c|c|c|c}
     \hline
-    名称 & 描述 \\
+    物体 &
+    $\Delta x$ &
+    $\Delta t$ &
+    粒子数 &
+    杨氏模量 &
+    泊松比 &
+    塑形模型 &
+    塑形摩擦角
+    \\
     \hline
-    NameItem & 节点名字 \\
-    headerWidget & 节点头部子Widget，包含控制Tag部分UI \\
-    bodyWidget & 节点主体子Widget，含输入输出字段的矩形框部分 \\
-    inSockets & 输入节点的代理 \\
-    outSockets & 输出节点的代理 \\
-    lastMoving & 节点可移动，记录上一次移动位置，用于回撤功能 \\
-    bEnableSnap & 是否开启吸附功能 \\
-    bVisible & 是否可见 \\
-    dirtyMarker & 脏数据标记器，用于数据被用户修改时改变字段颜色 \\
+    犰狳 & 0.01  & 0.001 & 1.8M & 10000 & 0.4 & - & - \\
+    水 & 0.01  & 0.001 & 1.2M & 8000 & 0.3 & Drucker Prager模型 & 0\\
     \hline
-    onCollaspeBtnClicked & 折叠面板回调函数 \\
-    onOptionsBtnToggled & 控制Tag被开关回调函数 \\
-    onNameUpdated & 节点名字被修改回调函数 \\
-    mousePressEvent & 鼠标单击节点回调函数 \\
-    mouseDoubleClickEvent & 鼠标双击节点回调函数 \\
-    hoverEnterEvent & 鼠标悬停在节点回调函数 \\
-    \hline
-    \end{tabular}
-    \label{tab:snode}
+    \end{tabular}%
+    }
+    \label{tab:gpu_parameter}
 \end{table*}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1\textwidth]{fig/INode.png} 
-    \caption{节点系统类图}
-    \label{fig:inode}
-\end{figure}
-
-节点底层系统也是整个DCC软件的核心部分，其类图设计如图~\ref{fig:inode}所示，INode通过C++宏定义自动创建INodeClass类，其中包含Descriptor类标明INode名字、输入输出参数名字、类型和默认值，INodeClass会被全局唯一的Session类收集管理。Session部分可以将节点注解以字符串的方式传递给UI部分作为UI的Model层被管理。整个过程是一种动态反射，图~\ref{fig:reflect}展示了反射的流程，首先INode使用宏定义创建INodeClass类的成员以及newInstance函数，该函数的返回值会被cast成INode指针，接着Session中可以实现所有继承自INodeClass的类的注解序列化为字符串，最后UI中model部分的代码可以将该字符串反序列化为自己的数据结构。
+第二个测试场景在溃坝上游放置若干弹性物体，被流水冲击到下游带孔漏盘中，抬起漏盘，流水被滤干，由于DC-APIC积分器有效地模拟了非连续速度场，使得流体跟固体可以自然分离，因此最终仿真结果中，固体表面没有液体残留。该场景弹性体和流体材料物理参数和场景参数如表~\ref{tab:gpu_parameter_2}所示。
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{fig/reflect.png} 
-    \caption{节点参数反射流程}
-    \label{fig:reflect}
+    \includegraphics[width=1\linewidth]{fig/car.png}
+    \caption{溃坝冲击弹性物体仿真场景}
+    \label{fig:gpu_demo2}
 \end{figure}
 
-\subsection{物理模拟系统}
-物理模拟系统分为CPU端解算器和GPU端解算器两部分构成，在CPU端实现了流体隐式粒子流（FLIP）算法的核心步骤，包括初始化采样粒子、粒子和网格间的相互传输(G2P、P2G)、压强解算等；GPU端通过CUDA实现了物质点法(MPM)，在性能优化层面参考了Gao等提出的GPU调度算法~\cite{gpumpm}，如图~\cite{fig:cuda}所示,在一个线程束内，几组粒子往往会将其属性添加到相应的网格节点上。对于特定组的粒子（例如，粒子1-4），传统上对同一位置的同时写入操作是通过原子操作完成的。本文利用线程束级别的CUDA内置函数，即ballot和shfl来解决这个问题。首先，选择每组的一个代表（即边界标记被设置的最左边的那个粒子）。然后，通过从右到左的迭代混洗，将同一组内所有其他粒子的属性添加到代表粒子的属性上。每次迭代后，混洗的步长翻倍，迭代的总次数应足以覆盖线程束中最长的区域。最后，由代表粒子负责将总和写入目标网格节点。通过这种方式，消除了所有线程束规模的写入冲突。为了进一步减少不同线程束之间的全局写入冲突，共享内存充当了一个缓冲区，用于临时存储来自不同线程束的求和结果。需要注意的是，这种跨线程束的冲突很少发生，以至于对共享内存进行原子加法操作所产生的负面影响几乎可以忽略不计。
-
-\begin{figure}[htbp]
+\begin{table*}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{fig/cuda.png} 
-    \caption{粒子到网格传输的GPU优化}
-    \label{fig:cuda}
-\end{figure}
-% \section{技术细节}
-% \subsection{多线程}
-% \subsection{向量化}
-% \subsection{设计模式}
+    \caption{溃坝实验参数}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{c|c|c|c|c|c|c|c}
+    \hline
+    物体 &
+    $\Delta x$ &
+    $\Delta t$ &
+    粒子数 &
+    杨氏模量 &
+    泊松比 &
+    塑形模型 &
+    塑形摩擦角
+    \\
+    \hline
+    兔子 & $5 \times 10^{-3}$  & $1 \times 10^{-4}$ & 55K & 4000 & 0.3 & - & - \\
+    犰狳 & $5 \times 10^{-3}$  & $1 \times 10^{-4}$ & 62K & 6000 & 0.4 & - & - \\
+    汽车 &$5 \times 10^{-3}$ & $1 \times 10^{-4}$ & 44K & 20000 & 0.2 & - & - \\
+    水 & $5 \times 10^{-3}$  & $1 \times 10^{-4}$ & 120K & 8000 & 0.3 & Drucker Prager模型 & 0\\
+    \hline
+    \end{tabular}%
+    }
+    \label{tab:gpu_parameter_2}
+\end{table*}
 
-\section{界面与功能展示}
-图~\ref{fig:zenoui}展示了该系统基本面板，包括节点编辑器、三维视窗和动画Timeline，三维视窗顶部按钮包括物体操作（平移、旋转、缩放）、渲染设置（开启/关闭网格、背景颜色、物体线框渲染/平滑着色）。节点编辑器可以进行缩放和拖拽，并可启用网格吸附功能，在节点编辑器中可以创建节点并连接来程序化进行资产制作，图中绿色节点为FLIP流体求解器，是一个子节点网络，在该自网络内，用节点连接的方式实现了流体隐式粒子流（FLIP）算法。
-\begin{figure}[htbp]
+上述两个高精度场景均有百万级别粒子，在GPU优化算法实现下，两个场景的平均每帧计算开销分别为9.4秒和3.7秒，物质点法各阶段同使用SIMD加速的CPU MPM算法的时间开销对比如表~\ref{tab:gpu_cpu}所示，每个场景的测试结果都为800帧的平均值，可以看出该GPU优化算法在计算效率上取得了令人满意的效果。
+\begin{table*}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{fig/zeno_ui.png} 
-    \caption{系统界面展示}
-    \label{fig:zenoui}
-\end{figure}
+    \caption{GPU优化物质点法各阶段同CPU方法加速比}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{l@{\hspace{1cm}}|c|c|c|c|c|c|c}
+    \hline
+    测试场景 &
+    法线计算 &
+    兼容性计算 &
+    P2G &
+    网格速度更新 &
+    G2P &
+    粒子对流 &
+    总时间
+    \\
+    \hline
+    \makebox[7em][l]{(Fig.~\ref{fig:gpu_demo1})} 犰狳坠落
+    & 14.7$\times$ & 13.2$\times$  & 27.4$\times$ & 19.7$\times$ & 29.1$\times$ & 31.9$\times$ & 25.7$\times$ \\
+    \hline
+    \makebox[7em][l]{(Fig.~\ref{fig:gpu_demo2})} 溃坝冲击
+    & 7.4$\times$ & 6.1$\times$  & 22.4$\times$ & 14.7$\times$ & 22.1$\times$ & 24.9$\times$ & 17.7$\times$ \\
+    \hline
+    \end{tabular}%
+    }
+    \label{tab:gpu_cpu}
+\end{table*}
+
+
+
+\section{本章小节}
+本章针对高精度流固耦合场景下物质点法的计算效率优化，提出了一种面向非连续速度场的GPU加速方案。首先，我们回顾了GPU物质点法的核心流程与关键数据结构GSPGrid，重点介绍了采用线程数规约策略的P2G算法。基于此，我们进一步设计了一种针对非连续数据的线程束写入优化算法，以适应第二章中提出的基于兼容性控制的粒子传输方法。最后，我们通过在两个高分辨率场景下，对比基于SIMD加速的CPU版本DC-APIC物质点法与其GPU优化版本，实验结果充分验证了所提出优化方案的高效性。
+
