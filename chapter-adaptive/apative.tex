@@ -267,7 +267,7 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/grad_cp.png}
+    \includegraphics[width=0.7\linewidth]{fig/grad_cp.png}
     \caption{二维实验中材料加权的粒子相位梯度$\mathbf{Q}_p$的示意图}
     \label{fig:grad_cp}
 \end{figure}
@@ -304,7 +304,7 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/adapt_2d_parts.png}
+    \includegraphics[width=0.8\linewidth]{fig/adapt_2d_parts.png}
     \caption{基于自适应网格的流固分离仿真结果（二维）}
     \label{fig:adapt_solidfluid_parts}
 \end{figure}
@@ -312,7 +312,7 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
 图~\ref{fig:adapt_solidfluid_grids}展示了该模拟过程中的自适应网格，在自适应算法中，靠近自由表面或碰撞边界处使用更精细的网格分辨率，以追求更好的表现效果，在内部区域用更粗的网格分辨率来节省计算开销。
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/adapt_2d_grids.png}
+    \includegraphics[width=0.8\linewidth]{fig/adapt_2d_grids.png}
     \caption{流固分离仿真场景的自适应网格展示}
     \label{fig:adapt_solidfluid_grids}
 \end{figure}
@@ -337,9 +337,7 @@ w_{ip} &= \frac{1}{\hat{V}_p} \int_{\Omega} \chi_p(\mathbf{x}) N_i(\mathbf{x}) \
     网格粒度 & P2G & 网格操作 & G2P & 自适应计算 & 总计 \\
     \hline
     粗粒度 & 0.27 & 0.49 & 0.31 & 0 & 1.07 \\
-    \hline
     细粒度 & 0.92 & 1.63 & 1.17 & 0 & 3.72 \\
-    \hline
     自适应 & 0.35 & 0.55 & 0.37 & 0.18& 1.45 \\
     \hline
     \end{tabular}

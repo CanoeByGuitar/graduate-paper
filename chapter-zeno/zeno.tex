@@ -115,7 +115,7 @@
 为了进一步提高高精度流固耦合场景下物质点法的计算效率，本章为基于DC-APIC积分器的非连续速度场设计了GPU优化方案。本章首先回顾了GPU物质点法的主要流程和重要数据结构GSPGrid，其中重点介绍了基于线程数规约的P2G算法；然后基于这种基于线程数规约的算法，提出了面向非连续数据的线程束写入优化算法，以适应本文第二章中根据兼容性控制粒子传输方式的算法；最后通过两个百万粒子级别的高分辨率场景，对基于CPU的DC-APIC物质点法和其GPU优化版本进行对比，实验结果有效地验证了本章非连续速度场物质点法的GPU优化算法的高效性。
 
 \section{GPU物质点法算法流程}
-GPU物质点法底层使用GSPGrid数据结构~\cite{gpumpm},它是SPGrid~\cite{setaluri2014spgrid}的GPU优化版本，其结构如图~\ref{fig:gspgrid}所示。整个模拟区域的背景网格被拆分成4x4x4(二维下为4x4)的GSPGrid块（图中深蓝色区域）,若粒子$p$的插值基点为$base$,则把该粒子数据存储在$base$向xyz轴(二维下为xy轴)偏移$\Delta x$的网格单元内。如图~\ref{fig:gspgrid}左上侧子图所示，对于一个2x2的网格，将左下格点作为插值基点的所有粒子分布在黄色区域内。因此存储在同一GSPGrid块内的粒子应当分布在橙色区域中，这个区域称为对偶块。所有的粒子网格传输操作(P2G和G2P)都在同一局部GSPGrid块内规约进行。为每个粒子分配一个CUDA线程进行并行计算，为避免读写冲突，需要对粒子进行排序，排序后同一对偶块内的粒子会交替地在不同线程进行规约计算。但是对于高精度仿真场景，一个GSPGrid块内的粒子数量是多于CUDA块数量的，GSPGrid额外增加一个虚拟地址到物理地址到页表映射，让一个GSPGrid对应一个或多个CUDA块。部分粒子会处在两个GSPGrid块的交界处，例如图~\ref{fig:gspgrid}中的绿色粒子，在G2P和P2G阶段该粒子和周围9个格点发生数据交换，其中蓝色格点在本地GSPGrid块上，而红色节点需要访问邻居块，因此需要使用GPU共享内存，存储周围7个邻居块的数据(二维下是3个)。
+GPU物质点法底层使用GSPGrid数据结构~\cite{gpumpm},它是SPGrid~\cite{setaluri2014spgrid}的GPU优化版本，其结构如图~\ref{fig:gspgrid}所示。整个模拟区域的背景网格被拆分成4$\times$4$\times$4(二维下为4$\times$4)的GSPGrid块（图中深蓝色区域）,若粒子$p$的插值基点为$base$,则把该粒子数据存储在$base$向xyz轴(二维下为xy轴)偏移$\Delta x$的网格单元内。如图~\ref{fig:gspgrid}左上侧子图所示，对于一个2$\times$2的网格，将左下格点作为插值基点的所有粒子分布在黄色区域内。因此存储在同一GSPGrid块内的粒子应当分布在橙色区域中，这个区域称为对偶块。所有的粒子网格传输操作(P2G和G2P)都在同一局部GSPGrid块内规约进行。为每个粒子分配一个CUDA线程进行并行计算，为避免读写冲突，需要对粒子进行排序，排序后同一对偶块内的粒子会交替地在不同线程进行规约计算。但是对于高精度仿真场景，一个GSPGrid块内的粒子数量是多于CUDA块数量的，GSPGrid额外增加一个虚拟地址到物理地址到页表映射，让一个GSPGrid对应一个或多个CUDA块。部分粒子会处在两个GSPGrid块的交界处，例如图~\ref{fig:gspgrid}中的绿色粒子，在G2P和P2G阶段该粒子和周围9个格点发生数据交换，其中蓝色格点在本地GSPGrid块上，而红色节点需要访问邻居块，因此需要使用GPU共享内存，存储周围7个邻居块的数据(二维下是3个)。
 
 \begin{figure}[htbp]
     \centering
@@ -136,7 +136,7 @@ Gao等提出的散播优化算法~\cite{gpumpm}如图~\ref{fig:warp}所示，在
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1.0\linewidth]{fig/gpumpm_warp.png}
+    \includegraphics[width=0.8\linewidth]{fig/gpumpm_warp.png}
     \caption{基于线程数规约的P2G算法}
     \label{fig:warp}
 \end{figure}
@@ -225,7 +225,7 @@ Gao等提出的散播优化算法~\cite{gpumpm}如图~\ref{fig:warp}所示，在
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]{fig/car.png}
+    \includegraphics[width=0.5\linewidth]{fig/car.png}
     \caption{溃坝冲击弹性物体仿真场景}
     \label{fig:gpu_demo2}
 \end{figure}
