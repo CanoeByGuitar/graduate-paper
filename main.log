@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  20 MAR 2025 03:00
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  20 MAR 2025 03:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2132,6 +2132,8 @@ File: figures/sdf_phase_compare.png Graphic file (type bmp)
 <figures/sdf_phase_compare.png>
 File: figures/bunny3d.png Graphic file (type bmp)
 <figures/bunny3d.png>
+File: figures/duck.png Graphic file (type bmp)
+<figures/duck.png>
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2141,8 +2143,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [28]
-File: figures/duck.png Graphic file (type bmp)
-<figures/duck.png>
 File: figures/jelly_6.png Graphic file (type bmp)
 <figures/jelly_6.png>
 File: figures/bunny_bath.png Graphic file (type bmp)

@@ -55,7 +55,7 @@ s_p, &  \textbf{sgn}(\nabla s_i \cdot \mathbf{Q}_p) > 0 \\
 如图~\ref{fig:p2g}所示，APIC方案在同一网格节点内分离朝相反方向运动的粒子时相对困难（在BSpline核范围内），因为粒子到网格操作会对核范围内的粒子动量进行平均，从而导致数值粘性。相反，DC-APIC将动量分解为切向分量和法向分量，仅将切向动量传递到兼容的网格节点。这避免了来自另一个相位的粒子的平均影响。此外，由于法向速度仍然按正常方式传输，并且没有直接将位置调整项添加到$\mathbf{x}_p$，它有效地解决了NFLIP~\cite{stomakhin2013material}中发现的粒子穿透问题。
 
 \subsection{DC-APIC网格到粒子传输算法} \label{sec:DC-APIC_g2p}
-对于每个粒子，由于不连续性约束的施加，不兼容网格节点上的切向速度与粒子无关。我们采用了幽灵粒子速度方法，在这种方法中，我们假设对于任意节点 $j\in i^{p-}$，其速度通过从粒子$p$的上一时间步速度常数外推得到，即 $v_j=v_p^n$。因此，从网格到粒子的 DC-APIC传输方法，综合了来自兼容节点和不兼容节点的贡献，其表达式为：
+对于每个粒子，由于不连续性约束的施加，不兼容网格节点上的切向速度与粒子无关。我们采用了幽灵粒子速度方法，在这种方法中，我们假设对于任意节点 $j\in i^{p-}$，其速度通过从粒子$p$的上一时间步速度常数外推得到，即 $\mathbf{v}_j=\mathbf{v}_p^n$。因此，从网格到粒子的DC-APIC传输方法，综合了来自兼容节点和不兼容节点的贡献，其表达式为：
 \begin{equation}
     \label{eq:DCAPIC_g2p}
     \begin{aligned}
@@ -77,13 +77,13 @@ s_p, &  \textbf{sgn}(\nabla s_i \cdot \mathbf{Q}_p) > 0 \\
 与传统的MPM工作流程相比，本文增加了一个额外的步骤来获取粒子与网格的兼容性信息，以调节固流耦合中网格到粒子和粒子到网格的传输过程，处理材料间的不连续性。图~\ref{fig:pipeline} 展示了我们数值求解器的主要数据流，其主要工作流程如下所列：
 
 \begin{enumerate}
-\item[(1)] \textbf{界面信息计算。} 计算粒子法向量 $n_p$ 和网格节点法向量 $n_i$ 以及网格上的流固相场状态 $s_i$，这些信息用于控制 DC-APIC 的粒子到网格和网格到粒子步骤。
-\item[(2)] \textbf{粒子到网格传输。} 根据 DC-APIC方案将质量和动量从粒子传递到网格，具体细节参见第~\ref{sec:DC-APIC_p2g}节。
-\item[(3)] \textbf{网格速度更新。}
+\item[1.] \textbf{界面信息计算：} 计算粒子法向量 $n_p$ 和网格节点法向量 $n_i$ 以及网格上的流固相场状态 $s_i$，这些信息用于控制 DC-APIC 的粒子到网格和网格到粒子步骤。
+\item[2.] \textbf{粒子到网格传输：} 根据 DC-APIC方案将质量和动量从粒子传递到网格，具体细节参见第~\ref{sec:DC-APIC_p2g}节。
+\item[3.] \textbf{网格速度更新：}
 根据邻近粒子的变形梯度 $\mathbf{F}_p^n$ 计算施加于节点 $i$ 上的力 $\mathbf{f}_i^n=-\sum_p V_p^0 \frac{\partial \Psi}{\partial F} {\mathbf{F}_p^n}^T \nabla w_{ip}^n$，然后以显式欧拉方式更新速度：$\mathbf{v}_i^{n+1}=\mathbf{v}_i^n + \Delta t \mathbf{f}_i^n / m_i$。
-\item[(4)] \textbf{网格到粒子传输。}
+\item[(4)] \textbf{网格到粒子传输：}
 根据第~\ref{sec:DC-APIC_g2p}节的 APIC 方法更新速度 $\mathbf{v_p^{n+1}}$、粒子的空间速度梯度 $(\nabla \mathbf{v})_p^{n+1}$ 和仿射状态 $\mathbf{B}_p^{n+1}$，然后进行粒子推进与碰撞处理。
-\item[(5)] \textbf{应变更新。}
+\item[(5)] \textbf{应变更新：}
 更新粒子的试验形变梯度：$\mathbf{F}_p^{n+1} = (I + \Delta t \nabla \mathbf{v}_p^{n+1}) \mathbf{F}_p^n$。
 
 \end{enumerate}
@@ -110,7 +110,7 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
 \mathbf{n}_p^f &= -\sum_i \mathbf{n}_i w_{ip} / \| \sum_i \mathbf{n}_i w_{ip} \|,\\
 \end{aligned}
 \end{equation}
-其中 $\mathbf{n}_i$ 是网格节点的法向量，可以覆盖所有界面网格节点，$\mathbf{n}_p^f$ 表示流体粒子的法向量。从 Eq.~\eqref{eq:ni_npf} 可以看出，我们首先使用 B 样条平滑核对固体粒子法向量 $\mathbf{n}_p^s$ 进行平滑，以得到网格节点的法向量。平滑核可以使 DC-APIC 的网格到粒子（第~\ref{sec:DC-APIC_p2g} 节）和粒子到网格（第~\ref{sec:DC-APIC_g2p} 节）更加稳定。然后，我们利用网格节点法向量来计算流体粒子的法向量。该策略既稳定又高效，避免了在计算流体法向量时需要通过空间数据结构查找最近的固体粒子。
+其中 $\mathbf{n}_i$ 是网格节点的法向量，可以覆盖所有界面网格节点，$\mathbf{n}_p^f$ 表示流体粒子的法向量。从公式~\eqref{eq:ni_npf} 可以看出，我们首先使用 B 样条平滑核对固体粒子法向量 $\mathbf{n}_p^s$ 进行平滑，以得到网格节点的法向量。平滑核可以使 DC-APIC 的网格到粒子（第~\ref{sec:DC-APIC_p2g} 节）和粒子到网格（第~\ref{sec:DC-APIC_g2p} 节）更加稳定。然后，我们利用网格节点法向量来计算流体粒子的法向量。该策略既稳定又高效，避免了在计算流体法向量时需要通过空间数据结构查找最近的固体粒子。
 
 
 \section{实验结果与分析}
@@ -133,20 +133,20 @@ m_i^s &= \sum_{p^s} m_p w_{ip},\\
     density ratio
     \\
     \hline
-    \makebox[7em][l]{(Fig.~\ref{fig:bunny3d} left)} Pinned bunny & 6.33  & 0.1 & 0.001 & 98K & 8000 & 0.4  & 1.0\\
-    \makebox[7em][l]{(Fig.~\ref{fig:bunny3d} right)} Pinned bunny & 3.60  & 0.1 & 0.001 & 98K & 8000 & 0.4  & 1.0\\
-    \makebox[7em][l]{(Fig.~\ref{fig:bunny_bath})} Bear bath & 24.17 & 0.1 & $5 \times 10^{-4}$ & 400K & 6000 & 0.4 & 1.2 \\
-    \makebox[7em][l]{(Fig.~\ref{fig:duck})} Duck & 57.63 & 0.1 & 0.001 & 640K & 6000 & 0.4 & 0.5/1.0/2.5 \\
+    \makebox[7em][l]{(Fig.~\ref{fig:bunny3d} left)} 钉住的兔子 & 6.33  & 0.1 & 0.001 & 98K & 8000 & 0.4  & 1.0\\
+    \makebox[7em][l]{(Fig.~\ref{fig:bunny3d} right)} 钉住的兔子 & 3.60  & 0.1 & 0.001 & 98K & 8000 & 0.4  & 1.0\\
+    \makebox[7em][l]{(Fig.~\ref{fig:bunny_bath})} 小熊洗澡 & 24.17 & 0.1 & $5 \times 10^{-4}$ & 400K & 6000 & 0.4 & 1.2 \\
+    \makebox[7em][l]{(Fig.~\ref{fig:duck})} 橡胶鸭子 & 57.63 & 0.1 & 0.001 & 640K & 6000 & 0.4 & 0.5/1.0/2.5 \\
     
-    \makebox[7em][l]{(Fig.~\ref{fig:jelly} left)} Jelly Sand & 14.72 & 0.05 & $5 \times 10^{-4}$ & 1.2M & 1500 & 0.2 & 1.0 \\
-    \makebox[7em][l]{(Fig.~\ref{fig:jelly} middle)} Jelly Sand & 17.16 & 0.05 & $5 \times 10^{-4}$ & 1.2M & 4000 & 0.3 & 1.0 \\
-    \makebox[7em][l]{(Fig.~\ref{fig:jelly} right)} Jelly Sand & 15.91 & 0.05 & $5 \times 10^{-4}$ & 1.2M & 6000 & 0.4 & 1.0 \\
+    \makebox[7em][l]{(Fig.~\ref{fig:jelly} left)} 果冻和沙粒流 & 14.72 & 0.05 & $5 \times 10^{-4}$ & 1.2M & 1500 & 0.2 & 1.0 \\
+    \makebox[7em][l]{(Fig.~\ref{fig:jelly} middle)} 果冻和沙粒流 & 17.16 & 0.05 & $5 \times 10^{-4}$ & 1.2M & 4000 & 0.3 & 1.0 \\
+    \makebox[7em][l]{(Fig.~\ref{fig:jelly} right)} 果冻和沙粒流 & 15.91 & 0.05 & $5 \times 10^{-4}$ & 1.2M & 6000 & 0.4 & 1.0 \\
     \makebox[7em][l]{(Fig.~\ref{fig:sdf_phase_compare} top)} 
-     Balls(2D) & 0.78 & 0.05 & 0.001 & 8K & 4000 & 0.4 & 1.0 \\
+     二维球 & 0.78 & 0.05 & 0.001 & 8K & 4000 & 0.4 & 1.0 \\
     \makebox[7em][l]{(Fig.~\ref{fig:sdf_phase_compare} middle)} 
-     Balls(2D) & 0.42 & 0.05 & 0.001 & 8K & 4000 & 0.4 & 1.0 \\
+    二维球 & 0.42 & 0.05 & 0.001 & 8K & 4000 & 0.4 & 1.0 \\
     \makebox[7em][l]{(Fig.~\ref{fig:sdf_phase_compare} bottom)} 
-     Balls(2D) & 1.14 & 0.05 & 0.001 & 8K & 4000 & 0.4 & 1.0 \\
+    二维球 & 1.14 & 0.05 & 0.001 & 8K & 4000 & 0.4 & 1.0 \\
     \hline
     \end{tabular}%
     }

@@ -50,7 +50,7 @@
 
 
 
-1. \textbf{粒子到网格传输（Particles to Grid, P2G）:}
+1. \textbf{粒子到网格传输（Particles to Grid, P2G）：}
 这一步将粒子携带的质量、速度等物理量传输到背景网格中，传输方式有多种将在第~\ref{sec:trans}节中重点介绍，这里根据最常用的APIC传输方式进行介绍。首先粒子网格通过二次B样条基函数进行插值，其公式为：
 \begin{equation}
     \begin{aligned}
@@ -73,7 +73,7 @@
 \end{equation}
 其中，\(\mathbf{C}_p^n\)是表示粒子局部速度梯度矩阵，用于维持粒子的线性动量和角动量守恒。
 
-2. \textbf{网格速度操作}
+2. \textbf{网格速度操作：}
 这一步根据材料的能量密度函数和网格格点周围粒子的形变梯度求解应力，并结合外力对格点存储的来自粒子的速度进行更新，公式如下：
 \begin{equation}
     \begin{aligned}
@@ -83,7 +83,7 @@
 \end{equation}
 其中，\(V_p^0\)表示粒子的初始体积，当\(* = n\)时表示显示求解，\(* =n + 1\)时表示隐式求解，这一步需要考虑边界条件，比如遇到穿透障碍物的情况，需要按障碍物的摩擦系数把速度投影到障碍物外。
 
-3. \textbf{网格到粒子传输（Grid to Particles, G2P）}
+3. \textbf{网格到粒子传输（Grid to Particles, G2P）：}
 这一步用于把网格上计算好的下一时间步的速度传递回粒子上，依然适用APIC积分器，公式如下：
 \begin{equation}
     \begin{aligned}
@@ -93,14 +93,14 @@
 \end{equation}
 其中$ M_p^{-1}$为累加粒子质量的逆矩阵。
 
-4. \textbf{更新形变梯度}
+4. \textbf{更新形变梯度：}
 根据局部速度梯度更新粒子的形变梯度
 \begin{equation}
     \mathbf{F}_{n+1} = (\mathbf{I} + \Delta t \mathbf{C}_p^{n + 1}) \mathbf{F}_p^n
 \end{equation}
 如果粒子具有塑性的话，需要根据相应的塑形回映算法，将形变梯度进行更新。
 
-5. \textbf{更新粒子位置}
+5. \textbf{更新粒子位置：}
 根据更新后的粒子速度，通过对流获取粒子新的位置
 \begin{equation}
     \mathbf{x}_p^{n + 1} = \mathbf{x}_p^n + \Delta t \mathbf{v}_p^{n + 1}
