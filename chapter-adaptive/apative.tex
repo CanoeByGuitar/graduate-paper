@@ -20,7 +20,7 @@
 
 5. \textbf{局部性：}只有$\mathbf{x}_p$在$\mathbf{x}_i$附近时才不为0，距离超过核半径的都为0。
 
-B样条函数正好符合这五条性质，但它很难拓展到自适应网格上。另一种可替代的权重梯度计算方式是广义插值物质点法(Generalized Interpolation Material Point, GIMP)~\cite{bardenhagen2004generalized}。GIMP不再限制$N_i(\mathbf{x}_p)$为$C^1$连续，而只需要$C^0$连续，比如标准的多线性插值函数，但粒子网格权重$w_{ip}$需保证$C^1$连续，其定义如下：
+B样条函数正好符合这五条性质，但它很难拓展到自适应网格上。另一种可替代的权重梯度计算方式是广义插值物质点法(GIMP)~\cite{bardenhagen2004generalized}。GIMP不再限制$N_i(\mathbf{x}_p)$为$C^1$连续，而只需要$C^0$连续，比如标准的多线性插值函数，但粒子网格权重$w_{ip}$需保证$C^1$连续，其定义如下：
 \begin{equation}
     \begin{aligned}
         \hat{V}_p &= \int_{\Omega\cap\Omega_p} d\mathbf{x} \\

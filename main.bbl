@@ -6,12 +6,6 @@
 \expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
   \urlstyle{same}\fi
 
-\bibitem[Museth(2013{\natexlab{a}})]{openvdb}
-MUSETH K.
-\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
-\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
-\newblock \url{https://doi.org/10.1145/2487228.2487235}.
-
 \bibitem[Jiang\ et~al.(2015)Jiang, Schroeder, Selle, Teran, and Stomakhin]{jiang2015affine}
 JIANG C, SCHROEDER C, SELLE A, et~al.
 \newblock The affine particle-in-cell method\allowbreak[J].
@@ -232,7 +226,7 @@ ENGLISH R~E, QIU L, YU Y, et~al.
 \newblock Chimera grids for water simulation\allowbreak[C]//\allowbreak{}Proceedings of the 12th ACM SIGGRAPH/Eurographics Symposium on Computer Animation.
 \newblock 2013: 85--94.
 
-\bibitem[Museth(2013{\natexlab{b}})]{museth2013vdb}
+\bibitem[Museth(2013{\natexlab{a}})]{museth2013vdb}
 MUSETH K.
 \newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J].
 \newblock ACM transactions on graphics (TOG), 2013, 32\penalty0 (3): 1--22.
@@ -268,6 +262,12 @@ TAMPUBOLON A~P, GAST T, KL\'{a}R G, et~al.
 BRIDSON R.
 \newblock Fluid simulation for computer graphics\allowbreak[M].
 \newblock : AK Peters/CRC Press, 2015.
+
+\bibitem[Museth(2013{\natexlab{b}})]{openvdb}
+MUSETH K.
+\newblock Vdb: High-resolution sparse volumes with dynamic topology\allowbreak[J/OL].
+\newblock ACM Trans. Graph., 2013, 32\penalty0 (3).
+\newblock \url{https://doi.org/10.1145/2487228.2487235}.
 
 \bibitem[Yu\ et~al.(2013)Yu and Turk]{yu2013reconstructing}
 YU J, TURK G.
