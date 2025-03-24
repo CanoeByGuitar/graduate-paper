@@ -3,7 +3,7 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces 物质点法求解器的流程示意图}}{12}{figure.caption.6}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces 空间稀疏性示意图}}{16}{figure.caption.7}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces VDB~\cite {openvdb}核心数据结构}}{18}{figure.caption.8}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces SPGrid为底层的自适应网格烟雾模拟}}{18}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces SPGrid为底层的自适应网格烟雾模拟~\cite {setaluri2014spgrid}}}{18}{figure.caption.9}%
 \addvspace {10.0pt}
 \contentsline {figure}{\numberline {3.1}{\ignorespaces 二维情况下APIC和DC-APIC对粒子的对流效果对比}}{21}{figure.caption.10}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces 基于相场梯度的粒子与网格兼容性计算方法流程}}{21}{figure.caption.11}%
