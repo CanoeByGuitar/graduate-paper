@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  24 MAR 2025 00:40
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.28)  25 APR 2025 01:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1438,11 +1438,7 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 (fontspec)             Roman/BI/OT:script=latn;language=dflt;mapping=tex-text;"
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
-(./main.aux
-
-LaTeX Warning: Label `fig:sparse' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 300.
@@ -2617,11 +2613,6 @@ Package fontspec Info: Font family 'SongtiSCLight(1)' created for font 'Songti
 (fontspec)             Light/BI/OT:language=dflt;"
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
-
-Overfull \hbox (51.08022pt too wide) in paragraph at lines 8--9
-\TU/TimesNewRoman(0)/m/n/12 phase transition[J]. ACM Transactions on Graphics 43, no. 2 (2024): 1-19.(SiggraphAsia2025,
- []
-
 )
 No file main.ind.
 
@@ -2647,17 +2638,14 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: C4C2090EDC8C8355DAF5519C0B62A5A6;6154.
  ) 
 Here is how much of TeX's memory you used:
- 35181 strings out of 474773
- 748195 string characters out of 5757724
+ 35182 strings out of 474773
+ 748214 string characters out of 5757724
  1950839 words of memory out of 5000000
- 56611 multiletter control sequences out of 15000+600000
+ 56612 multiletter control sequences out of 15000+600000
  601374 words of font info for 330 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,18n,122p,1894b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
